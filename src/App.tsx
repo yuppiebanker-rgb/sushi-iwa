@@ -1,22 +1,47 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Menu from './pages/Menu';
-import Locations from './pages/Locations';
-import Gallery from './pages/Gallery';
-import StaffLogin from './pages/staff/StaffLogin';
 import StaffGuard from './components/staff/StaffGuard';
-import Dashboard from './pages/staff/Dashboard';
-import Waitlist from './pages/staff/Waitlist';
-import FloorMap from './pages/staff/FloorMap';
-import Reservations from './pages/staff/Reservations';
-import EightyBoard from './pages/staff/EightyBoard';
-import Analytics from './pages/staff/Analytics';
-import StaffBoard from './pages/staff/StaffBoard';
-import QRGenerator from './pages/staff/QRGenerator';
-import ReviewAssistant from './pages/staff/ReviewAssistant';
 import './styles/tokens.css';
+
+// Loading fallback — minimal, branded
+const PageLoader = () => (
+  <div style={{
+    minHeight: '100vh', background: '#0c0b09',
+    display: 'flex', alignItems: 'center', justifyContent: 'center'
+  }}>
+    <div style={{
+      fontFamily: '"Noto Serif JP", serif',
+      fontSize: '28px', color: '#b8922a', opacity: 0.6,
+      animation: 'pulse 1.8s ease-in-out infinite'
+    }}>いわ</div>
+    <style>{`@keyframes pulse{0%,100%{opacity:.4}50%{opacity:.9}}`}</style>
+  </div>
+);
+
+// Lazy load ALL pages
+const Home       = lazy(() => import('./pages/Home'));
+const Menu       = lazy(() => import('./pages/Menu'));
+const Locations  = lazy(() => import('./pages/Locations'));
+const Gallery    = lazy(() => import('./pages/Gallery'));
+const Events     = lazy(() => import('./pages/Events'));
+const ChefStory  = lazy(() => import('./pages/ChefStory'));
+const GiftCards  = lazy(() => import('./pages/GiftCards'));
+const Loyalty    = lazy(() => import('./pages/Loyalty'));
+const Newsletter = lazy(() => import('./pages/Newsletter'));
+
+// Staff portal — heaviest chunk, load separately
+const StaffLogin     = lazy(() => import('./pages/staff/StaffLogin'));
+const StaffDash      = lazy(() => import('./pages/staff/Dashboard'));
+const StaffWaitlist  = lazy(() => import('./pages/staff/Waitlist'));
+const StaffFloor     = lazy(() => import('./pages/staff/FloorMap'));
+const StaffRes       = lazy(() => import('./pages/staff/Reservations'));
+const Staff86        = lazy(() => import('./pages/staff/EightyBoard'));
+const StaffAnalytics = lazy(() => import('./pages/staff/Analytics'));
+const StaffBoard     = lazy(() => import('./pages/staff/StaffBoard'));
+const StaffQR        = lazy(() => import('./pages/staff/QRGenerator'));
+const StaffReviews   = lazy(() => import('./pages/staff/ReviewAssistant'));
 
 function AppShell() {
   const { pathname } = useLocation();
@@ -24,32 +49,41 @@ function AppShell() {
 
   if (isStaff) {
     return (
-      <Routes>
-        <Route path="/iwa-staff" element={<StaffLogin />} />
-        <Route element={<StaffGuard />}>
-          <Route path="/iwa-staff/dashboard" element={<Dashboard />} />
-          <Route path="/iwa-staff/waitlist" element={<Waitlist />} />
-          <Route path="/iwa-staff/floor" element={<FloorMap />} />
-          <Route path="/iwa-staff/reservations" element={<Reservations />} />
-          <Route path="/iwa-staff/86" element={<EightyBoard />} />
-          <Route path="/iwa-staff/analytics" element={<Analytics />} />
-          <Route path="/iwa-staff/board" element={<StaffBoard />} />
-          <Route path="/iwa-staff/qr" element={<QRGenerator />} />
-          <Route path="/iwa-staff/reviews" element={<ReviewAssistant />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/iwa-staff" element={<StaffLogin />} />
+          <Route element={<StaffGuard />}>
+            <Route path="/iwa-staff/dashboard" element={<StaffDash />} />
+            <Route path="/iwa-staff/waitlist" element={<StaffWaitlist />} />
+            <Route path="/iwa-staff/floor" element={<StaffFloor />} />
+            <Route path="/iwa-staff/reservations" element={<StaffRes />} />
+            <Route path="/iwa-staff/86" element={<Staff86 />} />
+            <Route path="/iwa-staff/analytics" element={<StaffAnalytics />} />
+            <Route path="/iwa-staff/board" element={<StaffBoard />} />
+            <Route path="/iwa-staff/qr" element={<StaffQR />} />
+            <Route path="/iwa-staff/reviews" element={<StaffReviews />} />
+          </Route>
+        </Routes>
+      </Suspense>
     );
   }
 
   return (
     <>
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/ubicaciones" element={<Locations />} />
-        <Route path="/galeria" element={<Gallery />} />
-      </Routes>
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/ubicaciones" element={<Locations />} />
+          <Route path="/galeria" element={<Gallery />} />
+          <Route path="/eventos" element={<Events />} />
+          <Route path="/chef" element={<ChefStory />} />
+          <Route path="/gift-cards" element={<GiftCards />} />
+          <Route path="/loyalty" element={<Loyalty />} />
+          <Route path="/newsletter" element={<Newsletter />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </>
   );
