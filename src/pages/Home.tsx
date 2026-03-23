@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import InstagramFeed from '../components/InstagramFeed';
 import './Home.css';
 
 const TIMES = ['1:45 pm', '3:00 pm', '5:00 pm', '7:00 pm', '8:30 pm', '9:30 pm'];
@@ -115,6 +116,9 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      {/* INSTAGRAM FEED */}
+      <InstagramFeed />
 
       {/* LOCATIONS */}
       <section className="locations" id="ubicaciones">
