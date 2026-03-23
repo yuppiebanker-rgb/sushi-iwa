@@ -198,7 +198,8 @@ export default function Home() {
           <div className="contact-row" style={{ marginTop: 8 }}><div className="contact-icon">@</div><div className="contact-text"><p>Instagram</p><span>@sushi.iwa</span></div></div>
         </div>
         <div data-reveal="right" className="form-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '60px 38px' }}>
-          <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16 }}>岩</div>
+          <AvailabilityBadge />
+          <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16, marginTop: 12 }}>岩</div>
           <div className="form-title" style={{ marginBottom: 12 }}>{t('reservation.formTitle')}</div>
           <p style={{ fontSize: 13, color: 'rgba(244,239,230,0.48)', lineHeight: 1.7, marginBottom: 28, maxWidth: 320 }}>
             Reserva en 3 pasos. Selecciona ubicación, fecha, y confirma por WhatsApp.
@@ -208,6 +209,9 @@ export default function Home() {
           </button>
         </div>
       </section>
+
+      {/* AWARDS STRIP */}
+      <AwardsBadges />
 
       {/* FLOATING RESERVE BUTTON — mobile only */}
       <button className={`fab-reserve floating-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
