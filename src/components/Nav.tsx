@@ -25,6 +25,7 @@ export default function Nav() {
             <li><Link to="/">Inicio</Link></li>
             <li><Link to="/menu">Menú</Link></li>
             <li><Link to="/ubicaciones">Ubicaciones</Link></li>
+            <li><Link to="/galeria">Galería</Link></li>
           </>
         )}
       </ul>
