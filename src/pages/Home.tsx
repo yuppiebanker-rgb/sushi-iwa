@@ -122,6 +122,44 @@ export default function Home() {
             <h2>Nuestros <em>destacados</em></h2>
           </div>
         </div>
+        {/* SEASONAL HIGHLIGHT */}
+        <div data-reveal style={{
+          position: 'relative', overflow: 'hidden',
+          borderRadius: '2px', marginBottom: '32px',
+          background: '#0c0b09',
+          border: '0.5px solid rgba(184,146,42,0.15)',
+        }}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: 'url(/images/hamachi-jalap.jpg)',
+            backgroundSize: 'cover', backgroundPosition: 'center',
+            opacity: 0.18,
+          }} />
+          <div style={{
+            position: 'relative',
+            padding: 'clamp(32px, 5vw, 56px) clamp(24px, 4vw, 48px)',
+            textAlign: 'center',
+          }}>
+            <div style={{
+              fontFamily: '"DM Sans", sans-serif',
+              fontSize: '9px', letterSpacing: '0.35em',
+              textTransform: 'uppercase' as const, color: '#b8922a',
+              marginBottom: '12px',
+            }}>Platillo de Temporada</div>
+            <h3 style={{
+              fontFamily: '"Cormorant Garamond", serif',
+              fontSize: 'clamp(24px, 3.5vw, 38px)',
+              fontWeight: 300, color: '#f4efe6',
+              lineHeight: 1.2, marginBottom: '10px',
+            }}>Esta temporada · <em style={{ fontStyle: 'italic', color: '#b8922a' }}>Hamachi de Japón</em></h3>
+            <p style={{
+              fontSize: '13px', color: '#7a7670',
+              lineHeight: 1.6, maxWidth: '420px',
+              margin: '0 auto',
+            }}>Disponible en sashimi, jalapeño y curry hasta abril</p>
+          </div>
+        </div>
+
         <div className="menu-grid reveal-group">
           {[
             { img: 'iwa-roll.jpg', tag: 'Firma · Gluten free disponible', name: 'IWA Roll', desc: 'Callo de hacha + aguacate + pasta de cangrejo, envuelto en lajas de atún.', price: '$310' },

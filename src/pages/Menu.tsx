@@ -1,5 +1,6 @@
-import { useState, useMemo, useRef, useCallback } from 'react';
+import { useState, useMemo, useRef, useCallback, type KeyboardEvent } from 'react';
 import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, DRINKS, type MenuItem, type MenuCategory, type DrinkSection, type DrinkGroup } from '../data/menu';
+import { IMAGE_ALTS } from '../data/imageAlts';
 import MenuModal from '../components/MenuModal';
 import SeasonalBadge from '../components/SeasonalBadge';
 import ReservationFlow from '../components/ReservationFlow';
@@ -33,6 +34,11 @@ function matchesFilter(item: MenuItem, filter: Filter): boolean {
 
 function get86(): Record<string, string> {
   try { return JSON.parse(localStorage.getItem('iwa-86') || '{}'); } catch { return {}; }
+}
+
+function getAlt(image: string): string {
+  const key = image.replace(/\.\w+$/, '');
+  return IMAGE_ALTS[key] || image;
 }
 
 export default function Menu() {
@@ -69,6 +75,10 @@ export default function Menu() {
     setModal({ name: item.name, badge: item.badge, desc: item.desc, price: item.price, image: item.image });
   };
 
+  const handleCardKey = (e: KeyboardEvent<HTMLDivElement>, item: MenuItem) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(item); }
+  };
+
   const byCategory = (cat: MenuCategory) => filtered.filter(i => i.category === cat);
 
   return (
@@ -81,7 +91,7 @@ export default function Menu() {
       />
       {/* HERO */}
       <div className="mhero">
-        <div className="mhero-bg" style={{ backgroundImage: `url(/images/bar.jpg)` }} />
+        <div className="mhero-bg" style={{ backgroundImage: `url(/images/bar.jpg)` }} role="img" aria-label={IMAGE_ALTS['bar']} />
         <div className="mhero-ov" />
         <div className="mhero-c">
           <div className="mhero-tag">Menú completo · 2025</div>
@@ -92,19 +102,20 @@ export default function Menu() {
       {/* SEARCH + FILTERS */}
       <div className="search-bar">
         <div className="search-wrap">
-          <svg className="search-icon" viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="1.5"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" strokeWidth="1.5"/></svg>
+          <svg className="search-icon" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="1.5"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" strokeWidth="1.5"/></svg>
           <input
             className="search-input"
             type="text"
             placeholder="Buscar platillo..."
             value={search}
             onChange={e => setSearch(e.target.value)}
+            aria-label="Buscar platillo"
           />
-          {search && <button className="search-clear" onClick={() => setSearch('')}>✕</button>}
+          {search && <button className="search-clear" onClick={() => setSearch('')} aria-label="Limpiar búsqueda">✕</button>}
         </div>
-        <div className="filter-pills">
+        <div className="filter-pills" role="group" aria-label="Filtros de menú">
           {FILTERS.map(f => (
-            <button key={f.id} className={`fpill ${filter === f.id ? 'fpill-on' : ''}`} onClick={() => setFilter(f.id)}>
+            <button key={f.id} className={`fpill ${filter === f.id ? 'fpill-on' : ''}`} onClick={() => setFilter(f.id)} aria-pressed={filter === f.id}>
               {f.label}
             </button>
           ))}
@@ -113,10 +124,10 @@ export default function Menu() {
 
       {/* CATEGORY NAV */}
       {!isFiltering && (
-        <div className="ctnav" id="ctnav">
-          {ALL_TABS.map(t => (
-            <button key={t.id} className={`cb ${activeTab === t.id ? 'on' : ''}`} onClick={() => scrollTo(t.id)}>
-              {t.label}
+        <div className="ctnav" id="ctnav" role="tablist" aria-label="Categorías del menú">
+          {ALL_TABS.map(tab => (
+            <button key={tab.id} className={`cb ${activeTab === tab.id ? 'on' : ''}`} role="tab" aria-selected={activeTab === tab.id} aria-controls={tab.id} onClick={() => scrollTo(tab.id)}>
+              {tab.label}
             </button>
           ))}
         </div>
@@ -130,9 +141,9 @@ export default function Menu() {
             <div className="ms">
               <div className="ig filtered-grid">
                 {filtered.map(item => (
-                  <div className="item item-fade menu-card" key={item.id} onClick={() => openModal(item)}>
+                  <div className="item item-fade menu-card" key={item.id} role="button" tabIndex={0} onClick={() => openModal(item)} onKeyDown={(e) => handleCardKey(e, item)} aria-label={`${item.name} — ${item.price}`}>
                     <div className="item-img-wrap">
-                      <img className="item-img" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
+                      <img className="item-img" src={`/images/${item.image}`} alt={getAlt(item.image)} loading="lazy" />
                     </div>
                     <div className="ib">
                       <div className="ibadge">{item.badge}<SeasonalBadge show={item.isSeasonal} />{eighted[item.id] && <span className="i86">Agotado</span>}</div>
@@ -140,7 +151,7 @@ export default function Menu() {
                       <div className="idesc">{item.desc}</div>
                       <div className="ifooter">
                         <span className="iprice">{item.price}</span>
-                        <div className="iarrow">→</div>
+                        <div className="iarrow" aria-hidden="true">→</div>
                       </div>
                     </div>
                   </div>
@@ -148,7 +159,7 @@ export default function Menu() {
               </div>
             </div>
           ) : (
-            <div className="menu-empty">No encontramos ese platillo 🥢</div>
+            <div className="menu-empty" role="status">No encontramos ese platillo</div>
           )
         ) : (
           <>
@@ -160,13 +171,13 @@ export default function Menu() {
               return (
                 <div key={cat}>
                   {idx > 0 && (
-                    <div className="mdiv"><div className="mdl" /><div className="mdm">{meta.divider}</div><div className="mdl" /></div>
+                    <div className="mdiv" aria-hidden="true"><div className="mdl" /><div className="mdm">{meta.divider}</div><div className="mdl" /></div>
                   )}
-                  <div data-reveal className="ms" id={cat}>
+                  <div data-reveal className="ms" id={cat} role="tabpanel" aria-labelledby={cat}>
                     <div className="sh">
                       <div className="sn">{meta.num}</div>
                       <div>
-                        <div className="sjp">{meta.jp}</div>
+                        <div className="sjp" aria-hidden="true">{meta.jp}</div>
                         <div className="st">{meta.label}</div>
                         {meta.desc && <div className="sd">{meta.desc}</div>}
                       </div>
@@ -175,8 +186,8 @@ export default function Menu() {
                     {meta.layout === 'nigiri' ? (
                       <div className="ng">
                         {items.map(item => (
-                          <div className="ni item-fade nigiri-row" key={item.id} onClick={() => openModal(item)}>
-                            <img className="nth" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
+                          <div className="ni item-fade nigiri-row" key={item.id} role="button" tabIndex={0} onClick={() => openModal(item)} onKeyDown={(e) => handleCardKey(e, item)} aria-label={`${item.name} — ${item.price}`}>
+                            <img className="nth" src={`/images/${item.image}`} alt={getAlt(item.image)} loading="lazy" />
                             <div className="nb">
                               <div className="nn">{item.name}</div>
                               <div className="ns">{item.desc}</div>
@@ -188,9 +199,9 @@ export default function Menu() {
                     ) : (
                       <div className={`ig ${meta.cols === 2 ? 'ig2' : ''}`}>
                         {items.map(item => (
-                          <div className="item item-fade menu-card" key={item.id} onClick={() => openModal(item)}>
+                          <div className="item item-fade menu-card" key={item.id} role="button" tabIndex={0} onClick={() => openModal(item)} onKeyDown={(e) => handleCardKey(e, item)} aria-label={`${item.name} — ${item.price}`}>
                             <div className="item-img-wrap">
-                              <img className="item-img" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
+                              <img className="item-img" src={`/images/${item.image}`} alt={getAlt(item.image)} loading="lazy" />
                             </div>
                             <div className="ib">
                               <div className="ibadge">{item.badge}<SeasonalBadge show={item.isSeasonal} /></div>
@@ -198,7 +209,7 @@ export default function Menu() {
                               <div className="idesc">{item.desc}</div>
                               <div className="ifooter">
                                 <span className="iprice">{item.price}</span>
-                                <div className="iarrow">→</div>
+                                <div className="iarrow" aria-hidden="true">→</div>
                               </div>
                             </div>
                           </div>
@@ -213,12 +224,12 @@ export default function Menu() {
             {/* DRINKS SECTIONS */}
             {DRINKS.map((section: DrinkSection) => (
               <div key={section.id}>
-                <div className="mdiv"><div className="mdl" /><div className="mdm">{section.divider}</div><div className="mdl" /></div>
-                <div data-reveal className="ms" id={section.id}>
+                <div className="mdiv" aria-hidden="true"><div className="mdl" /><div className="mdm">{section.divider}</div><div className="mdl" /></div>
+                <div data-reveal className="ms" id={section.id} role="tabpanel" aria-labelledby={section.id}>
                   <div className="sh">
                     <div className="sn">{section.num}</div>
                     <div>
-                      <div className="sjp">{section.jp}</div>
+                      <div className="sjp" aria-hidden="true">{section.jp}</div>
                       <div className="st">{section.title}</div>
                     </div>
                   </div>

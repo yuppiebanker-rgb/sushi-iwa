@@ -21,6 +21,7 @@ export default function Footer() {
           <a href="#nosotros">{t('nav.about')}</a>
           <a href="#ubicaciones">{t('nav.locations')}</a>
           <a href="#reservar">{t('nav.reservations')}</a>
+          <Link to="/eventos">Eventos</Link>
           <Link to="/loyalty">Club IWA</Link>
           <Link to="/gift-cards">Gift Cards</Link>
         </div>
