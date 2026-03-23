@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@200;300&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --ink: #0c0b09;
+  --cream: #f4efe6;
+  --gold: #b8922a;
+  --gold-l: #d4a843;
+  --mist: #7a7670;
+  --warm: #16140f;
+  --border: rgba(184, 146, 42, 0.16);
+  --fd: "Cormorant Garamond", serif;
+  --fj: "Noto Serif JP", serif;
+  --fb: "DM Sans", sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--fb);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold-l); }
+
+img { max-width: 100%; height: auto; display: block; }
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* Utility */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section-title {
+  font-family: var(--fd);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: 0.04em;
+  color: var(--cream);
+}
+
+.section-jp {
+  font-family: var(--fj);
+  font-weight: 200;
+  font-size: 0.875rem;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.25rem;
+}
+
+.gold-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem 0;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--fb);
+  font-weight: 400;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+.badge--signature {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
+}
+
+.badge--gf {
+  border-color: #4a9;
+  color: #4a9;
+}
+
+.badge--chef {
+  border-color: var(--gold-l);
+  color: var(--gold-l);
+}
