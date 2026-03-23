@@ -172,17 +172,31 @@
 }
 
 /* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .mb { padding: 0 32px 60px; }
+  .mhero { padding: 0 32px 30px; }
+  .search-bar { padding: 18px 32px 0; }
+  .notice { padding: 24px 32px; }
+}
 @media (max-width: 768px) {
-  .mb { padding: 0 16px 60px; }
-  .mhero { padding: 0 16px 24px; }
-  .search-bar { padding: 16px 16px 0; }
+  .mb { padding: 0 20px 60px; }
+  .mhero { padding: 0 20px 24px; }
+  .search-bar { padding: 16px 20px 0; }
   .ig, .filtered-grid { grid-template-columns: repeat(2, 1fr); }
   .ig2 { grid-template-columns: 1fr !important; }
   .ng { grid-template-columns: 1fr; }
   .lc { grid-template-columns: 1fr; }
-  .notice { padding: 20px 16px; }
+  .notice { padding: 20px 20px; }
   .filter-pills { gap: 6px; }
+  .sh { flex-wrap: wrap; gap: 10px; }
+  .sn { font-size: 36px; }
+  .cb { padding: 11px 14px; font-size: 8px; }
 }
 @media (max-width: 480px) {
-  .ig { grid-template-columns: 1fr; }
+  .mb { padding: 0 16px 60px; }
+  .mhero { padding: 0 16px 20px; }
+  .search-bar { padding: 14px 16px 0; }
+  .ig, .filtered-grid { grid-template-columns: 1fr; }
+  .notice { padding: 16px; }
+  .mhero-h { font-size: clamp(28px, 8vw, 48px); }
 }

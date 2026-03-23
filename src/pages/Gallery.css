@@ -57,11 +57,17 @@
 /* Lightbox overrides */
 .yarl__root { --yarl__color_backdrop: rgba(12,11,9,0.95); }
 
+@media (max-width: 1024px) {
+  .gal-body { padding: 0 32px; }
+  .gal-hero { padding: 0 32px 30px; }
+}
 @media (max-width: 768px) {
-  .gal-body { padding: 0 16px; }
-  .gal-hero { padding: 0 16px 24px; }
+  .gal-body { padding: 0 20px; }
+  .gal-hero { padding: 0 20px 24px; }
   .gal-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
+  .gal-body { padding: 0 16px; }
+  .gal-hero { padding: 0 16px 20px; }
   .gal-grid { grid-template-columns: 1fr; }
 }

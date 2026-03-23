@@ -10,7 +10,7 @@
   display: flex; align-items: center; gap: 13px;
 }
 .loc-hero-tag::before { content: ""; display: block; width: 28px; height: 0.5px; background: var(--gold); }
-.loc-hero-h { font-family: var(--font-d); font-size: clamp(32px, 5vw, 52px); font-weight: 300; line-height: 1; color: var(--cream); }
+.loc-hero-h { font-family: var(--font-d); font-size: clamp(28px, 5vw, 52px); font-weight: 300; line-height: 1; color: var(--cream); }
 .loc-hero-h em { font-style: italic; color: var(--gold-light); }
 
 .loc-grid {
@@ -19,7 +19,15 @@
   margin: 48px 48px 0;
 }
 
+@media (max-width: 1024px) {
+  .loc-grid { margin: 36px 32px 0; }
+  .loc-hero { padding: 0 32px 30px; }
+}
 @media (max-width: 768px) {
-  .loc-grid { grid-template-columns: 1fr; margin: 24px 16px 0; }
-  .loc-hero { padding: 0 16px 24px; }
+  .loc-grid { grid-template-columns: 1fr; margin: 24px 20px 0; }
+  .loc-hero { padding: 0 20px 24px; }
+}
+@media (max-width: 480px) {
+  .loc-grid { margin: 20px 16px 0; }
+  .loc-hero { padding: 0 16px 20px; }
 }

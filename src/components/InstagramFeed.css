@@ -51,7 +51,13 @@
 }
 .ig-cta:hover { border-color: var(--gold); color: var(--gold); }
 
+@media (max-width: 1024px) {
+  .ig-feed { padding: 60px 32px; }
+}
 @media (max-width: 768px) {
-  .ig-feed { padding: 48px 16px; }
+  .ig-feed { padding: 48px 20px; }
   .ig-grid { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+}
+@media (max-width: 480px) {
+  .ig-feed { padding: 36px 16px; }
 }
