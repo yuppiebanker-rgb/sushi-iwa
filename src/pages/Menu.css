@@ -155,6 +155,15 @@
 
 .filtered-grid { grid-template-columns: repeat(3, 1fr); }
 
+/* ── 86'd INDICATOR ── */
+.i86 {
+  display: inline-block; margin-left: 8px;
+  font-size: 7px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: #c66; background: rgba(204,102,102,0.1);
+  border: 0.5px solid rgba(204,102,102,0.25); padding: 1px 6px;
+}
+.i86-name { text-decoration: line-through; opacity: 0.5; }
+
 /* ── NOTICE ── */
 .notice {
   text-align: center; font-size: 10.5px; color: var(--mist);

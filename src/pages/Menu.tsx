@@ -27,12 +27,17 @@ function matchesFilter(item: MenuItem, filter: Filter): boolean {
   return true;
 }
 
+function get86(): Record<string, string> {
+  try { return JSON.parse(localStorage.getItem('iwa-86') || '{}'); } catch { return {}; }
+}
+
 export default function Menu() {
   const [activeTab, setActiveTab] = useState<string>('entradas');
   const [modal, setModal] = useState<{ name: string; badge: string; desc: string; price: string; image: string } | null>(null);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<Filter>('all');
   const mbRef = useRef<HTMLDivElement>(null);
+  const eighted = get86();
 
   const filtered = useMemo(() => {
     let items = MENU_ITEMS;
@@ -121,8 +126,8 @@ export default function Menu() {
                       <img className="item-img" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
                     </div>
                     <div className="ib">
-                      <div className="ibadge">{item.badge}</div>
-                      <div className="iname">{item.name}</div>
+                      <div className="ibadge">{item.badge}{eighted[item.id] && <span className="i86">Agotado</span>}</div>
+                      <div className={`iname ${eighted[item.id] ? 'i86-name' : ''}`}>{item.name}</div>
                       <div className="idesc">{item.desc}</div>
                       <div className="ifooter">
                         <span className="iprice">{item.price}</span>
