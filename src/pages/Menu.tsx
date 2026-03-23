@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useCallback } from 'react';
 import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, DRINKS, type MenuItem, type MenuCategory, type DrinkSection, type DrinkGroup } from '../data/menu';
 import MenuModal from '../components/MenuModal';
+import SEO from '../components/SEO';
 import './Menu.css';
 
 type Filter = 'all' | 'firma' | 'gf' | 'spicy' | 'chef';
@@ -59,6 +60,11 @@ export default function Menu() {
 
   return (
     <div className="menu-page">
+      <SEO
+        title="Menú — Sushi IWA | Rollos, Sashimi, Curricanes"
+        description="Carta completa de Sushi IWA: 65 platillos, desde curricanes de firma hasta rollos especiales, sashimi premium y sake japonés."
+        path="/menu"
+      />
       {/* HERO */}
       <div className="mhero">
         <div className="mhero-bg" style={{ backgroundImage: `url(/images/bar.jpg)` }} />

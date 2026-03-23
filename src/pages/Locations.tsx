@@ -1,4 +1,5 @@
 import LocationCard, { type LocationData } from '../components/LocationCard';
+import SEO from '../components/SEO';
 import './Locations.css';
 
 const LOCATIONS: LocationData[] = [
@@ -35,6 +36,11 @@ const LOCATIONS: LocationData[] = [
 export default function Locations() {
   return (
     <div className="loc-page">
+      <SEO
+        title="Ubicaciones — Sushi IWA | Monterrey, Saltillo, Hermosillo"
+        description="Encuentra Sushi IWA en Monterrey, Saltillo, Hermosillo y Cd. Obregón. Próximamente en Mazatlán."
+        path="/ubicaciones"
+      />
       <div className="loc-hero">
         <div className="loc-hero-bg" style={{ backgroundImage: `url(/images/interior.jpg)` }} />
         <div className="loc-hero-ov" />

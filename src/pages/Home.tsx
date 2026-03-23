@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 import './Home.css';
 
 const TIMES = ['1:45 pm', '3:00 pm', '5:00 pm', '7:00 pm', '8:30 pm', '9:30 pm'];
@@ -11,6 +12,11 @@ export default function Home() {
 
   return (
     <>
+      <SEO
+        title="Sushi IWA — Cocina Japonesa · San Pedro, Monterrey"
+        description="Cocina japonesa de autor en San Pedro Garza García. Rolls de firma, sashimi premium, curricanes icónicos y sake bar."
+        path="/"
+      />
       {/* TICKER */}
       <div className="ticker">
         <span>Próximamente</span>
