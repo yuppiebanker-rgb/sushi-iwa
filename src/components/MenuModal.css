@@ -66,3 +66,19 @@
 }
 .mpreorder:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
 .mpreorder:disabled { color: var(--gold); border-color: rgba(184,146,42,0.3); cursor: default; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .modal-bg { padding: 0; align-items: flex-end; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .modal { max-width: 100%; max-height: 95vh; border-left: none; border-right: none; border-bottom: none; }
+  .mi { aspect-ratio: 4/3; }
+  .mbody { padding: 18px 18px 20px; }
+  .mname { font-size: 22px; }
+  .mc { width: 36px; height: 36px; font-size: 14px; top: 8px; right: 8px; }
+  .mwa { width: 100%; justify-content: center; padding: 13px 20px; }
+  .mpreorder { padding: 12px 16px; }
+}
+@media (max-width: 480px) {
+  .mbody { padding: 16px 16px 18px; }
+  .mprice { font-size: 20px; }
+}

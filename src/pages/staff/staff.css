@@ -151,3 +151,45 @@
 }
 
 .sp-loc-select { margin-bottom: 20px; }
+
+/* ══════════════════════════════════════
+   STAFF RESPONSIVE
+   ══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* Login PIN pad */
+  .slogin-inner { width: 260px; }
+  .slogin-key { width: 58px; height: 58px; font-size: 22px; }
+  .slogin-pad { max-width: 220px; }
+
+  /* Metrics grid: 4-col → 2-col */
+  .sp-metrics { grid-template-columns: repeat(2, 1fr); }
+  .sp-metric-val { font-size: 26px; }
+
+  /* Quick actions: wrap to 2-col */
+  .sp-quick { gap: 6px; }
+  .sp-quick .sp-btn { flex: 1 1 calc(50% - 6px); text-align: center; }
+
+  /* Buttons larger for touch */
+  .sp-btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .sp-btn--sm { min-height: 36px; }
+
+  /* Tabs horizontal scroll */
+  .sp-tabs { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; }
+  .sp-tabs::-webkit-scrollbar { display: none; }
+  .sp-tab { flex-shrink: 0; white-space: nowrap; }
+
+  /* Header stack */
+  .sp-header { flex-direction: column; align-items: flex-start; }
+
+  /* Inputs 16px to prevent iOS zoom */
+  .sp-input, .sp-select, .sp-textarea { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+  .sp-metrics { grid-template-columns: 1fr 1fr; }
+  .sp-metric { padding: 14px 12px; }
+  .sp-metric-val { font-size: 24px; }
+  .sp-card { padding: 14px 12px; }
+  .sp-title { font-size: 22px; }
+}

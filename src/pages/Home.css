@@ -200,16 +200,17 @@
 /* ── FLOATING RESERVE BUTTON ── */
 .fab-reserve {
   display: none;
-  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px);
+  position: fixed; bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  left: 20px; right: 20px; transform: translateY(80px);
   z-index: 150; background: var(--gold); color: var(--ink);
-  border: none; padding: 14px 28px;
+  border: none; padding: 14px 28px; text-align: center;
   font-family: var(--font-b); font-size: 11px; font-weight: 400;
   letter-spacing: 0.15em; text-transform: uppercase;
   cursor: pointer; transition: transform 0.35s ease, background 0.2s;
   white-space: nowrap; box-shadow: 0 4px 24px rgba(0,0,0,0.5);
 }
 .fab-reserve:hover { background: var(--gold-light); }
-.fab-reserve--show { transform: translateX(-50%) translateY(0); }
+.fab-reserve--show { transform: translateY(0); }
 .fab-jp { font-family: var(--font-jp); font-size: 13px; margin-right: 6px; }
 
 /* ══════════════════════════════════════

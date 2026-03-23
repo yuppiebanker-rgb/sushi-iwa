@@ -165,9 +165,26 @@
 .rf-success-actions { display: flex; flex-direction: column; gap: 8px; }
 .rf-countdown { font-size: 10px; color: var(--mist); margin-top: 20px; }
 
+@media (max-width: 768px) {
+  .rf-overlay { padding: 0; align-items: flex-end; }
+  .rf-modal { max-width: 100%; max-height: 100vh; min-height: 100svh; border: none; }
+  .rf-step { padding: 24px 20px; }
+  .rf-step-title { font-size: 24px; }
+  .rf-locs { grid-template-columns: 1fr 1fr; }
+  .rf-step-actions { flex-direction: column; gap: 8px; }
+  .rf-step-actions .rf-btn { width: 100%; text-align: center; }
+  .rf-btn--full { margin-top: 16px; }
+  .rf-confirm-card { padding: 20px; }
+  .rf-success { padding: 36px 20px; }
+  .rf-success-jp { font-size: 48px; }
+}
 @media (max-width: 480px) {
-  .rf-step { padding: 20px 18px; }
+  .rf-step { padding: 20px 16px; }
   .rf-locs { grid-template-columns: 1fr; }
   .rf-times { gap: 4px; }
-  .rf-time { padding: 10px 12px; font-size: 11px; }
+  .rf-time { padding: 10px 12px; font-size: 11px; min-height: 44px; }
+  .rf-guest { width: 44px; height: 44px; }
+  .rf-input { font-size: 16px; } /* prevent iOS zoom on focus */
+  .rf-select { font-size: 16px; }
+  .rf-textarea { font-size: 16px; }
 }

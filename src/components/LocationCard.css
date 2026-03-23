@@ -55,3 +55,15 @@
   background: var(--gold); color: var(--ink); border-color: var(--gold);
 }
 .lcard-btn--gold:hover { background: var(--gold-light); color: var(--ink); }
+
+@media (max-width: 768px) {
+  .lcard-map iframe { height: 180px !important; }
+  .lcard-body { padding: 22px 18px; }
+  .lcard-actions { flex-direction: column; }
+  .lcard-btn { width: 100%; text-align: center; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .lcard-body { padding: 18px 16px; }
+  .lcard-num { font-size: 28px; }
+  .lcard-city { font-size: 20px; }
+}

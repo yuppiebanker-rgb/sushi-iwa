@@ -68,6 +68,14 @@
 
 @media (max-width: 768px) {
   .snav { display: none; }
-  .staff-main { margin-left: 0; padding: 20px 16px 90px; }
-  .snav-mobile { display: flex; }
+  .staff-main { margin-left: 0; padding: 20px 16px 100px; }
+  .snav-mobile {
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .snav-more-menu { padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
+@media (max-width: 480px) {
+  .staff-main { padding: 16px 12px 100px; }
+  .snav-tab-label { font-size: 7px; }
 }
