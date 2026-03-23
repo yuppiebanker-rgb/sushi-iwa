@@ -1,0 +1,238 @@
+/* ── EVENTS PAGE ── */
+
+/* ── HERO ── */
+.ev-hero {
+  position: relative; height: 80vh; min-height: 560px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; overflow: hidden;
+}
+.ev-hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center 40%;
+  filter: brightness(0.32) saturate(0.85);
+}
+.ev-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,11,9,0.98) 0%, rgba(12,11,9,0.4) 50%, rgba(12,11,9,0.25) 100%);
+}
+.ev-hero-content { position: relative; z-index: 2; max-width: 720px; padding: 0 20px; }
+.ev-hero-content h1 {
+  font-family: var(--font-d); font-size: clamp(36px, 6vw, 72px); font-weight: 300;
+  line-height: 1.05; color: var(--cream); margin-bottom: 20px;
+  animation: fadeUp 0.9s ease both;
+}
+.ev-hero-content h1 em { font-style: italic; color: var(--gold-light); }
+.ev-hero-subtitle {
+  font-family: var(--font-jp); font-size: 14px; font-weight: 200;
+  letter-spacing: 0.35em; color: var(--mist); margin-bottom: 18px;
+  animation: fadeUp 0.9s 0.12s ease both;
+}
+.ev-hero-desc {
+  font-size: 15px; line-height: 1.85; color: rgba(244,239,230,0.55);
+  max-width: 520px; margin: 0 auto;
+  animation: fadeUp 0.9s 0.22s ease both;
+}
+
+/* ── EVENT TYPES GRID ── */
+.ev-types { padding: 100px 52px; }
+.ev-types-header { text-align: center; margin-bottom: 64px; }
+.ev-types-header h2 {
+  font-family: var(--font-d); font-size: clamp(26px, 3.8vw, 46px); font-weight: 300;
+  color: var(--cream);
+}
+.ev-types-header h2 em { font-style: italic; color: var(--gold-light); }
+.ev-types-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border: 0.5px solid var(--border);
+}
+.ev-card {
+  padding: 52px 38px; border-right: 0.5px solid var(--border);
+  transition: background 0.3s;
+}
+.ev-card:last-child { border-right: none; }
+.ev-card:hover { background: rgba(184,146,42,0.03); }
+.ev-card-icon {
+  width: 52px; height: 52px; margin-bottom: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border: 0.5px solid var(--border);
+}
+.ev-card-icon svg { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+.ev-card-tag {
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.ev-card h3 {
+  font-family: var(--font-d); font-size: 28px; font-weight: 300;
+  color: var(--cream); margin-bottom: 10px; line-height: 1.2;
+}
+.ev-card-quote {
+  font-family: var(--font-d); font-size: 15px; font-style: italic;
+  color: rgba(244,239,230,0.4); margin-bottom: 28px; line-height: 1.6;
+}
+.ev-card ul { list-style: none; padding: 0; margin: 0; }
+.ev-card ul li {
+  font-size: 13px; line-height: 1.7; color: rgba(244,239,230,0.52);
+  padding: 6px 0; border-bottom: 0.5px solid rgba(184,146,42,0.08);
+  padding-left: 14px; position: relative;
+}
+.ev-card ul li::before {
+  content: '·'; position: absolute; left: 0;
+  color: var(--gold); font-size: 16px;
+}
+.ev-card ul li:last-child { border-bottom: none; }
+.ev-card-price {
+  margin-top: 24px; padding-top: 20px;
+  border-top: 0.5px solid var(--border);
+  font-family: var(--font-d); font-size: 18px; color: var(--gold);
+}
+
+/* ── GALLERY ── */
+.ev-gallery {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  height: 340px; overflow: hidden;
+}
+.ev-gallery-cell { overflow: hidden; position: relative; }
+.ev-gallery-cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.78) saturate(0.9);
+  transition: transform 0.6s ease, filter 0.4s;
+}
+.ev-gallery-cell:hover img {
+  transform: scale(1.06); filter: brightness(1) saturate(1.05);
+}
+
+/* ── TESTIMONIALS ── */
+.ev-testimonials { padding: 100px 52px; background: #0e0d0b; }
+.ev-testimonials-header { text-align: center; margin-bottom: 56px; }
+.ev-testimonials-header h2 {
+  font-family: var(--font-d); font-size: clamp(26px, 3.8vw, 42px); font-weight: 300; color: var(--cream);
+}
+.ev-testimonials-header h2 em { font-style: italic; color: var(--gold-light); }
+.ev-testimonials-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border: 0.5px solid var(--border); max-width: 960px; margin: 0 auto;
+}
+.ev-testimonial {
+  padding: 44px 38px; border-right: 0.5px solid var(--border);
+}
+.ev-testimonial:last-child { border-right: none; }
+.ev-testimonial blockquote {
+  font-family: var(--font-d); font-size: 17px; font-weight: 300;
+  line-height: 1.75; color: rgba(244,239,230,0.6); font-style: italic;
+  margin-bottom: 20px;
+}
+.ev-testimonial cite {
+  font-style: normal; font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+}
+
+/* ── INQUIRY FORM ── */
+.ev-form-section { padding: 100px 52px; }
+.ev-form-wrap {
+  max-width: 680px; margin: 0 auto;
+}
+.ev-form-header { text-align: center; margin-bottom: 48px; }
+.ev-form-header h2 {
+  font-family: var(--font-d); font-size: clamp(26px, 3.8vw, 42px); font-weight: 300; color: var(--cream);
+  margin-bottom: 12px;
+}
+.ev-form-header h2 em { font-style: italic; color: var(--gold-light); }
+.ev-form-header p {
+  font-size: 14px; color: rgba(244,239,230,0.45); line-height: 1.8;
+}
+.ev-form {
+  background: rgba(244,239,230,0.02); border: 0.5px solid var(--border);
+  padding: 44px 38px;
+}
+.ev-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ev-form .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+.ev-form .field label {
+  font-size: 8.5px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--mist);
+}
+.ev-form .field input,
+.ev-form .field select,
+.ev-form .field textarea {
+  background: rgba(244,239,230,0.04); border: 0.5px solid rgba(184,146,42,0.2);
+  color: var(--cream); padding: 11px 13px; font-family: var(--font-b);
+  font-size: 13.5px; font-weight: 300; outline: none;
+  transition: border-color 0.25s; -webkit-appearance: none; border-radius: 0;
+}
+.ev-form .field input:focus,
+.ev-form .field select:focus,
+.ev-form .field textarea:focus { border-color: var(--gold); }
+.ev-form .field select option { background: #1a1713; color: var(--cream); }
+.ev-form .field textarea { resize: vertical; min-height: 100px; font-family: var(--font-b); }
+.ev-form .form-submit {
+  width: 100%; font-family: var(--font-b); font-size: 10px; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink);
+  background: var(--gold); border: none; padding: 16px; cursor: pointer;
+  margin-top: 10px; transition: background 0.25s;
+}
+.ev-form .form-submit:hover { background: var(--gold-light); }
+
+/* ── FAQ ── */
+.ev-faq { padding: 100px 52px; background: #0e0d0b; }
+.ev-faq-header { text-align: center; margin-bottom: 52px; }
+.ev-faq-header h2 {
+  font-family: var(--font-d); font-size: clamp(26px, 3.8vw, 42px); font-weight: 300; color: var(--cream);
+}
+.ev-faq-header h2 em { font-style: italic; color: var(--gold-light); }
+.ev-faq-list {
+  max-width: 720px; margin: 0 auto;
+  border-top: 0.5px solid var(--border);
+}
+.ev-faq-item {
+  border-bottom: 0.5px solid var(--border); padding: 28px 0;
+}
+.ev-faq-q {
+  font-family: var(--font-d); font-size: 20px; font-weight: 300;
+  color: var(--cream); margin-bottom: 10px; cursor: default;
+}
+.ev-faq-a {
+  font-size: 13.5px; line-height: 1.8; color: rgba(244,239,230,0.48);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .ev-types { padding: 80px 32px; }
+  .ev-gallery { height: 280px; }
+  .ev-testimonials { padding: 80px 32px; }
+  .ev-form-section { padding: 80px 32px; }
+  .ev-faq { padding: 80px 32px; }
+}
+
+@media (max-width: 768px) {
+  .ev-hero { height: 70vh; min-height: 480px; }
+  .ev-types { padding: 60px 20px; }
+  .ev-types-grid { grid-template-columns: 1fr; }
+  .ev-card { border-right: none; border-bottom: 0.5px solid var(--border); padding: 40px 28px; }
+  .ev-card:last-child { border-bottom: none; }
+
+  .ev-gallery { grid-template-columns: repeat(2, 1fr); height: 240px; }
+
+  .ev-testimonials { padding: 60px 20px; }
+  .ev-testimonials-grid { grid-template-columns: 1fr; }
+  .ev-testimonial { border-right: none; border-bottom: 0.5px solid var(--border); }
+  .ev-testimonial:last-child { border-bottom: none; }
+
+  .ev-form-section { padding: 60px 20px; }
+  .ev-form { padding: 28px 20px; }
+  .ev-form .form-row { grid-template-columns: 1fr; }
+
+  .ev-faq { padding: 60px 20px; }
+}
+
+@media (max-width: 480px) {
+  .ev-hero { min-height: 420px; }
+  .ev-types { padding: 48px 16px; }
+  .ev-card { padding: 32px 20px; }
+  .ev-gallery { height: 200px; }
+  .ev-testimonials { padding: 48px 16px; }
+  .ev-testimonial { padding: 32px 20px; }
+  .ev-form-section { padding: 48px 16px; }
+  .ev-form { padding: 24px 16px; }
+  .ev-faq { padding: 48px 16px; }
+}

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { PLACEHOLDERS } from '../data/imagePlaceholders';
+import { IMAGE_ALTS } from '../data/imageAlts';
 
 interface Props {
   src: string;         // image key e.g. "camarones-roca"
@@ -15,6 +16,7 @@ export default function OptimizedImage({ src, alt, className, style, priority, a
   const [inView, setInView] = useState(priority || false);
   const ref = useRef<HTMLDivElement>(null);
   const placeholder = PLACEHOLDERS[src] || '';
+  const resolvedAlt = IMAGE_ALTS[src] || alt;
 
   useEffect(() => {
     if (priority || !ref.current) return;
@@ -40,7 +42,7 @@ export default function OptimizedImage({ src, alt, className, style, priority, a
           <source srcSet={`/images/webp/${src}.webp`} type="image/webp" />
           <img
             src={`/images/${src}.jpg`}
-            alt={alt}
+            alt={resolvedAlt}
             className={className}
             onLoad={() => setLoaded(true)}
             style={{

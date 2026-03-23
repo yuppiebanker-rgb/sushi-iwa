@@ -1,4 +1,9 @@
-import { useState, useEffect } from 'react';
+import os
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+# Home.tsx
+home = """import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
@@ -6,13 +11,8 @@ import HeroVideo from '../components/HeroVideo';
 import InstagramFeed from '../components/InstagramFeed';
 import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
-import CustomerQuotes from '../components/CustomerQuotes';
-import PressStrip from '../components/PressStrip';
-import AvailabilityBadge from '../components/AvailabilityBadge';
-import AwardsBadges from '../components/AwardsBadges';
-import './Home.css';
-import '../styles/menu-effects.css';
 import { useRevealAll } from '../hooks/useScrollReveal';
+import './Home.css';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -35,16 +35,15 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Sushi IWA — Mejor Sushi de San Pedro Garza García, Monterrey"
-        description="Restaurante japonés en el corazón de SPGG. Curricanes de salmón, hamachi jalapeño, rollos especiales y sake. Reserva tu mesa hoy. 4.6★ Google."
-        keywords="sushi san pedro garza garcia, mejor sushi monterrey, restaurante japones spgg, curricanes sushi, hamachi jalapeño monterrey, sushi iwa monterrey, japonés san pedro"
+        title="Sushi IWA \\u2014 Cocina Japonesa \\u00b7 San Pedro, Monterrey"
+        description="Cocina japonesa de autor en San Pedro Garza Garc\\u00eda. Rolls de firma, sashimi premium, curricanes ic\\u00f3nicos y sake bar."
         path="/"
       />
       {/* TICKER */}
       <div className="ticker">
         <span>{t('ticker.comingSoon')}</span>
         <div className="dot" />
-        <strong>Mazatlán</strong>
+        <strong>Mazatl\\u00e1n</strong>
         <div className="dot" />
         <span>{t('ticker.location')}</span>
         <div className="dot" />
@@ -59,7 +58,7 @@ export default function Home() {
           overlayOpacity={0.45}
         />
         <div className="hero-pattern" />
-        <div className="hero-jp-watermark">岩</div>
+        <div className="hero-jp-watermark">\\u5ca9</div>
         <div className="hero-content">
           <div className="hero-eyebrow">
             <div className="hero-line" />
@@ -79,10 +78,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRESS STRIP */}
-      <PressStrip />
-
-      <div className="divider"><div className="divider-line" /><span className="divider-mark">一</span><div className="divider-line" /></div>
+      <div className="divider"><div className="divider-line" /><span className="divider-mark">\\u4e00</span><div className="divider-line" /></div>
 
       {/* PHILOSOPHY */}
       <section className="philosophy" id="nosotros">
@@ -93,14 +89,14 @@ export default function Home() {
           <p>{t('philosophy.p2')}</p>
           <div className="stats">
             <div className="stat"><div className="stat-num">4</div><div className="stat-label">{t('philosophy.cities')}</div></div>
-            <div className="stat"><div className="stat-num">4.6★</div><div className="stat-label">{t('philosophy.rating')}</div></div>
+            <div className="stat"><div className="stat-num">4.6\\u2605</div><div className="stat-label">{t('philosophy.rating')}</div></div>
           </div>
         </div>
         <div data-reveal="right" className="chef-frame">
-          <div className="chef-corner"><span>岩</span></div>
+          <div className="chef-corner"><span>\\u5ca9</span></div>
           <img className="chef-img" src="/images/chef-plating.jpg" alt="Chef IWA preparando" />
           <div className="chef-badge">
-            <p>Chef · Barra abierta</p>
+            <p>Chef \\u00b7 Barra abierta</p>
             <h4>Experiencia frente al chef</h4>
           </div>
         </div>
@@ -108,10 +104,10 @@ export default function Home() {
 
       {/* GALLERY STRIP */}
       <div className="gallery reveal-group">
-        <div data-reveal className="gallery-cell gallery-item"><img src="/images/curricanes-spoons.jpg" alt="Sushi IWA" /></div>
-        <div data-reveal className="gallery-cell gallery-item"><img src="/images/hamachi-jalap.jpg" alt="Sushi IWA" /></div>
-        <div data-reveal className="gallery-cell gallery-item"><img src="/images/iwa-roll.jpg" alt="Sushi IWA" /></div>
-        <div data-reveal className="gallery-cell gallery-item"><img src="/images/no-name.jpg" alt="Sushi IWA" /></div>
+        <div data-reveal className="gallery-cell"><img src="/images/curricanes-spoons.jpg" alt="Sushi IWA" /></div>
+        <div data-reveal className="gallery-cell"><img src="/images/hamachi-jalap.jpg" alt="Sushi IWA" /></div>
+        <div data-reveal className="gallery-cell"><img src="/images/iwa-roll.jpg" alt="Sushi IWA" /></div>
+        <div data-reveal className="gallery-cell"><img src="/images/no-name.jpg" alt="Sushi IWA" /></div>
       </div>
 
       {/* MENU HIGHLIGHTS */}
@@ -124,31 +120,28 @@ export default function Home() {
         </div>
         <div className="menu-grid reveal-group">
           {[
-            { img: 'iwa-roll.jpg', tag: 'Firma · Gluten free disponible', name: 'IWA Roll', desc: 'Callo de hacha + aguacate + pasta de cangrejo, envuelto en lajas de atún.', price: '$310' },
-            { img: 'no-name.jpg', tag: 'El legendario', name: 'No Name Roll', desc: 'Aguacate + pepino + pasta de cangrejo por dentro, envuelto de salmón con topping de salmón spicy.', price: '$385' },
-            { img: 'curricanes-spoons.jpg', tag: 'Icónico · Imprescindible', name: 'Curricanes', desc: 'Atún o salmón. La pieza más pedida. Técnica japonesa con alma regia — hay que probarlo.', price: 'desde $310' },
-            { img: 'fermedina.jpg', tag: "Chef's Pick", name: "Fermedina's Roll", desc: 'Spicy kanikama + atún + salmón + hamachi + aguacate, envuelto en pepino.', price: '$310' },
-            { img: 'hamachi-jalap.jpg', tag: 'Del mar · Directo', name: 'Sashimi Hamachi', desc: 'Hamachi, hamachi jalapeño o curry. Pescado de temporada seleccionado diariamente.', price: '$325' },
+            { img: 'iwa-roll.jpg', tag: 'Firma \\u00b7 Gluten free disponible', name: 'IWA Roll', desc: 'Callo de hacha + aguacate + pasta de cangrejo, envuelto en lajas de at\\u00fan.', price: '$310' },
+            { img: 'no-name.jpg', tag: 'El legendario', name: 'No Name Roll', desc: 'Aguacate + pepino + pasta de cangrejo por dentro, envuelto de salm\\u00f3n con topping de salm\\u00f3n spicy.', price: '$385' },
+            { img: 'curricanes-spoons.jpg', tag: 'Ic\\u00f3nico \\u00b7 Imprescindible', name: 'Curricanes', desc: 'At\\u00fan o salm\\u00f3n. La pieza m\\u00e1s pedida. T\\u00e9cnica japonesa con alma regia \\u2014 hay que probarlo.', price: 'desde $310' },
+            { img: 'fermedina.jpg', tag: "Chef's Pick", name: "Fermedina's Roll", desc: 'Spicy kanikama + at\\u00fan + salm\\u00f3n + hamachi + aguacate, envuelto en pepino.', price: '$310' },
+            { img: 'hamachi-jalap.jpg', tag: 'Del mar \\u00b7 Directo', name: 'Sashimi Hamachi', desc: 'Hamachi, hamachi jalape\\u00f1o o curry. Pescado de temporada seleccionado diariamente.', price: '$325' },
           ].map((item, i) => (
-            <div data-reveal className="menu-item menu-card" key={i}>
+            <div data-reveal className="menu-item" key={i}>
               <div className="menu-thumb-wrap"><img className="menu-thumb" src={`/images/${item.img}`} alt={item.name} /></div>
               <div className="menu-body">
                 <div className="menu-tag">{item.tag}</div>
                 <h3>{item.name}</h3>
                 <p>{item.desc}</p>
-                <div className="menu-footer"><span className="menu-price">{item.price}</span><div className="menu-arrow">→</div></div>
+                <div className="menu-footer"><span className="menu-price">{item.price}</span><div className="menu-arrow">\\u2192</div></div>
               </div>
             </div>
           ))}
           <Link to="/menu" className="menu-item menu-more" data-reveal>
-            <div className="menu-more-arrow">→</div>
-            <span>Ver menú completo</span>
+            <div className="menu-more-arrow">\\u2192</div>
+            <span>Ver men\\u00fa completo</span>
           </Link>
         </div>
       </section>
-
-      {/* CUSTOMER QUOTES */}
-      <CustomerQuotes />
 
       {/* INSTAGRAM FEED */}
       <InstagramFeed />
@@ -156,32 +149,32 @@ export default function Home() {
       {/* LOCATIONS */}
       <section className="locations" id="ubicaciones">
         <div data-reveal className="section-tag" style={{ marginBottom: 14 }}><div className="section-tag-line" /><span>Ubicaciones</span></div>
-        <h2 data-reveal>Encuéntranos en <em>4 ciudades</em></h2>
+        <h2 data-reveal>Encu\\u00e9ntranos en <em>4 ciudades</em></h2>
         <div className="locations-grid reveal-group">
-          <div data-reveal className="loc location-card">
+          <div data-reveal className="loc">
             <div className="loc-num">01</div>
             <div className="loc-city">Monterrey</div>
-            <div className="loc-state">Nuevo León</div>
-            <div className="loc-info">Av. Fundadores 955<br />Sienna Tower, 2° piso<br />+52 81 1123 9849<br /><br />L·Mi·J·V·S·D 1:45–10:30pm<br />Cerramos los martes</div>
+            <div className="loc-state">Nuevo Le\\u00f3n</div>
+            <div className="loc-info">Av. Fundadores 955<br />Sienna Tower, 2\\u00b0 piso<br />+52 81 1123 9849<br /><br />L\\u00b7Mi\\u00b7J\\u00b7V\\u00b7S\\u00b7D 1:45\\u201310:30pm<br />Cerramos los martes</div>
           </div>
-          <div data-reveal className="loc location-card">
+          <div data-reveal className="loc">
             <div className="loc-num">02</div>
             <div className="loc-city">Saltillo</div>
             <div className="loc-state">Coahuila</div>
-            <div className="loc-info">@iwa.saltillo<br /><br />Lu–Mi 1:30–11:30pm<br />J–S 1:30pm–12:30am<br />D 1:30–7:00pm</div>
+            <div className="loc-info">@iwa.saltillo<br /><br />Lu\\u2013Mi 1:30\\u201311:30pm<br />J\\u2013S 1:30pm\\u201312:30am<br />D 1:30\\u20137:00pm</div>
           </div>
-          <div data-reveal className="loc location-card">
+          <div data-reveal className="loc">
             <div className="loc-num">03</div>
             <div className="loc-city">Hermosillo</div>
             <div className="loc-state">Sonora</div>
-            <div className="loc-info">@iwa.hmo<br />(662) 191 8131<br /><br />M–Mi 1–12am<br />J–S 1pm–2am<br />D 1–11pm · L cerrado</div>
+            <div className="loc-info">@iwa.hmo<br />(662) 191 8131<br /><br />M\\u2013Mi 1\\u201312am<br />J\\u2013S 1pm\\u20132am<br />D 1\\u201311pm \\u00b7 L cerrado</div>
           </div>
-          <div data-reveal className="loc location-card">
-            <div className="loc-soon">Próximamente</div>
+          <div data-reveal className="loc">
+            <div className="loc-soon">Pr\\u00f3ximamente</div>
             <div className="loc-num" style={{ opacity: 0.28 }}>04</div>
-            <div className="loc-city" style={{ opacity: 0.45 }}>Mazatlán</div>
+            <div className="loc-city" style={{ opacity: 0.45 }}>Mazatl\\u00e1n</div>
             <div className="loc-state">Sinaloa</div>
-            <div className="loc-info" style={{ opacity: 0.3 }}>Próxima apertura<br />Regístrate para<br />recibir novedades</div>
+            <div className="loc-info" style={{ opacity: 0.3 }}>Pr\\u00f3xima apertura<br />Reg\\u00edstrate para<br />recibir novedades</div>
           </div>
         </div>
       </section>
@@ -192,44 +185,26 @@ export default function Home() {
           <div className="section-tag" style={{ marginBottom: 26 }}><div className="section-tag-line" /><span>{t('reservation.tag')}</span></div>
           <h2>{t('reservation.title1')}<br /><em>{t('reservation.titleEm')}</em></h2>
           <p>{t('reservation.desc')}</p>
-          <div className="contact-row"><div className="contact-icon">✆</div><div className="contact-text"><p>{t('reservation.phone')}</p><span>+52 81 1123 9849</span></div></div>
-          <div className="contact-row"><div className="contact-icon">✉</div><div className="contact-text"><p>{t('reservation.email')}</p><span>sushi.iwa@hotmail.com</span></div></div>
-          <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>{t('reservation.schedule')}</p><span>{t('reservation.scheduleValue')}</span></div></div>
+          <div className="contact-row"><div className="contact-icon">\\u2706</div><div className="contact-text"><p>{t('reservation.phone')}</p><span>+52 81 1123 9849</span></div></div>
+          <div className="contact-row"><div className="contact-icon">\\u2709</div><div className="contact-text"><p>{t('reservation.email')}</p><span>sushi.iwa@hotmail.com</span></div></div>
+          <div className="contact-row"><div className="contact-icon">\\u2302</div><div className="contact-text"><p>{t('reservation.schedule')}</p><span>{t('reservation.scheduleValue')}</span></div></div>
           <div className="contact-row" style={{ marginTop: 8 }}><div className="contact-icon">@</div><div className="contact-text"><p>Instagram</p><span>@sushi.iwa</span></div></div>
         </div>
         <div data-reveal="right" className="form-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '60px 38px' }}>
-          <AvailabilityBadge />
-          <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16, marginTop: 12 }}>岩</div>
+          <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16 }}>\\u5ca9</div>
           <div className="form-title" style={{ marginBottom: 12 }}>{t('reservation.formTitle')}</div>
           <p style={{ fontSize: 13, color: 'rgba(244,239,230,0.48)', lineHeight: 1.7, marginBottom: 28, maxWidth: 320 }}>
-            Reserva en 3 pasos. Selecciona ubicación, fecha, y confirma por WhatsApp.
+            Reserva en 3 pasos. Selecciona ubicaci\\u00f3n, fecha, y confirma por WhatsApp.
           </p>
           <button className="form-submit" type="button" onClick={() => setResOpen(true)} style={{ maxWidth: 320 }}>
-            Reservar Ahora →
+            Reservar Ahora \\u2192
           </button>
         </div>
       </section>
 
-      {/* GIFT CARD BANNER */}
-      <Link to="/gift-cards" style={{
-        display: 'block', background: 'var(--warm)', borderTop: '0.5px solid var(--border)',
-        borderBottom: '0.5px solid var(--border)', padding: '22px 24px', textAlign: 'center',
-        textDecoration: 'none',
-      }}>
-        <span style={{ fontFamily: 'var(--font-d)', fontSize: 17, fontWeight: 300, color: 'var(--cream)', letterSpacing: '0.02em' }}>
-          ¿Buscas el regalo perfecto?
-        </span>
-        <span style={{ color: 'var(--gold)', fontWeight: 500, fontSize: 14, marginLeft: 12, letterSpacing: '0.08em' }}>
-          Gift Cards IWA →
-        </span>
-      </Link>
-
-      {/* AWARDS STRIP */}
-      <AwardsBadges />
-
-      {/* FLOATING RESERVE BUTTON — mobile only */}
-      <button className={`fab-reserve floating-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
-        <span className="fab-jp">岩</span> Reservar Mesa{preOrderCount > 0 ? ` (${preOrderCount})` : ''}
+      {/* FLOATING RESERVE BUTTON \\u2014 mobile only */}
+      <button className={`fab-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
+        <span className="fab-jp">\\u5ca9</span> Reservar Mesa{preOrderCount > 0 ? ` (${preOrderCount})` : ''}
       </button>
 
       {/* RESERVATION FLOW MODAL */}
@@ -237,3 +212,8 @@ export default function Home() {
     </>
   );
 }
+"""
+
+with open('src/pages/Home.tsx', 'w', encoding='utf-8') as f:
+    f.write(home)
+print('Home.tsx written')

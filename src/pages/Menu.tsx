@@ -1,8 +1,8 @@
-import { useState, useMemo, useRef, useCallback, type KeyboardEvent } from 'react';
+import { useState, useMemo, useRef, useCallback } from 'react';
 import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, DRINKS, type MenuItem, type MenuCategory, type DrinkSection, type DrinkGroup } from '../data/menu';
-import { IMAGE_ALTS } from '../data/imageAlts';
 import MenuModal from '../components/MenuModal';
 import SeasonalBadge from '../components/SeasonalBadge';
+import ReservationFlow from '../components/ReservationFlow';
 import SEO from '../components/SEO';
 import { useRevealAll } from '../hooks/useScrollReveal';
 import './Menu.css';
@@ -135,7 +135,7 @@ export default function Menu() {
                       <img className="item-img" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
                     </div>
                     <div className="ib">
-                      <div className="ibadge">{item.badge}{item.isSeasonal && <> <SeasonalBadge /></>}{eighted[item.id] && <span className="i86">Agotado</span>}</div>
+                      <div className="ibadge">{item.badge}<SeasonalBadge show={item.isSeasonal} />{eighted[item.id] && <span className="i86">Agotado</span>}</div>
                       <div className={`iname ${eighted[item.id] ? 'i86-name' : ''}`}>{item.name}</div>
                       <div className="idesc">{item.desc}</div>
                       <div className="ifooter">
@@ -193,7 +193,7 @@ export default function Menu() {
                               <img className="item-img" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
                             </div>
                             <div className="ib">
-                              <div className="ibadge">{item.badge}{item.isSeasonal && <> <SeasonalBadge /></>}</div>
+                              <div className="ibadge">{item.badge}<SeasonalBadge show={item.isSeasonal} /></div>
                               <div className="iname">{item.name}</div>
                               <div className="idesc">{item.desc}</div>
                               <div className="ifooter">

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import './ReservationFlow.css';
+import AvailabilityBadge from './AvailabilityBadge';
 
 const LOCATIONS = [
   { id: 'mty', city: 'Monterrey', state: 'Nuevo León', address: 'Av. Fundadores 955, Sienna Tower 2°', phone: '+528111239849', wa: '528111239849', hours: 'L·Mi·J·V·S·D 1:45–10:30pm', closed: [2] },
@@ -198,7 +199,7 @@ export default function ReservationFlow({ open, onClose, preNote }: Props) {
             {errors.loc && <div className="rf-err">{errors.loc}</div>}
 
             <label className="rf-label">Fecha</label>
-            <input type="date" className="rf-input" value={date} min={minDate} onChange={e => setDate(e.target.value)} />
+            <input type="date" className="rf-input iwa-input" value={date} min={minDate} onChange={e => setDate(e.target.value)} />
             {errors.date && <div className="rf-err">{errors.date}</div>}
 
             <label className="rf-label">Horario</label>
@@ -209,6 +210,7 @@ export default function ReservationFlow({ open, onClose, preNote }: Props) {
             </div>
             {errors.time && <div className="rf-err">{errors.time}</div>}
 
+            <div style={{ marginTop: 12 }}><AvailabilityBadge /></div>
             <button className="rf-btn rf-btn--gold rf-btn--full" onClick={next}>Siguiente →</button>
           </div>
         ) : step === 2 ? (
@@ -225,18 +227,18 @@ export default function ReservationFlow({ open, onClose, preNote }: Props) {
             </div>
 
             <label className="rf-label">Nombre *</label>
-            <input className="rf-input" placeholder="Tu nombre completo" value={name} onChange={e => setName(e.target.value)} />
+            <input className="rf-input iwa-input" placeholder="Tu nombre completo" value={name} onChange={e => setName(e.target.value)} />
             {errors.name && <div className="rf-err">{errors.name}</div>}
 
             <label className="rf-label">WhatsApp *</label>
             <div className="rf-phone-wrap">
               <span className="rf-phone-prefix">+52</span>
-              <input className="rf-input rf-input--phone" placeholder="81 1123 9849" value={phone} onChange={e => setPhone(e.target.value)} />
+              <input className="rf-input rf-input--phone iwa-input" placeholder="81 1123 9849" value={phone} onChange={e => setPhone(e.target.value)} />
             </div>
             {errors.phone && <div className="rf-err">{errors.phone}</div>}
 
             <label className="rf-label">Email (opcional)</label>
-            <input className="rf-input" type="email" placeholder="tu@email.com" value={email} onChange={e => setEmail(e.target.value)} />
+            <input className="rf-input iwa-input" type="email" placeholder="tu@email.com" value={email} onChange={e => setEmail(e.target.value)} />
 
             <label className="rf-label">Ocasión especial</label>
             <select className="rf-select" value={occasion} onChange={e => setOccasion(e.target.value)}>
@@ -280,7 +282,7 @@ export default function ReservationFlow({ open, onClose, preNote }: Props) {
               )}
             </div>
 
-            <button className="rf-btn rf-btn--gold rf-btn--full" onClick={sendWhatsApp}>Confirmar por WhatsApp</button>
+            <button className="rf-btn rf-btn--gold rf-btn--full btn-whatsapp" onClick={sendWhatsApp}>Confirmar por WhatsApp</button>
             {selLoc?.phone && (
               <a className="rf-btn rf-btn--ghost rf-btn--full" href={`tel:${selLoc.phone}`} style={{ textAlign: 'center', marginTop: 8 }}>
                 Llamar al restaurante

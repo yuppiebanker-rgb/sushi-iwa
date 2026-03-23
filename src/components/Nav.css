@@ -46,6 +46,8 @@
 
 .nav-right { display: flex; align-items: center; gap: 18px; }
 
+.nav-rating { display: inline-flex; }
+
 .lang-toggle {
   background: none; border: none; cursor: pointer;
   font-family: var(--font-b); font-size: 9px; font-weight: 400;
@@ -76,6 +78,7 @@
   .nav { padding: 16px 32px; }
   .nav-links { gap: 22px; }
   .nav-links a { font-size: 9.5px; letter-spacing: 0.18em; }
+  .nav-rating { display: none; }
 }
 
 /* ── MOBILE — hamburger takeover ── */

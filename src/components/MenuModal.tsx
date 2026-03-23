@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { addPreOrder, getPreOrder } from './ReservationFlow';
+import { IMAGE_ALTS } from '../data/imageAlts';
 import './MenuModal.css';
 
 interface Props {
@@ -10,16 +11,50 @@ interface Props {
 
 export default function MenuModal({ item, onClose, onOpenReservation }: Props) {
   const bgRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
-    if (!item) { setAdded(false); return; }
+    if (!item) {
+      setAdded(false);
+      // Return focus to triggering element
+      triggerRef.current?.focus();
+      triggerRef.current = null;
+      return;
+    }
+
+    // Save the element that triggered the modal
+    triggerRef.current = document.activeElement as HTMLElement;
     setAdded(getPreOrder().includes(item.name));
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
+
+    // Focus trap
+    const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable?.[0];
+    const last = focusable?.[focusable.length - 1];
+    first?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
   }, [item, onClose]);
@@ -27,6 +62,8 @@ export default function MenuModal({ item, onClose, onOpenReservation }: Props) {
   if (!item) return null;
 
   const waLink = `https://wa.me/528111239849?text=${encodeURIComponent(`Hola, me interesa: ${item.name} (${item.price})`)}`;
+  const imageKey = item.image.replace(/\.\w+$/, '');
+  const altText = IMAGE_ALTS[imageKey] || item.name;
 
   const handlePreOrder = () => {
     addPreOrder(item.name);
@@ -37,9 +74,9 @@ export default function MenuModal({ item, onClose, onOpenReservation }: Props) {
   };
 
   return (
-    <div className="modal-bg on" ref={bgRef} onClick={(e) => { if (e.target === bgRef.current) onClose(); }}>
-      <div className="modal">
-        <img className="mi" src={`/images/${item.image}`} alt={item.name} />
+    <div className="modal-bg on" ref={bgRef} role="dialog" aria-modal="true" aria-label={item.name} onClick={(e) => { if (e.target === bgRef.current) onClose(); }}>
+      <div className="modal modal-enter" ref={modalRef}>
+        <img className="mi" src={`/images/${item.image}`} alt={altText} />
         <div className="mbody">
           <div className="mbadge">{item.badge}</div>
           <div className="mname">{item.name}</div>
@@ -52,7 +89,7 @@ export default function MenuModal({ item, onClose, onOpenReservation }: Props) {
             {added ? '✓ Agregado a tu reservación' : 'Pedir con mi reservación →'}
           </button>
         </div>
-        <div className="mc" onClick={onClose}>✕</div>
+        <button className="mc" onClick={onClose} aria-label="Cerrar">✕</button>
       </div>
     </div>
   );

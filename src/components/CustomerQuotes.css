@@ -1,0 +1,75 @@
+.cq {
+  padding: clamp(60px, 8vw, 110px) clamp(20px, 5vw, 52px);
+  background: var(--ink);
+  border-top: 0.5px solid rgba(184,146,42,0.12);
+  border-bottom: 0.5px solid rgba(184,146,42,0.12);
+  text-align: center;
+}
+
+.cq-label {
+  font-size: 9px; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 36px;
+  display: flex; align-items: center;
+  justify-content: center; gap: 16px;
+}
+.cq-line {
+  display: block; width: 28px; height: 0.5px;
+  background: var(--gold);
+}
+
+.cq-quote {
+  max-width: 680px; margin: 0 auto;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.cq-quote--out {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.cq-text {
+  font-family: var(--font-d);
+  font-size: clamp(20px, 3vw, 30px);
+  font-weight: 300; font-style: italic;
+  color: var(--cream); line-height: 1.55;
+  margin-bottom: 24px;
+}
+
+.cq-cite {
+  font-family: var(--font-b);
+  font-size: 12px; letter-spacing: 0.15em;
+  color: var(--mist); text-transform: uppercase;
+  font-style: normal;
+}
+
+.cq-dots {
+  display: flex; justify-content: center;
+  gap: 8px; margin-top: 32px;
+}
+.cq-dot {
+  height: 6px; border-radius: 3px;
+  background: rgba(184,146,42,0.25);
+  border: none; cursor: pointer; padding: 0;
+  width: 6px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+.cq-dot--active {
+  width: 20px;
+  background: var(--gold);
+}
+
+.cq-rating {
+  margin-top: 40px;
+  display: flex; justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .cq { padding: 48px 20px; }
+  .cq-label { margin-bottom: 24px; font-size: 8px; }
+  .cq-dots { margin-top: 24px; }
+  .cq-rating { margin-top: 28px; }
+}
+@media (max-width: 480px) {
+  .cq { padding: 36px 16px; }
+  .cq-text { font-size: 18px; }
+}

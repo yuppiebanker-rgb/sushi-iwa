@@ -1,0 +1,49 @@
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 16px;
+  background: var(--gold, #b8922a);
+  color: var(--ink, #0c0b09);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 10000;
+  transition: top 0.2s ease;
+  text-decoration: none;
+}
+.skip-link:focus { top: 8px; }
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid var(--gold, #b8922a) !important;
+  outline-offset: 3px;
+}
+:focus:not(:focus-visible) { outline: none !important; }
+
+/* Screen reader only */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .btn-primary, .btn-reservar { border: 2px solid ButtonText; }
+}
+
+/* Motion reduction */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

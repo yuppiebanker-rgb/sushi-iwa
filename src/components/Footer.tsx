@@ -17,9 +17,12 @@ export default function Footer() {
         <div className="footer-col">
           <h4>{t('footer.navigation')}</h4>
           <Link to="/menu">{t('nav.menu')}</Link>
+          <Link to="/chef">Nuestra Historia</Link>
           <a href="#nosotros">{t('nav.about')}</a>
           <a href="#ubicaciones">{t('nav.locations')}</a>
           <a href="#reservar">{t('nav.reservations')}</a>
+          <Link to="/loyalty">Club IWA</Link>
+          <Link to="/gift-cards">Gift Cards</Link>
         </div>
         <div className="footer-col">
           <h4>{t('footer.contact')}</h4>

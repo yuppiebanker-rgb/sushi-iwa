@@ -9,6 +9,7 @@ export interface MenuItem {
   isSignature?: boolean;
   isGlutenFree?: boolean;
   isChefPick?: boolean;
+  isSeasonal?: boolean;
 }
 
 export type MenuCategory =
@@ -28,10 +29,10 @@ export const MENU_ITEMS: MenuItem[] = [
   // ── SASHIMI ──
   { id: 'sashimi-atun', name: 'Atún', badge: 'Sashimi', desc: 'Maguro fresco.', price: '$240', category: 'sashimi', image: 'sashimi-atun.jpg' },
   { id: 'sashimi-salmon', name: 'Salmón', badge: 'Sashimi', desc: 'Salmón canadiense de primera calidad.', price: '$265', category: 'sashimi', image: 'nigiri-salmon.jpg' },
-  { id: 'sashimi-hamachi', name: 'Hamachi', badge: 'Sashimi', desc: 'Yellowtail fresco. Suave y delicado.', price: '$325', category: 'sashimi', image: 'nigiri-maguro.jpg' },
+  { id: 'sashimi-hamachi', name: 'Hamachi', badge: 'Sashimi', desc: 'Yellowtail fresco. Suave y delicado.', price: '$325', category: 'sashimi', image: 'nigiri-maguro.jpg', isSeasonal: true },
   { id: 'sashimi-mixto', name: 'Mixto', badge: 'Sashimi', desc: 'Selección del día: atún, salmón, hamachi.', price: '$330', category: 'sashimi', image: 'sashimi-mix.jpg' },
-  { id: 'hamachi-jalap', name: 'Hamachi Jalapeño Sashimi', badge: 'Sashimi · Firma', desc: 'Yellowtail con jalapeño. El más pedido.', price: '$325', category: 'sashimi', image: 'hamachi-jalap.jpg', isSignature: true },
-  { id: 'hamachi-curry', name: 'Hamachi Curry', badge: 'Sashimi', desc: 'Yellowtail con toque de curry japonés.', price: '$325', category: 'sashimi', image: 'hamachi-jalap2.jpg' },
+  { id: 'hamachi-jalap', name: 'Hamachi Jalapeño Sashimi', badge: 'Sashimi · Firma', desc: 'Yellowtail con jalapeño. El más pedido.', price: '$325', category: 'sashimi', image: 'hamachi-jalap.jpg', isSignature: true, isSeasonal: true },
+  { id: 'hamachi-curry', name: 'Hamachi Curry', badge: 'Sashimi', desc: 'Yellowtail con toque de curry japonés.', price: '$325', category: 'sashimi', image: 'hamachi-jalap2.jpg', isSeasonal: true },
   { id: 'serrano-sashimi', name: 'Serrano Sashimi', badge: 'Sashimi', desc: 'Corte fino sobre serrano. Picante y fresco.', price: '$275', category: 'sashimi', image: 'sashimi-salmon.jpg' },
   { id: 'iwa-salad', name: 'IWA Salad', badge: 'Ensalada', desc: 'Lechuga + atún + hamachi + pepino + aderezo de la casa.', price: '$235', category: 'sashimi', image: 'nigiri-platter.jpg' },
 
@@ -77,7 +78,7 @@ export const MENU_ITEMS: MenuItem[] = [
   { id: 'tropical-roll', name: 'Tropical Roll', badge: 'Roll Especial', desc: 'Mango por fuera + ebi tempura + cangrejo + queso crema + aguacate + serrano + salsa de anguila.', price: '$245', category: 'rollos-esp', image: 'tropical-roll.jpg' },
   { id: 'mashi-roll', name: 'Mashi Roll', badge: 'Roll Especial', desc: 'Pasta de cangrejo y aguacate por dentro. Lajas de salmón flameado con spicy mayo + crunchy.', price: '$295', category: 'rollos-esp', image: 'mashi-roll.jpg' },
   { id: 'taisa-roll', name: 'Taisa Roll', badge: "Roll · Chef's Pick", desc: 'Calamar crujiente por dentro con topping de callo de hacha.', price: '$310', category: 'rollos-esp', image: 'taisa-roll.jpg', isChefPick: true },
-  { id: 'hamachi-roll', name: 'Hamachi Roll', badge: 'Roll Especial', desc: 'Pasta de cangrejo + aguacate por dentro. Topping de lajas de hamachi con chile jalapeño.', price: '$310', category: 'rollos-esp', image: 'hamachi-roll.jpg' },
+  { id: 'hamachi-roll', name: 'Hamachi Roll', badge: 'Roll Especial', desc: 'Pasta de cangrejo + aguacate por dentro. Topping de lajas de hamachi con chile jalapeño.', price: '$310', category: 'rollos-esp', image: 'hamachi-roll.jpg', isSeasonal: true },
   { id: 'rainbow-roll', name: 'Rainbow Roll', badge: 'Roll Especial', desc: 'Camarón + aguacate + queso crema + cangrejo y pepino, cubierto con atún + aguacate + robalo y salmón.', price: '$275', category: 'rollos-esp', image: 'rainbow-roll.jpg' },
   { id: 'unagui-roll', name: 'Unagui Roll', badge: 'Roll Especial', desc: 'Aguacate + anguila ahumada + salsa de anguila.', price: '$295', category: 'rollos-esp', image: 'unagui-roll.jpg' },
   { id: 'alcaparra-roll', name: 'Alcaparra Roll', badge: 'Roll Especial', desc: 'Spicy de cangrejo y camarón tempura dentro, por arriba hamachi y alcaparra con limón amarilla.', price: '$295', category: 'rollos-esp', image: 'alcaparra-roll.jpg' },

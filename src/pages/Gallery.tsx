@@ -3,6 +3,7 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, type MenuCategory } from '../data/menu';
 import SEO from '../components/SEO';
+import { useRevealAll } from '../hooks/useScrollReveal';
 import './Gallery.css';
 
 interface GalleryImage {
@@ -51,6 +52,8 @@ function buildGallery(): Map<MenuCategory, GalleryImage[]> {
 }
 
 export default function Gallery() {
+  useRevealAll();
+
   const gallery = useMemo(buildGallery, []);
   const allImages = useMemo(() => Array.from(gallery.values()).flat(), [gallery]);
   const [lightboxIndex, setLightboxIndex] = useState(-1);
@@ -83,7 +86,7 @@ export default function Gallery() {
           if (!images || images.length === 0) return null;
           const meta = CATEGORIES[cat];
           return (
-            <section key={cat} className="gal-section">
+            <section key={cat} className="gal-section" data-reveal>
               <div className="gal-sh">
                 <span className="gal-jp">{meta.jp}</span>
                 <span className="gal-label">{meta.label}</span>

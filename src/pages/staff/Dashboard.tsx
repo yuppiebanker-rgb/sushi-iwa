@@ -8,9 +8,23 @@ function getStoredLoc() {
   return localStorage.getItem('iwa-staff-loc') || LOCS[0];
 }
 
+const updateAvailability = (available: number) => {
+  localStorage.setItem('iwa_availability_mty', JSON.stringify({
+    mesas: available,
+    timestamp: Date.now(),
+  }));
+};
+
 export default function Dashboard() {
   const [loc, setLoc] = useState(getStoredLoc);
+  const [mesasDisp, setMesasDisp] = useState(() => {
+    try {
+      const d = localStorage.getItem('iwa_availability_mty');
+      return d ? JSON.parse(d).mesas : 8;
+    } catch { return 8; }
+  });
   const changeLoc = (v: string) => { setLoc(v); localStorage.setItem('iwa-staff-loc', v); };
+  const changeMesas = (n: number) => { setMesasDisp(n); updateAvailability(n); };
 
   const eightySixCount = (() => {
     try { return Object.values(JSON.parse(localStorage.getItem('iwa-86') || '{}')).filter(Boolean).length; } catch { return 0; }
@@ -48,7 +62,7 @@ export default function Dashboard() {
       <div className="sp-metrics">
         <div className="sp-metric"><div className="sp-metric-val">{reservations.length}</div><div className="sp-metric-label">Reservaciones Hoy</div></div>
         <div className="sp-metric"><div className="sp-metric-val">{waitlist.length}</div><div className="sp-metric-label">En Lista de Espera</div></div>
-        <div className="sp-metric"><div className="sp-metric-val">—</div><div className="sp-metric-label">Mesas Ocupadas</div></div>
+        <div className="sp-metric"><div className="sp-metric-val">{loc === 'Monterrey' ? mesasDisp : '—'}</div><div className="sp-metric-label">Mesas Disponibles</div></div>
         <div className="sp-metric"><div className="sp-metric-val">{eightySixCount}</div><div className="sp-metric-label">Platillos 86'd</div></div>
       </div>
 
@@ -58,6 +72,18 @@ export default function Dashboard() {
         <Link to="/iwa-staff/floor" className="sp-btn">Ver Piso</Link>
         <Link to="/iwa-staff/86" className="sp-btn">86 Board</Link>
       </div>
+
+      {loc === 'Monterrey' && (
+        <div className="sp-card" style={{ marginTop: 16 }}>
+          <h3 style={{ fontFamily: 'var(--font-d)', fontWeight: 300, color: 'var(--cream)', fontSize: 16, marginBottom: 10 }}>Mesas disponibles (público)</h3>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {[0,1,2,3,4,5,6,7,8].map(n => (
+              <button key={n} className={`sp-btn${mesasDisp === n ? ' sp-btn--gold' : ''}`} style={{ minWidth: 40 }} onClick={() => changeMesas(n)}>{n}</button>
+            ))}
+          </div>
+          <p style={{ fontSize: 11, color: 'var(--mist)', marginTop: 8 }}>Se muestra como indicador de disponibilidad en la página pública.</p>
+        </div>
+      )}
 
       <h3 style={{ fontFamily: 'var(--font-d)', fontWeight: 300, color: 'var(--cream)', fontSize: 18, marginBottom: 12 }}>Próximas reservaciones</h3>
       {reservations.length === 0 ? (

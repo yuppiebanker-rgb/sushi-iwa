@@ -87,6 +87,7 @@ function AppShell() {
             <Route path="/eventos" element={<Events />} />
             <Route path="/chef" element={<ChefStory />} />
             <Route path="/gift-cards" element={<GiftCards />} />
+            <Route path="/regalo" element={<GiftCards />} />
             <Route path="/loyalty" element={<Loyalty />} />
             <Route path="/newsletter" element={<Newsletter />} />
             <Route path="/novedades" element={<Newsletter />} />
