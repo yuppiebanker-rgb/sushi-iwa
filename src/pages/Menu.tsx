@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useCallback } from 'react';
 import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, DRINKS, type MenuItem, type MenuCategory, type DrinkSection, type DrinkGroup } from '../data/menu';
 import MenuModal from '../components/MenuModal';
+import ReservationFlow from '../components/ReservationFlow';
 import SEO from '../components/SEO';
 import './Menu.css';
 
@@ -38,6 +39,8 @@ export default function Menu() {
   const [filter, setFilter] = useState<Filter>('all');
   const mbRef = useRef<HTMLDivElement>(null);
   const eighted = get86();
+  const [resOpen, setResOpen] = useState(false);
+  const [resNote, setResNote] = useState('');
 
   const filtered = useMemo(() => {
     let items = MENU_ITEMS;
@@ -244,7 +247,8 @@ export default function Menu() {
         "El consumo de mariscos crudos o poco cocidos puede aumentar el riesgo de enfermedades transmisibles por los alimentos o causar alergias severas en algunas personas."
       </p>
 
-      <MenuModal item={modal} onClose={() => setModal(null)} />
+      <MenuModal item={modal} onClose={() => setModal(null)} onOpenReservation={(note) => { setModal(null); setResNote(note); setResOpen(true); }} />
+      <ReservationFlow open={resOpen} onClose={() => setResOpen(false)} preNote={resNote} />
     </div>
   );
 }

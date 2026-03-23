@@ -55,3 +55,14 @@
   text-decoration: none; transition: background 0.2s;
 }
 .mwa:hover { background: var(--gold-light); }
+
+.mpreorder {
+  display: block; width: 100%; margin-top: 8px;
+  font-family: var(--font-b); font-size: 9px; font-weight: 400;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--mist); background: none;
+  border: 0.5px solid var(--border); padding: 9px 16px;
+  cursor: pointer; transition: all 0.2s; text-align: center;
+}
+.mpreorder:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+.mpreorder:disabled { color: var(--gold); border-color: rgba(184,146,42,0.3); cursor: default; }

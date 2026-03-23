@@ -1,18 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import InstagramFeed from '../components/InstagramFeed';
 import MazatlanNotify from '../components/MazatlanNotify';
+import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
 import './Home.css';
-
-const TIMES = ['1:45 pm', '3:00 pm', '5:00 pm', '7:00 pm', '8:30 pm', '9:30 pm'];
-const PEOPLE = ['1', '2', '3', '4', '5', '6+'];
-const LOCS = ['Monterrey — Fundadores', 'Saltillo', 'Hermosillo', 'Cd. Obregón'];
 
 export default function Home() {
   const { t } = useTranslation();
-  const [form, setForm] = useState({ name: '', phone: '', date: '', time: TIMES[0], people: '2', location: LOCS[0], occasion: '' });
+  const [resOpen, setResOpen] = useState(false);
+  const [showFab, setShowFab] = useState(false);
+  const preOrderCount = getPreOrder().length;
+
+  useEffect(() => {
+    const onScroll = () => {
+      const resSection = document.getElementById('reservar');
+      const resTop = resSection?.getBoundingClientRect().top ?? Infinity;
+      setShowFab(window.scrollY > 600 && resTop > 200);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <>
@@ -47,7 +56,7 @@ export default function Home() {
           <p className="hero-subtitle">{t('hero.subtitle')}</p>
           <p className="hero-desc">{t('hero.desc')}</p>
           <div className="hero-actions">
-            <button className="btn-gold" onClick={() => document.getElementById('reservar')?.scrollIntoView({ behavior: 'smooth' })}>{t('hero.reserveNow')}</button>
+            <button className="btn-gold" onClick={() => setResOpen(true)}>{t('hero.reserveNow')}</button>
             <Link to="/menu" className="btn-ghost">{t('hero.viewMenu')}</Link>
           </div>
         </div>
@@ -169,27 +178,25 @@ export default function Home() {
           <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>{t('reservation.schedule')}</p><span>{t('reservation.scheduleValue')}</span></div></div>
           <div className="contact-row" style={{ marginTop: 8 }}><div className="contact-icon">@</div><div className="contact-text"><p>Instagram</p><span>@sushi.iwa</span></div></div>
         </div>
-        <div className="form-card">
-          <div className="form-title">{t('reservation.formTitle')}</div>
-          <div className="form-row">
-            <div className="field"><label>{t('reservation.name')}</label><input type="text" placeholder="Tu nombre completo" value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
-            <div className="field"><label>{t('reservation.phone')}</label><input type="tel" placeholder="+52 81 ··· ····" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} /></div>
-          </div>
-          <div className="form-row">
-            <div className="field"><label>{t('reservation.date')}</label><input type="date" value={form.date} onChange={e => setForm({...form, date: e.target.value})} /></div>
-            <div className="field"><label>{t('reservation.preferredTime')}</label><select value={form.time} onChange={e => setForm({...form, time: e.target.value})}>{TIMES.map(t => <option key={t}>{t}</option>)}</select></div>
-          </div>
-          <div className="form-row">
-            <div className="field"><label>{t('reservation.guests')}</label><select value={form.people} onChange={e => setForm({...form, people: e.target.value})}>{PEOPLE.map(p => <option key={p}>{p}</option>)}</select></div>
-            <div className="field"><label>{t('reservation.location')}</label><select value={form.location} onChange={e => setForm({...form, location: e.target.value})}>{LOCS.map(l => <option key={l}>{l}</option>)}</select></div>
-          </div>
-          <div className="field"><label>{t('reservation.occasion')}</label><input type="text" placeholder="Cumpleaños, aniversario..." value={form.occasion} onChange={e => setForm({...form, occasion: e.target.value})} /></div>
-          <button className="form-submit" type="button" onClick={() => {
-            const msg = `Reservación IWA:\n${form.name}\n${form.date} ${form.time}\n${form.people} personas\n${form.location}\n${form.occasion}`;
-            window.open(`https://wa.me/528111239849?text=${encodeURIComponent(msg)}`, '_blank');
-          }}>{t('reservation.submit')}</button>
+        <div className="form-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '60px 38px' }}>
+          <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16 }}>岩</div>
+          <div className="form-title" style={{ marginBottom: 12 }}>{t('reservation.formTitle')}</div>
+          <p style={{ fontSize: 13, color: 'rgba(244,239,230,0.48)', lineHeight: 1.7, marginBottom: 28, maxWidth: 320 }}>
+            Reserva en 3 pasos. Selecciona ubicación, fecha, y confirma por WhatsApp.
+          </p>
+          <button className="form-submit" type="button" onClick={() => setResOpen(true)} style={{ maxWidth: 320 }}>
+            Reservar Ahora →
+          </button>
         </div>
       </section>
+
+      {/* FLOATING RESERVE BUTTON — mobile only */}
+      <button className={`fab-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
+        <span className="fab-jp">岩</span> Reservar Mesa{preOrderCount > 0 ? ` (${preOrderCount})` : ''}
+      </button>
+
+      {/* RESERVATION FLOW MODAL */}
+      <ReservationFlow open={resOpen} onClose={() => setResOpen(false)} />
     </>
   );
 }

@@ -85,10 +85,10 @@ export const MENU_ITEMS: MenuItem[] = [
   { id: 'baked-crab-roll', name: 'Baked Crab Roll', badge: 'Roll Especial', desc: 'Hoja de papel + arroz + kanikama + tobiko + spicy mayo.', price: '$315', category: 'rollos-esp', image: 'baked-crab.jpg' },
 
   // ── PLATOS FUERTES ──
-  { id: 'yakimeshi-res', name: 'Yakimeshi · Res', badge: 'Yakimeshi', desc: 'Arroz frito estilo japonés con res.', price: '$235', category: 'platos', image: 'yakimeshi.jpg' },
-  { id: 'yakimeshi-camaron', name: 'Yakimeshi · Camarón', badge: 'Yakimeshi', desc: 'Arroz frito con camarón fresco.', price: '$235', category: 'platos', image: 'yakimeshi2.jpg' },
+  { id: 'yakimeshi-res', name: 'Yakimeshi · Res', badge: 'Yakimeshi', desc: 'Arroz frito estilo japonés con res.', price: '$255', category: 'platos', image: 'yakimeshi.jpg' },
+  { id: 'yakimeshi-camaron', name: 'Yakimeshi · Camarón', badge: 'Yakimeshi', desc: 'Arroz frito con camarón fresco.', price: '$255', category: 'platos', image: 'yakimeshi2.jpg' },
   { id: 'yakimeshi-pollo', name: 'Yakimeshi · Pollo', badge: 'Yakimeshi', desc: 'Arroz frito con pollo.', price: '$235', category: 'platos', image: 'yakimeshi.jpg' },
-  { id: 'yakimeshi-mixto', name: 'Yakimeshi · Mixto', badge: 'Yakimeshi', desc: 'Res, camarón y pollo juntos.', price: '$235', category: 'platos', image: 'yakimeshi2.jpg' },
+  { id: 'yakimeshi-mixto', name: 'Yakimeshi · Mixto', badge: 'Yakimeshi', desc: 'Res, camarón y pollo juntos.', price: '$255', category: 'platos', image: 'yakimeshi2.jpg' },
   { id: 'camarones-salsa', name: 'Camarones en Salsa Especial', badge: 'Plato Fuerte', desc: 'Camarones con la salsa especial de la casa.', price: '$290', category: 'platos', image: 'camarones-roca.jpg' },
   { id: 'pollo-teriyaki', name: 'Pollo Teriyaki a la Plancha', badge: 'Plato Fuerte', desc: 'Pollo a la plancha con salsa teriyaki.', price: '$265', category: 'platos', image: 'yakimeshi.jpg' },
   { id: 'filete-res', name: 'Filete de Res · Salsa Teriyaki', badge: 'Plato Fuerte', desc: 'Corte de res a la plancha con salsa teriyaki.', price: '$325', category: 'platos', image: 'yakimeshi2.jpg' },
