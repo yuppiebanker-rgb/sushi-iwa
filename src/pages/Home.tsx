@@ -10,6 +10,7 @@ import CustomerQuotes from '../components/CustomerQuotes';
 import PressStrip from '../components/PressStrip';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
+import NewsletterBanner from '../components/NewsletterBanner';
 import './Home.css';
 import '../styles/menu-effects.css';
 import { useRevealAll } from '../hooks/useScrollReveal';
@@ -261,6 +262,9 @@ export default function Home() {
           Gift Cards IWA →
         </span>
       </Link>
+
+      {/* NEWSLETTER BANNER */}
+      <NewsletterBanner />
 
       {/* AWARDS STRIP */}
       <AwardsBadges />
