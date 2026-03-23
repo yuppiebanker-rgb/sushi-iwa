@@ -1,0 +1,71 @@
+.mzn {
+  padding: 32px 24px; text-align: center;
+}
+.mzn-jp {
+  font-family: var(--font-jp); font-size: 11px; font-weight: 200;
+  letter-spacing: 0.5em; color: var(--gold); margin-bottom: 8px;
+}
+.mzn-title {
+  font-family: var(--font-d); font-size: 22px; font-weight: 300;
+  color: var(--cream); margin-bottom: 8px;
+}
+.mzn-copy {
+  font-size: 12px; color: var(--mist); line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.mzn-form {
+  display: flex; gap: 0; max-width: 340px; margin: 0 auto;
+}
+.mzn-form input {
+  flex: 1; padding: 10px 14px;
+  background: rgba(244,239,230,0.04);
+  border: 0.5px solid var(--border); border-right: none;
+  color: var(--cream); font-family: var(--font-b); font-size: 12px; font-weight: 300;
+  outline: none; transition: border-color 0.2s;
+}
+.mzn-form input::placeholder { color: var(--mist); }
+.mzn-form input:focus { border-color: var(--gold); }
+.mzn-form button {
+  padding: 10px 18px;
+  background: var(--gold); color: var(--ink); border: none;
+  font-family: var(--font-b); font-size: 9px; font-weight: 400;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s; white-space: nowrap;
+}
+.mzn-form button:hover { background: var(--gold-light); }
+.mzn-form button:disabled { opacity: 0.6; cursor: wait; }
+
+.mzn-success {
+  font-family: var(--font-d); font-size: 16px; color: var(--gold);
+  margin-top: 8px;
+}
+.mzn-error {
+  font-size: 11px; color: rgba(200,100,100,0.8); margin-top: 10px;
+}
+
+/* COMPACT VERSION */
+.mzn--compact { padding: 0; text-align: left; }
+.mzn-inline {
+  display: flex; gap: 0;
+}
+.mzn-inline input {
+  flex: 1; padding: 7px 10px;
+  background: rgba(244,239,230,0.04);
+  border: 0.5px solid var(--border); border-right: none;
+  color: var(--cream); font-family: var(--font-b); font-size: 11px; font-weight: 300;
+  outline: none;
+}
+.mzn-inline input::placeholder { color: var(--mist); }
+.mzn-inline input:focus { border-color: var(--gold); }
+.mzn-inline button {
+  padding: 7px 12px;
+  background: var(--gold); color: var(--ink); border: none;
+  font-family: var(--font-b); font-size: 8px; font-weight: 400;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s; white-space: nowrap;
+}
+.mzn-inline button:hover { background: var(--gold-light); }
+.mzn-inline button:disabled { opacity: 0.6; }
+.mzn-ok { font-size: 11px; color: var(--gold); }
+.mzn-err { font-size: 10px; color: rgba(200,100,100,0.8); display: block; margin-top: 4px; }

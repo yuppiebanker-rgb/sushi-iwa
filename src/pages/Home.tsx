@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import InstagramFeed from '../components/InstagramFeed';
+import MazatlanNotify from '../components/MazatlanNotify';
 import './Home.css';
 
 const TIMES = ['1:45 pm', '3:00 pm', '5:00 pm', '7:00 pm', '8:30 pm', '9:30 pm'];
@@ -27,6 +28,8 @@ export default function Home() {
         <strong>Mazatlán</strong>
         <div className="dot" />
         <span>{t('ticker.location')}</span>
+        <div className="dot" />
+        <MazatlanNotify compact />
       </div>
 
       {/* HERO */}

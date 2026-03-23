@@ -1,3 +1,4 @@
+import MazatlanNotify from './MazatlanNotify';
 import './LocationCard.css';
 
 export interface LocationData {
@@ -53,6 +54,9 @@ export default function LocationCard({ loc }: { loc: LocationData }) {
         <div className="lcard-hours">
           {loc.hours.map((h, i) => <div key={i}>{h}</div>)}
         </div>
+
+        {/* NOTIFY FORM FOR COMING SOON */}
+        {loc.comingSoon && <MazatlanNotify />}
 
         {/* ACTION BUTTONS */}
         {!loc.comingSoon && (
