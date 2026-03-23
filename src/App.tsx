@@ -3,7 +3,12 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import StaffGuard from './components/staff/StaffGuard';
+import PageTransition from './components/PageTransition';
 import './styles/tokens.css';
+import './styles/micro-interactions.css';
+import CustomCursor from './components/CustomCursor';
+import WhatsAppWidget from './components/WhatsAppWidget';
+import './styles/accessibility.css';
 
 // Loading fallback — minimal, branded
 const PageLoader = () => (
@@ -70,25 +75,33 @@ function AppShell() {
 
   return (
     <>
+      <PageTransition />
       <Nav />
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/ubicaciones" element={<Locations />} />
-          <Route path="/galeria" element={<Gallery />} />
-          <Route path="/eventos" element={<Events />} />
-          <Route path="/chef" element={<ChefStory />} />
-          <Route path="/gift-cards" element={<GiftCards />} />
-          <Route path="/loyalty" element={<Loyalty />} />
-          <Route path="/newsletter" element={<Newsletter />} />
-        </Routes>
-      </Suspense>
+      <main id="main-content">
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/ubicaciones" element={<Locations />} />
+            <Route path="/galeria" element={<Gallery />} />
+            <Route path="/eventos" element={<Events />} />
+            <Route path="/chef" element={<ChefStory />} />
+            <Route path="/gift-cards" element={<GiftCards />} />
+            <Route path="/loyalty" element={<Loyalty />} />
+            <Route path="/newsletter" element={<Newsletter />} />
+            <Route path="/novedades" element={<Newsletter />} />
+          </Routes>
+        </Suspense>
+      </main>
       <Footer />
+      <WhatsAppWidget />
     </>
   );
 }
 
 export default function App() {
-  return <AppShell />;
+  return (<>
+      <CustomCursor />
+      <AppShell />
+    </>);
 }

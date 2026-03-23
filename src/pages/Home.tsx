@@ -8,6 +8,8 @@ import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
 import CustomerQuotes from '../components/CustomerQuotes';
 import PressStrip from '../components/PressStrip';
+import AvailabilityBadge from '../components/AvailabilityBadge';
+import AwardsBadges from '../components/AwardsBadges';
 import './Home.css';
 import '../styles/menu-effects.css';
 import { useRevealAll } from '../hooks/useScrollReveal';
