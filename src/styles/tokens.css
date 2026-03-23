@@ -1,4 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@200;300&family=DM+Sans:wght@300;400;500&display=swap');
+/* ── Self-hosted font declarations ── */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-300.woff2') format('woff2');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-300i.woff2') format('woff2');
+  font-weight: 300; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-400i.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/dmsans-300.woff2') format('woff2');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/dmsans-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/dmsans-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Serif JP';
+  src: url('/fonts/notoserifjp-200.woff2') format('woff2');
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Serif JP';
+  src: url('/fonts/notoserifjp-300.woff2') format('woff2');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,9 +61,11 @@
   --font-b: "DM Sans", sans-serif;
 }
 
+/* ── Global performance CSS ── */
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   overflow-x: hidden;
   max-width: 100vw;
 }
@@ -31,18 +78,35 @@ body {
   max-width: 100vw;
 }
 
-/* iOS smooth scrolling */
+/* Touch momentum scrolling */
 * { -webkit-overflow-scrolling: touch; }
+
+/* Hardware acceleration for animated elements */
+.will-animate {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
 
 /* Safe area utilities */
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .safe-top    { padding-top:    env(safe-area-inset-top,    0px); }
 
+/* Minimum touch targets */
+button, a, [role="button"] { min-height: 44px; }
+
 a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
 button { font-family: var(--font-b); }
 ul { list-style: none; }
 
+/* Focus visible (accessibility) */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* Selection color */
 ::selection { background: var(--gold); color: var(--ink); }
 
 @keyframes fadeUp {
