@@ -1,14 +1,13 @@
 import { useEffect, useRef } from 'react';
-import type { MenuItem } from '../data/menu';
 import './MenuModal.css';
 
 interface Props {
-  item: MenuItem | null;
+  item: { name: string; badge: string; desc: string; price: string; image: string } | null;
   onClose: () => void;
 }
 
 export default function MenuModal({ item, onClose }: Props) {
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!item) return;
@@ -23,34 +22,22 @@ export default function MenuModal({ item, onClose }: Props) {
 
   if (!item) return null;
 
-  const badgeClass = item.isSignature ? 'badge badge--signature'
-    : item.isGlutenFree ? 'badge badge--gf'
-    : item.isChefPick ? 'badge badge--chef'
-    : 'badge';
+  const waLink = `https://wa.me/528111239849?text=${encodeURIComponent(`Hola, me interesa: ${item.name} (${item.price})`)}`;
 
   return (
-    <div
-      className="modal-overlay"
-      ref={overlayRef}
-      onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
-    >
-      <div className="modal" role="dialog" aria-label={item.name}>
-        <button className="modal__close" onClick={onClose} aria-label="Cerrar">&times;</button>
-
-        <div className="modal__img-wrap">
-          <img
-            src={`/images/${item.image}`}
-            alt={item.name}
-            loading="lazy"
-          />
+    <div className="modal-bg on" ref={bgRef} onClick={(e) => { if (e.target === bgRef.current) onClose(); }}>
+      <div className="modal">
+        <img className="mi" src={`/images/${item.image}`} alt={item.name} />
+        <div className="mbody">
+          <div className="mbadge">{item.badge}</div>
+          <div className="mname">{item.name}</div>
+          <div className="mdesc">{item.desc}</div>
+          <div className="mprice">{item.price}</div>
+          <a className="mwa" href={waLink} target="_blank" rel="noopener noreferrer">
+            Preguntar por WhatsApp →
+          </a>
         </div>
-
-        <div className="modal__body">
-          <span className={badgeClass}>{item.badge}</span>
-          <h2 className="modal__name">{item.name}</h2>
-          <p className="modal__desc">{item.description}</p>
-          <p className="modal__price">{item.price}</p>
-        </div>
+        <div className="mc" onClick={onClose}>✕</div>
       </div>
     </div>
   );

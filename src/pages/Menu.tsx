@@ -1,145 +1,154 @@
-import { useState, useMemo } from 'react';
-import { MENU_ITEMS, CATEGORY_META, type MenuCategory, type MenuItem } from '../data/menu';
+import { useState, useRef, useCallback } from 'react';
+import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, DRINKS, type MenuItem, type MenuCategory, type DrinkSection, type DrinkGroup } from '../data/menu';
 import MenuModal from '../components/MenuModal';
 import './Menu.css';
 
-const ALL_CATEGORIES = Object.keys(CATEGORY_META) as MenuCategory[];
+const ALL_TABS = [...CATEGORY_ORDER.map(c => ({ id: c, label: CATEGORIES[c].label.split(' · ')[0].replace(' · Sin Arroz', '') })),
+  { id: 'sake', label: 'Sake & Vinos' },
+  { id: 'bebidas', label: 'Bebidas' },
+];
 
 export default function Menu() {
-  const [active, setActive] = useState<MenuCategory | 'all'>('all');
-  const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState<MenuItem | null>(null);
+  const [activeTab, setActiveTab] = useState<string>('entradas');
+  const [modal, setModal] = useState<{ name: string; badge: string; desc: string; price: string; image: string } | null>(null);
+  const mbRef = useRef<HTMLDivElement>(null);
 
-  const filtered = useMemo(() => {
-    let items = active === 'all' ? MENU_ITEMS : MENU_ITEMS.filter(i => i.category === active);
-    if (search.trim()) {
-      const q = search.toLowerCase();
-      items = items.filter(i =>
-        i.name.toLowerCase().includes(q) ||
-        i.description.toLowerCase().includes(q) ||
-        i.badge.toLowerCase().includes(q)
-      );
-    }
-    return items;
-  }, [active, search]);
+  const scrollTo = useCallback((id: string) => {
+    setActiveTab(id);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
 
-  const grouped = useMemo(() => {
-    if (active !== 'all') return [[active, filtered] as const];
-    const map = new Map<MenuCategory, MenuItem[]>();
-    for (const item of filtered) {
-      if (!map.has(item.category)) map.set(item.category, []);
-      map.get(item.category)!.push(item);
-    }
-    return ALL_CATEGORIES
-      .filter(c => map.has(c))
-      .map(c => [c, map.get(c)!] as const);
-  }, [active, filtered]);
+  const openModal = (item: MenuItem) => {
+    setModal({ name: item.name, badge: item.badge, desc: item.desc, price: item.price, image: item.image });
+  };
+
+  const byCategory = (cat: MenuCategory) => MENU_ITEMS.filter(i => i.category === cat);
 
   return (
     <div className="menu-page">
-      {/* HEADER */}
-      <header className="menu-header">
-        <div className="container">
-          <p className="section-jp">お品書き</p>
-          <h1 className="section-title">Nuestra Carta</h1>
-          <div className="gold-divider" />
-          <p className="menu-header__sub">65 creaciones · 9 categorías · Ingredientes premium</p>
+      {/* HERO */}
+      <div className="mhero">
+        <div className="mhero-bg" style={{ backgroundImage: `url(/images/bar.jpg)` }} />
+        <div className="mhero-ov" />
+        <div className="mhero-c">
+          <div className="mhero-tag">Menú completo · 2025</div>
+          <h1 className="mhero-h">La <em>carta</em> de IWA</h1>
         </div>
-      </header>
-
-      <div className="container menu-layout">
-        {/* FILTERS */}
-        <aside className="menu-filters">
-          <div className="menu-search">
-            <input
-              type="text"
-              placeholder="Buscar platillo..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              aria-label="Buscar en el menú"
-            />
-          </div>
-
-          <nav className="menu-cats" aria-label="Categorías">
-            <button
-              className={`menu-cat ${active === 'all' ? 'menu-cat--active' : ''}`}
-              onClick={() => setActive('all')}
-            >
-              Todos
-              <span className="menu-cat__count">{MENU_ITEMS.length}</span>
-            </button>
-            {ALL_CATEGORIES.map(cat => {
-              const meta = CATEGORY_META[cat];
-              const count = MENU_ITEMS.filter(i => i.category === cat).length;
-              return (
-                <button
-                  key={cat}
-                  className={`menu-cat ${active === cat ? 'menu-cat--active' : ''}`}
-                  onClick={() => setActive(cat)}
-                >
-                  <span className="menu-cat__jp">{meta.jp}</span>
-                  {meta.label}
-                  <span className="menu-cat__count">{count}</span>
-                </button>
-              );
-            })}
-          </nav>
-        </aside>
-
-        {/* ITEMS */}
-        <main className="menu-items">
-          {grouped.map(([cat, items]) => {
-            const meta = CATEGORY_META[cat];
-            return (
-              <section key={cat} className="menu-section" id={cat}>
-                <div className="menu-section__head">
-                  <span className="section-jp">{meta.jp}</span>
-                  <h2 className="menu-section__title">{meta.label}</h2>
-                  {meta.desc && <p className="menu-section__desc">{meta.desc}</p>}
-                </div>
-
-                <div className="menu-grid">
-                  {items.map(item => {
-                    const badgeClass = item.isSignature ? 'badge badge--signature'
-                      : item.isGlutenFree ? 'badge badge--gf'
-                      : item.isChefPick ? 'badge badge--chef'
-                      : 'badge';
-
-                    return (
-                      <article
-                        key={item.id}
-                        className="menu-card"
-                        onClick={() => setSelected(item)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => { if (e.key === 'Enter') setSelected(item); }}
-                      >
-                        <div className="menu-card__img">
-                          <img src={`/images/${item.image}`} alt={item.name} loading="lazy" />
-                        </div>
-                        <div className="menu-card__body">
-                          <span className={badgeClass}>{item.badge}</span>
-                          <h3 className="menu-card__name">{item.name}</h3>
-                          <p className="menu-card__desc">{item.description}</p>
-                          <p className="menu-card__price">{item.price}</p>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </section>
-            );
-          })}
-
-          {filtered.length === 0 && (
-            <div className="menu-empty">
-              <p>No se encontraron platillos.</p>
-            </div>
-          )}
-        </main>
       </div>
 
-      <MenuModal item={selected} onClose={() => setSelected(null)} />
+      {/* CATEGORY NAV */}
+      <div className="ctnav" id="ctnav">
+        {ALL_TABS.map(t => (
+          <button key={t.id} className={`cb ${activeTab === t.id ? 'on' : ''}`} onClick={() => scrollTo(t.id)}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* MAIN BODY */}
+      <div className="mb" ref={mbRef}>
+        {CATEGORY_ORDER.map((cat, idx) => {
+          const meta = CATEGORIES[cat];
+          const items = byCategory(cat);
+
+          return (
+            <div key={cat}>
+              {idx > 0 && (
+                <div className="mdiv"><div className="mdl" /><div className="mdm">{meta.divider}</div><div className="mdl" /></div>
+              )}
+              <div className="ms" id={cat}>
+                <div className="sh">
+                  <div className="sn">{meta.num}</div>
+                  <div>
+                    <div className="sjp">{meta.jp}</div>
+                    <div className="st">{meta.label}</div>
+                    {meta.desc && <div className="sd">{meta.desc}</div>}
+                  </div>
+                </div>
+
+                {meta.layout === 'nigiri' ? (
+                  /* NIGIRI ROW LAYOUT */
+                  <div className="ng">
+                    {items.map(item => (
+                      <div className="ni" key={item.id} onClick={() => openModal(item)}>
+                        <img className="nth" src={`/images/${item.image}`} alt={item.name} />
+                        <div className="nb">
+                          <div className="nn">{item.name}</div>
+                          <div className="ns">{item.desc}</div>
+                          <div className="np">{item.price}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* STANDARD 3-COL GRID */
+                  <div className={`ig ${meta.cols === 2 ? 'ig2' : ''}`}>
+                    {items.map(item => (
+                      <div className="item" key={item.id} onClick={() => openModal(item)}>
+                        <div className="item-img-wrap">
+                          <img className="item-img" src={`/images/${item.image}`} alt={item.name} />
+                        </div>
+                        <div className="ib">
+                          <div className="ibadge">{item.badge}</div>
+                          <div className="iname">{item.name}</div>
+                          <div className="idesc">{item.desc}</div>
+                          <div className="ifooter">
+                            <span className="iprice">{item.price}</span>
+                            <div className="iarrow">→</div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+
+        {/* DRINKS SECTIONS */}
+        {DRINKS.map((section: DrinkSection) => (
+          <div key={section.id}>
+            <div className="mdiv"><div className="mdl" /><div className="mdm">{section.divider}</div><div className="mdl" /></div>
+            <div className="ms" id={section.id}>
+              <div className="sh">
+                <div className="sn">{section.num}</div>
+                <div>
+                  <div className="sjp">{section.jp}</div>
+                  <div className="st">{section.title}</div>
+                </div>
+              </div>
+              <div className="lc">
+                {section.cols.map((col: DrinkGroup[], ci: number) => (
+                  <div key={ci}>
+                    {col.map((group: DrinkGroup) => (
+                      <div className="lg" key={group.label}>
+                        <div className="lgt">{group.label}</div>
+                        {group.items.map((d, di) => (
+                          <div className="lr" key={di}>
+                            <div>
+                              <div className="ln">{d.name}</div>
+                              {d.sub && <div className="lsub">{d.sub}</div>}
+                            </div>
+                            <div className="lp">{d.price}</div>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className="notice">
+        "El consumo de mariscos crudos o poco cocidos puede aumentar el riesgo de enfermedades transmisibles por los alimentos o causar alergias severas en algunas personas."
+      </p>
+
+      <MenuModal item={modal} onClose={() => setModal(null)} />
     </div>
   );
 }
