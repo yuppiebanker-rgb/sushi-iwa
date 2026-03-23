@@ -1,9 +1,12 @@
-import { useState, useMemo, useRef, useCallback } from 'react';
+import { useState, useMemo, useRef, useCallback, type KeyboardEvent } from 'react';
 import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, DRINKS, type MenuItem, type MenuCategory, type DrinkSection, type DrinkGroup } from '../data/menu';
+import { IMAGE_ALTS } from '../data/imageAlts';
 import MenuModal from '../components/MenuModal';
-import ReservationFlow from '../components/ReservationFlow';
+import SeasonalBadge from '../components/SeasonalBadge';
 import SEO from '../components/SEO';
+import { useRevealAll } from '../hooks/useScrollReveal';
 import './Menu.css';
+import '../styles/menu-effects.css';
 
 type Filter = 'all' | 'firma' | 'gf' | 'spicy' | 'chef';
 const FILTERS: { id: Filter; label: string }[] = [
@@ -42,6 +45,8 @@ export default function Menu() {
   const [resOpen, setResOpen] = useState(false);
   const [resNote, setResNote] = useState('');
 
+  useRevealAll();
+
   const filtered = useMemo(() => {
     let items = MENU_ITEMS;
     if (filter !== 'all') items = items.filter(i => matchesFilter(i, filter));
@@ -69,8 +74,9 @@ export default function Menu() {
   return (
     <div className="menu-page">
       <SEO
-        title="Menú — Sushi IWA | Rollos, Sashimi, Curricanes"
-        description="Carta completa de Sushi IWA: 65 platillos, desde curricanes de firma hasta rollos especiales, sashimi premium y sake japonés."
+        title="Menú — Sushi IWA | Rollos, Sashimi, Curricanes, Nigiris"
+        description="Menú completo de Sushi IWA: curricanes, sashimi, rollos gluten-free, nigiris y temaki. Ingredientes premium. Monterrey, San Pedro Garza García."
+        keywords="menu sushi monterrey, rollos sushi san pedro, sashimi monterrey, curricanes sushi, menu japones spgg"
         path="/menu"
       />
       {/* HERO */}
@@ -124,12 +130,12 @@ export default function Menu() {
             <div className="ms">
               <div className="ig filtered-grid">
                 {filtered.map(item => (
-                  <div className="item item-fade" key={item.id} onClick={() => openModal(item)}>
+                  <div className="item item-fade menu-card" key={item.id} onClick={() => openModal(item)}>
                     <div className="item-img-wrap">
                       <img className="item-img" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
                     </div>
                     <div className="ib">
-                      <div className="ibadge">{item.badge}{eighted[item.id] && <span className="i86">Agotado</span>}</div>
+                      <div className="ibadge">{item.badge}{item.isSeasonal && <> <SeasonalBadge /></>}{eighted[item.id] && <span className="i86">Agotado</span>}</div>
                       <div className={`iname ${eighted[item.id] ? 'i86-name' : ''}`}>{item.name}</div>
                       <div className="idesc">{item.desc}</div>
                       <div className="ifooter">
@@ -156,7 +162,7 @@ export default function Menu() {
                   {idx > 0 && (
                     <div className="mdiv"><div className="mdl" /><div className="mdm">{meta.divider}</div><div className="mdl" /></div>
                   )}
-                  <div className="ms" id={cat}>
+                  <div data-reveal className="ms" id={cat}>
                     <div className="sh">
                       <div className="sn">{meta.num}</div>
                       <div>
@@ -169,7 +175,7 @@ export default function Menu() {
                     {meta.layout === 'nigiri' ? (
                       <div className="ng">
                         {items.map(item => (
-                          <div className="ni item-fade" key={item.id} onClick={() => openModal(item)}>
+                          <div className="ni item-fade nigiri-row" key={item.id} onClick={() => openModal(item)}>
                             <img className="nth" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
                             <div className="nb">
                               <div className="nn">{item.name}</div>
@@ -182,12 +188,12 @@ export default function Menu() {
                     ) : (
                       <div className={`ig ${meta.cols === 2 ? 'ig2' : ''}`}>
                         {items.map(item => (
-                          <div className="item item-fade" key={item.id} onClick={() => openModal(item)}>
+                          <div className="item item-fade menu-card" key={item.id} onClick={() => openModal(item)}>
                             <div className="item-img-wrap">
                               <img className="item-img" src={`/images/${item.image}`} alt={item.name} loading="lazy" />
                             </div>
                             <div className="ib">
-                              <div className="ibadge">{item.badge}</div>
+                              <div className="ibadge">{item.badge}{item.isSeasonal && <> <SeasonalBadge /></>}</div>
                               <div className="iname">{item.name}</div>
                               <div className="idesc">{item.desc}</div>
                               <div className="ifooter">
@@ -208,7 +214,7 @@ export default function Menu() {
             {DRINKS.map((section: DrinkSection) => (
               <div key={section.id}>
                 <div className="mdiv"><div className="mdl" /><div className="mdm">{section.divider}</div><div className="mdl" /></div>
-                <div className="ms" id={section.id}>
+                <div data-reveal className="ms" id={section.id}>
                   <div className="sh">
                     <div className="sn">{section.num}</div>
                     <div>

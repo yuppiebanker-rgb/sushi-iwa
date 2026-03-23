@@ -1,3 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /iwa-staff
+Disallow: /iwa-staff/
+Disallow: /iwa-staff/*
+
 Sitemap: https://sushiiwa.mx/sitemap.xml
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /iwa-staff

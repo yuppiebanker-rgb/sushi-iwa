@@ -1,5 +1,6 @@
 import LocationCard, { type LocationData } from '../components/LocationCard';
 import SEO from '../components/SEO';
+import { useRevealAll } from '../hooks/useScrollReveal';
 import './Locations.css';
 
 const LOCATIONS: LocationData[] = [
@@ -34,11 +35,14 @@ const LOCATIONS: LocationData[] = [
 ];
 
 export default function Locations() {
+  useRevealAll();
+
   return (
     <div className="loc-page">
       <SEO
         title="Ubicaciones — Sushi IWA | Monterrey, Saltillo, Hermosillo"
-        description="Encuentra Sushi IWA en Monterrey, Saltillo, Hermosillo y Cd. Obregón. Próximamente en Mazatlán."
+        description="Encuentra Sushi IWA cerca de ti: San Pedro Garza García Monterrey, Saltillo, Hermosillo y Ciudad Obregón. Próximamente en Mazatlán."
+        keywords="sushi iwa monterrey ubicacion, sushi san pedro fundadores 955, restaurante japones sienna tower"
         path="/ubicaciones"
       />
       <div className="loc-hero">
@@ -50,9 +54,9 @@ export default function Locations() {
         </div>
       </div>
 
-      <div className="loc-grid">
+      <div className="loc-grid reveal-group">
         {LOCATIONS.map(loc => (
-          <LocationCard key={loc.city} loc={loc} />
+          <div data-reveal key={loc.city}><LocationCard loc={loc} /></div>
         ))}
       </div>
     </div>

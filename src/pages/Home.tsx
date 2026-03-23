@@ -2,16 +2,23 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
+import HeroVideo from '../components/HeroVideo';
 import InstagramFeed from '../components/InstagramFeed';
 import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
+import CustomerQuotes from '../components/CustomerQuotes';
+import PressStrip from '../components/PressStrip';
 import './Home.css';
+import '../styles/menu-effects.css';
+import { useRevealAll } from '../hooks/useScrollReveal';
 
 export default function Home() {
   const { t } = useTranslation();
   const [resOpen, setResOpen] = useState(false);
   const [showFab, setShowFab] = useState(false);
   const preOrderCount = getPreOrder().length;
+
+  useRevealAll();
 
   useEffect(() => {
     const onScroll = () => {
@@ -26,8 +33,9 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Sushi IWA — Cocina Japonesa · San Pedro, Monterrey"
-        description="Cocina japonesa de autor en San Pedro Garza García. Rolls de firma, sashimi premium, curricanes icónicos y sake bar."
+        title="Sushi IWA — Mejor Sushi de San Pedro Garza García, Monterrey"
+        description="Restaurante japonés en el corazón de SPGG. Curricanes de salmón, hamachi jalapeño, rollos especiales y sake. Reserva tu mesa hoy. 4.6★ Google."
+        keywords="sushi san pedro garza garcia, mejor sushi monterrey, restaurante japones spgg, curricanes sushi, hamachi jalapeño monterrey, sushi iwa monterrey, japonés san pedro"
         path="/"
       />
       {/* TICKER */}
@@ -43,8 +51,11 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero">
-        <div className="hero-bg" style={{ backgroundImage: `url(/images/bar.jpg)` }} />
-        <div className="hero-overlay" />
+        <HeroVideo
+          videoSrc={undefined}
+          posterSrc="/images/bar.jpg"
+          overlayOpacity={0.45}
+        />
         <div className="hero-pattern" />
         <div className="hero-jp-watermark">岩</div>
         <div className="hero-content">
@@ -52,10 +63,10 @@ export default function Home() {
             <div className="hero-line" />
             <span>{t('hero.eyebrow')}</span>
           </div>
-          <h1 className="hero-title">{t('hero.title1')}<em>{t('hero.titleEm')}</em><br />{t('hero.title2')}</h1>
-          <p className="hero-subtitle">{t('hero.subtitle')}</p>
-          <p className="hero-desc">{t('hero.desc')}</p>
-          <div className="hero-actions">
+          <h1 className="hero-title hero-text">{t('hero.title1')}<em>{t('hero.titleEm')}</em><br />{t('hero.title2')}</h1>
+          <p className="hero-subtitle hero-sub">{t('hero.subtitle')}</p>
+          <p className="hero-desc hero-sub">{t('hero.desc')}</p>
+          <div className="hero-actions hero-cta">
             <button className="btn-gold" onClick={() => setResOpen(true)}>{t('hero.reserveNow')}</button>
             <Link to="/menu" className="btn-ghost">{t('hero.viewMenu')}</Link>
           </div>
@@ -66,11 +77,14 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PRESS STRIP */}
+      <PressStrip />
+
       <div className="divider"><div className="divider-line" /><span className="divider-mark">一</span><div className="divider-line" /></div>
 
       {/* PHILOSOPHY */}
       <section className="philosophy" id="nosotros">
-        <div>
+        <div data-reveal="left">
           <div className="section-tag"><div className="section-tag-line" /><span>{t('philosophy.tag')}</span></div>
           <h2>{t('philosophy.title1')}<em>{t('philosophy.titleEm')}</em><br />{t('philosophy.title2')}</h2>
           <p>{t('philosophy.p1')}</p>
@@ -80,7 +94,7 @@ export default function Home() {
             <div className="stat"><div className="stat-num">4.6★</div><div className="stat-label">{t('philosophy.rating')}</div></div>
           </div>
         </div>
-        <div className="chef-frame">
+        <div data-reveal="right" className="chef-frame">
           <div className="chef-corner"><span>岩</span></div>
           <img className="chef-img" src="/images/chef-plating.jpg" alt="Chef IWA preparando" />
           <div className="chef-badge">
@@ -91,22 +105,22 @@ export default function Home() {
       </section>
 
       {/* GALLERY STRIP */}
-      <div className="gallery">
-        <div className="gallery-cell"><img src="/images/curricanes-spoons.jpg" alt="Sushi IWA" /></div>
-        <div className="gallery-cell"><img src="/images/hamachi-jalap.jpg" alt="Sushi IWA" /></div>
-        <div className="gallery-cell"><img src="/images/iwa-roll.jpg" alt="Sushi IWA" /></div>
-        <div className="gallery-cell"><img src="/images/no-name.jpg" alt="Sushi IWA" /></div>
+      <div className="gallery reveal-group">
+        <div data-reveal className="gallery-cell gallery-item"><img src="/images/curricanes-spoons.jpg" alt="Sushi IWA" /></div>
+        <div data-reveal className="gallery-cell gallery-item"><img src="/images/hamachi-jalap.jpg" alt="Sushi IWA" /></div>
+        <div data-reveal className="gallery-cell gallery-item"><img src="/images/iwa-roll.jpg" alt="Sushi IWA" /></div>
+        <div data-reveal className="gallery-cell gallery-item"><img src="/images/no-name.jpg" alt="Sushi IWA" /></div>
       </div>
 
       {/* MENU HIGHLIGHTS */}
       <section className="menu-section" id="menu">
-        <div className="menu-header">
+        <div data-reveal className="menu-header">
           <div>
             <div className="section-tag" style={{ marginBottom: 14 }}><div className="section-tag-line" /><span>Carta</span></div>
             <h2>Nuestros <em>destacados</em></h2>
           </div>
         </div>
-        <div className="menu-grid">
+        <div className="menu-grid reveal-group">
           {[
             { img: 'iwa-roll.jpg', tag: 'Firma · Gluten free disponible', name: 'IWA Roll', desc: 'Callo de hacha + aguacate + pasta de cangrejo, envuelto en lajas de atún.', price: '$310' },
             { img: 'no-name.jpg', tag: 'El legendario', name: 'No Name Roll', desc: 'Aguacate + pepino + pasta de cangrejo por dentro, envuelto de salmón con topping de salmón spicy.', price: '$385' },
@@ -114,7 +128,7 @@ export default function Home() {
             { img: 'fermedina.jpg', tag: "Chef's Pick", name: "Fermedina's Roll", desc: 'Spicy kanikama + atún + salmón + hamachi + aguacate, envuelto en pepino.', price: '$310' },
             { img: 'hamachi-jalap.jpg', tag: 'Del mar · Directo', name: 'Sashimi Hamachi', desc: 'Hamachi, hamachi jalapeño o curry. Pescado de temporada seleccionado diariamente.', price: '$325' },
           ].map((item, i) => (
-            <div className="menu-item" key={i}>
+            <div data-reveal className="menu-item menu-card" key={i}>
               <div className="menu-thumb-wrap"><img className="menu-thumb" src={`/images/${item.img}`} alt={item.name} /></div>
               <div className="menu-body">
                 <div className="menu-tag">{item.tag}</div>
@@ -124,40 +138,43 @@ export default function Home() {
               </div>
             </div>
           ))}
-          <Link to="/menu" className="menu-item menu-more">
+          <Link to="/menu" className="menu-item menu-more" data-reveal>
             <div className="menu-more-arrow">→</div>
             <span>Ver menú completo</span>
           </Link>
         </div>
       </section>
 
+      {/* CUSTOMER QUOTES */}
+      <CustomerQuotes />
+
       {/* INSTAGRAM FEED */}
       <InstagramFeed />
 
       {/* LOCATIONS */}
       <section className="locations" id="ubicaciones">
-        <div className="section-tag" style={{ marginBottom: 14 }}><div className="section-tag-line" /><span>Ubicaciones</span></div>
-        <h2>Encuéntranos en <em>4 ciudades</em></h2>
-        <div className="locations-grid">
-          <div className="loc">
+        <div data-reveal className="section-tag" style={{ marginBottom: 14 }}><div className="section-tag-line" /><span>Ubicaciones</span></div>
+        <h2 data-reveal>Encuéntranos en <em>4 ciudades</em></h2>
+        <div className="locations-grid reveal-group">
+          <div data-reveal className="loc location-card">
             <div className="loc-num">01</div>
             <div className="loc-city">Monterrey</div>
             <div className="loc-state">Nuevo León</div>
             <div className="loc-info">Av. Fundadores 955<br />Sienna Tower, 2° piso<br />+52 81 1123 9849<br /><br />L·Mi·J·V·S·D 1:45–10:30pm<br />Cerramos los martes</div>
           </div>
-          <div className="loc">
+          <div data-reveal className="loc location-card">
             <div className="loc-num">02</div>
             <div className="loc-city">Saltillo</div>
             <div className="loc-state">Coahuila</div>
             <div className="loc-info">@iwa.saltillo<br /><br />Lu–Mi 1:30–11:30pm<br />J–S 1:30pm–12:30am<br />D 1:30–7:00pm</div>
           </div>
-          <div className="loc">
+          <div data-reveal className="loc location-card">
             <div className="loc-num">03</div>
             <div className="loc-city">Hermosillo</div>
             <div className="loc-state">Sonora</div>
             <div className="loc-info">@iwa.hmo<br />(662) 191 8131<br /><br />M–Mi 1–12am<br />J–S 1pm–2am<br />D 1–11pm · L cerrado</div>
           </div>
-          <div className="loc">
+          <div data-reveal className="loc location-card">
             <div className="loc-soon">Próximamente</div>
             <div className="loc-num" style={{ opacity: 0.28 }}>04</div>
             <div className="loc-city" style={{ opacity: 0.45 }}>Mazatlán</div>
@@ -169,7 +186,7 @@ export default function Home() {
 
       {/* RESERVATION */}
       <section className="reservation" id="reservar">
-        <div className="reservation-left">
+        <div data-reveal="left" className="reservation-left">
           <div className="section-tag" style={{ marginBottom: 26 }}><div className="section-tag-line" /><span>{t('reservation.tag')}</span></div>
           <h2>{t('reservation.title1')}<br /><em>{t('reservation.titleEm')}</em></h2>
           <p>{t('reservation.desc')}</p>
@@ -178,7 +195,7 @@ export default function Home() {
           <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>{t('reservation.schedule')}</p><span>{t('reservation.scheduleValue')}</span></div></div>
           <div className="contact-row" style={{ marginTop: 8 }}><div className="contact-icon">@</div><div className="contact-text"><p>Instagram</p><span>@sushi.iwa</span></div></div>
         </div>
-        <div className="form-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '60px 38px' }}>
+        <div data-reveal="right" className="form-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '60px 38px' }}>
           <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16 }}>岩</div>
           <div className="form-title" style={{ marginBottom: 12 }}>{t('reservation.formTitle')}</div>
           <p style={{ fontSize: 13, color: 'rgba(244,239,230,0.48)', lineHeight: 1.7, marginBottom: 28, maxWidth: 320 }}>
@@ -191,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* FLOATING RESERVE BUTTON — mobile only */}
-      <button className={`fab-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
+      <button className={`fab-reserve floating-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
         <span className="fab-jp">岩</span> Reservar Mesa{preOrderCount > 0 ? ` (${preOrderCount})` : ''}
       </button>
 

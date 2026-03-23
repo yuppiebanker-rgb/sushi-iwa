@@ -16,40 +16,86 @@
     <link rel="preload" href="/fonts/cormorant-300i.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
     <title>Sushi IWA — Cocina Japonesa · Monterrey</title>
+    <link rel="alternate" hreflang="es-MX" href="https://sushiiwa.mx/" />
+    <link rel="alternate" hreflang="en" href="https://sushiiwa.mx/" />
+    <link rel="alternate" hreflang="x-default" href="https://sushiiwa.mx/" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "name": "Sushi IWA",
-      "description": "Cocina japonesa de autor en el corazón de San Pedro Garza García, Monterrey.",
-      "url": "https://sushiiwa.mx",
-      "telephone": "+528111239849",
-      "servesCuisine": "Japanese",
-      "priceRange": "$$$",
-      "image": "https://sushiiwa.mx/images/chef-rolling.jpg",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Av. Fundadores 955",
-        "addressLocality": "San Pedro Garza García",
-        "addressRegion": "Nuevo León",
-        "addressCountry": "MX"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.6541,
-        "longitude": -100.3677
-      },
-      "openingHoursSpecification": [
-        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "13:45", "closes": "22:30" }
-      ],
-      "sameAs": [
-        "https://www.instagram.com/sushi.iwa",
-        "https://www.facebook.com/sushi.iwa"
+      "@graph": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://sushiiwa.mx/#restaurant",
+          "name": "Sushi IWA",
+          "alternateName": "いわ",
+          "description": "Cocina japonesa de autor en el corazón de San Pedro Garza García. Especialistas en sushi premium, curricanes, sashimi y sake.",
+          "url": "https://sushiiwa.mx",
+          "telephone": "+528111239849",
+          "email": "sushi.iwa@hotmail.com",
+          "servesCuisine": ["Japanese", "Sushi", "Asian Fusion"],
+          "priceRange": "$$$",
+          "currenciesAccepted": "MXN",
+          "paymentAccepted": "Cash, Credit Card",
+          "image": [
+            "https://sushiiwa.mx/images/chef-rolling.jpg",
+            "https://sushiiwa.mx/images/interior.jpg",
+            "https://sushiiwa.mx/images/nigiri-selection.jpg"
+          ],
+          "logo": "https://sushiiwa.mx/images/bar.jpg",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Av. Fundadores 955, Sienna Tower, 2° piso",
+            "addressLocality": "San Pedro Garza García",
+            "addressRegion": "Nuevo León",
+            "postalCode": "66278",
+            "addressCountry": "MX"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 25.6541,
+            "longitude": -100.3677
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.6",
+            "reviewCount": "847",
+            "bestRating": "5"
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+              "opens": "13:45",
+              "closes": "22:30"
+            }
+          ],
+          "hasMap": "https://maps.google.com/?q=Sushi+IWA+Monterrey",
+          "menu": "https://sushiiwa.mx/menu",
+          "reservations": "https://sushiiwa.mx/#reservar",
+          "sameAs": [
+            "https://www.instagram.com/sushi.iwa",
+            "https://sushiiwa.mx"
+          ],
+          "keywords": "sushi monterrey, sushi san pedro garza garcia, restaurante japones monterrey, curricanes sushi, hamachi jalapeño"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://sushiiwa.mx/#website",
+          "url": "https://sushiiwa.mx",
+          "name": "Sushi IWA",
+          "inLanguage": ["es-MX", "en"],
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://sushiiwa.mx/menu?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
       ]
     }
     </script>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Ir al contenido principal</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
