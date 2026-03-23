@@ -48,6 +48,18 @@
 }
 .nav-cta:hover { background: var(--gold); color: var(--ink); }
 
+.nav-right { display: flex; align-items: center; gap: 18px; }
+
+.lang-toggle {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-b); font-size: 9px; font-weight: 400;
+  letter-spacing: 0.15em; display: flex; align-items: center; gap: 4px;
+  padding: 0;
+}
+.lang-toggle span { color: var(--mist); transition: color 0.2s; }
+.lang-sep { color: rgba(184,146,42,0.25); }
+.lang-active { color: var(--gold) !important; }
+
 @media (max-width: 768px) {
   .nav { padding: 14px 20px; }
   .nav-links { gap: 16px; }

@@ -1,4 +1,5 @@
 // TODO: Replace with live Instagram Basic Display API feed once OAuth credentials are obtained from the client
+import { useTranslation } from 'react-i18next';
 import './InstagramFeed.css';
 
 const CURATED = [
@@ -10,6 +11,7 @@ const CURATED = [
 const IG_URL = 'https://instagram.com/sushi.iwa';
 
 export default function InstagramFeed() {
+  const { t } = useTranslation();
   return (
     <section className="ig-feed">
       <div className="ig-header">
@@ -21,8 +23,8 @@ export default function InstagramFeed() {
           </svg>
         </div>
         <div>
-          <div className="ig-title">Síguenos · @sushi.iwa</div>
-          <div className="ig-sub">Fotos del día, behind the scenes, y más</div>
+          <div className="ig-title">{t('ig.title')}</div>
+          <div className="ig-sub">{t('ig.sub')}</div>
         </div>
       </div>
 
@@ -39,7 +41,7 @@ export default function InstagramFeed() {
 
       <div className="ig-cta-wrap">
         <a className="ig-cta" href={IG_URL} target="_blank" rel="noopener noreferrer">
-          Ver en Instagram →
+          {t('ig.cta')}
         </a>
       </div>
     </section>

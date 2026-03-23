@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "menu": "Menú",
+    "locations": "Ubicaciones",
+    "gallery": "Galería",
+    "reserve": "Reservar",
+    "home": "Inicio",
+    "about": "Nosotros",
+    "reservations": "Reservaciones"
+  },
+  "hero": {
+    "eyebrow": "Cocina Japonesa · Sake Bar · San Pedro, Monterrey",
+    "title1": "Donde el ",
+    "titleEm": "silencio",
+    "title2": " habla en sabor",
+    "subtitle": "い わ — la roca",
+    "desc": "Una experiencia íntima de cocina japonesa en el corazón de San Pedro. Rolls de autor, nigiri de altura, y curricanes que no olvidarás.",
+    "reserveNow": "Reservar Ahora",
+    "viewMenu": "Ver Menú"
+  },
+  "ticker": {
+    "comingSoon": "Próximamente",
+    "location": "5ta ubicación · Sinaloa"
+  },
+  "philosophy": {
+    "tag": "Nuestra filosofía",
+    "title1": "El arte de lo ",
+    "titleEm": "simple",
+    "title2": " ejecutado en perfección",
+    "p1": "Desde 2020, Sushi IWA ha sido el secreto mejor guardado de Monterrey. Escondido en el segundo piso de Sienna Tower, nuestro bar ofrece una experiencia única donde el chef trabaja frente a ti.",
+    "p2": "Pescado de primera calidad, arroz templado, y técnica japonesa auténtica fusionada con el paladar regio. No es sushi de franquicia — es IWA.",
+    "cities": "Ciudades",
+    "rating": "Calificación",
+    "chefTag": "Chef · Barra abierta",
+    "chefTitle": "Experiencia frente al chef"
+  },
+  "menuSection": {
+    "tag": "Carta",
+    "title1": "Nuestros ",
+    "titleEm": "destacados",
+    "viewFull": "Ver menú completo"
+  },
+  "locations": {
+    "tag": "Ubicaciones",
+    "title1": "Encuéntranos en ",
+    "titleEm": "4 ciudades",
+    "closedTuesdays": "Cerramos los martes",
+    "comingSoon": "Próximamente",
+    "openingSoon": "Próxima apertura",
+    "notify": "Regístrate para recibir novedades"
+  },
+  "reservation": {
+    "tag": "Reservaciones",
+    "title1": "Reserva tu",
+    "titleEm": "experiencia",
+    "desc": "El espacio es íntimo — solo 12 lugares en barra. Reserva con anticipación para garantizar tu lugar.",
+    "phone": "Teléfono · WhatsApp",
+    "email": "Email",
+    "schedule": "Horario",
+    "scheduleValue": "L·Mi·J·V·S·D 1:45pm · Cerrado martes",
+    "formTitle": "Solicitar Reservación",
+    "name": "Nombre",
+    "phonePlaceholder": "+52 81 ··· ····",
+    "date": "Fecha",
+    "preferredTime": "Hora preferida",
+    "guests": "Personas",
+    "location": "Ubicación",
+    "occasion": "Ocasión especial (opcional)",
+    "submit": "Enviar Solicitud →"
+  },
+  "ig": {
+    "title": "Síguenos · @sushi.iwa",
+    "sub": "Fotos del día, behind the scenes, y más",
+    "cta": "Ver en Instagram →"
+  },
+  "footer": {
+    "tagline": "Cocina japonesa de autor en el corazón de San Pedro Garza García, Monterrey. いわ.",
+    "navigation": "Navegación",
+    "contact": "Contacto",
+    "rights": "Sushi IWA. Todos los derechos reservados."
+  },
+  "menuPage": {
+    "tag": "Menú completo · 2025",
+    "title1": "La ",
+    "titleEm": "carta",
+    "title2": " de IWA",
+    "search": "Buscar platillo...",
+    "all": "Todos",
+    "firma": "Firma",
+    "gf": "Gluten Free",
+    "spicy": "Spicy",
+    "chef": "Chef's Pick",
+    "empty": "No encontramos ese platillo 🥢",
+    "notice": "\"El consumo de mariscos crudos o poco cocidos puede aumentar el riesgo de enfermedades transmisibles por los alimentos o causar alergias severas en algunas personas.\""
+  },
+  "categories": {
+    "entradas": "Entradas",
+    "sashimi": "Sashimi",
+    "curricanes": "Curricanes",
+    "nigiris": "Nigiris",
+    "temaki": "Temaki · Conos",
+    "rollos-gf": "Rollos Gluten Free · Sin Arroz",
+    "rollos-esp": "Rollos Especiales",
+    "platos": "Platos Fuertes",
+    "postres": "Postres"
+  }
+}

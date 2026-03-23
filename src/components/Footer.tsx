@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Footer.css';
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="footer">
       <div className="footer-main">
@@ -9,18 +11,18 @@ export default function Footer() {
           <div className="footer-brand-name">SUSHI IWA</div>
           <div className="footer-brand-jp">い わ</div>
           <p className="footer-tagline">
-            Cocina japonesa de autor en el corazón de San Pedro Garza García, Monterrey. いわ.
+            {t('footer.tagline')}
           </p>
         </div>
         <div className="footer-col">
-          <h4>Navegación</h4>
-          <Link to="/menu">Menú</Link>
-          <a href="#nosotros">Nosotros</a>
-          <a href="#ubicaciones">Ubicaciones</a>
-          <a href="#reservar">Reservaciones</a>
+          <h4>{t('footer.navigation')}</h4>
+          <Link to="/menu">{t('nav.menu')}</Link>
+          <a href="#nosotros">{t('nav.about')}</a>
+          <a href="#ubicaciones">{t('nav.locations')}</a>
+          <a href="#reservar">{t('nav.reservations')}</a>
         </div>
         <div className="footer-col">
-          <h4>Contacto</h4>
+          <h4>{t('footer.contact')}</h4>
           <a href="https://instagram.com/sushi.iwa" target="_blank" rel="noopener noreferrer">@sushi.iwa</a>
           <a href="tel:+528111239849">+52 81 1123 9849</a>
           <a href="https://wa.me/528111239849" target="_blank" rel="noopener noreferrer">WhatsApp</a>
@@ -28,7 +30,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Sushi IWA. Todos los derechos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} {t('footer.rights')}</p>
         <div className="socials">
           <a className="social" href="https://instagram.com/sushi.iwa" target="_blank" rel="noopener noreferrer">IG</a>
           <a className="social" href="https://wa.me/528111239849" target="_blank" rel="noopener noreferrer">WA</a>

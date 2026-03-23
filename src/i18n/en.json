@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "menu": "Menu",
+    "locations": "Locations",
+    "gallery": "Gallery",
+    "reserve": "Reserve",
+    "home": "Home",
+    "about": "About",
+    "reservations": "Reservations"
+  },
+  "hero": {
+    "eyebrow": "Japanese Cuisine · Sake Bar · San Pedro, Monterrey",
+    "title1": "Where ",
+    "titleEm": "silence",
+    "title2": " speaks in flavor",
+    "subtitle": "い わ — the rock",
+    "desc": "An intimate Japanese dining experience in the heart of San Pedro. Signature rolls, premium nigiri, and curricanes you won't forget.",
+    "reserveNow": "Reserve Now",
+    "viewMenu": "View Menu"
+  },
+  "ticker": {
+    "comingSoon": "Coming Soon",
+    "location": "5th location · Sinaloa"
+  },
+  "philosophy": {
+    "tag": "Our philosophy",
+    "title1": "The art of ",
+    "titleEm": "simplicity",
+    "title2": " executed to perfection",
+    "p1": "Since 2020, Sushi IWA has been Monterrey's best-kept secret. Hidden on the second floor of Sienna Tower, our bar offers a unique experience where the chef works right in front of you.",
+    "p2": "First-quality fish, warm rice, and authentic Japanese technique fused with the local palate. This isn't franchise sushi — this is IWA.",
+    "cities": "Cities",
+    "rating": "Rating",
+    "chefTag": "Chef · Open bar",
+    "chefTitle": "Experience with the chef"
+  },
+  "menuSection": {
+    "tag": "Menu",
+    "title1": "Our ",
+    "titleEm": "highlights",
+    "viewFull": "View full menu"
+  },
+  "locations": {
+    "tag": "Locations",
+    "title1": "Find us in ",
+    "titleEm": "4 cities",
+    "closedTuesdays": "Closed Tuesdays",
+    "comingSoon": "Coming Soon",
+    "openingSoon": "Opening soon",
+    "notify": "Sign up for updates"
+  },
+  "reservation": {
+    "tag": "Reservations",
+    "title1": "Reserve your",
+    "titleEm": "experience",
+    "desc": "The space is intimate — only 12 bar seats. Reserve in advance to guarantee your spot.",
+    "phone": "Phone · WhatsApp",
+    "email": "Email",
+    "schedule": "Hours",
+    "scheduleValue": "Mon·Wed·Thu·Fri·Sat·Sun 1:45pm · Closed Tuesdays",
+    "formTitle": "Request Reservation",
+    "name": "Name",
+    "phonePlaceholder": "+52 81 ··· ····",
+    "date": "Date",
+    "preferredTime": "Preferred time",
+    "guests": "Guests",
+    "location": "Location",
+    "occasion": "Special occasion (optional)",
+    "submit": "Send Request →"
+  },
+  "ig": {
+    "title": "Follow us · @sushi.iwa",
+    "sub": "Daily photos, behind the scenes, and more",
+    "cta": "View on Instagram →"
+  },
+  "footer": {
+    "tagline": "Author Japanese cuisine in the heart of San Pedro Garza García, Monterrey. いわ.",
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "rights": "Sushi IWA. All rights reserved."
+  },
+  "menuPage": {
+    "tag": "Full menu · 2025",
+    "title1": "The ",
+    "titleEm": "menu",
+    "title2": " of IWA",
+    "search": "Search dish...",
+    "all": "All",
+    "firma": "Signature",
+    "gf": "Gluten Free",
+    "spicy": "Spicy",
+    "chef": "Chef's Pick",
+    "empty": "We couldn't find that dish 🥢",
+    "notice": "\"Consuming raw or undercooked seafood may increase the risk of foodborne illness or cause severe allergic reactions in some individuals.\""
+  },
+  "categories": {
+    "entradas": "Starters",
+    "sashimi": "Sashimi",
+    "curricanes": "Curricanes",
+    "nigiris": "Nigiri",
+    "temaki": "Temaki Hand Rolls",
+    "rollos-gf": "GF Rolls",
+    "rollos-esp": "Special Rolls",
+    "platos": "Mains",
+    "postres": "Desserts"
+  }
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import InstagramFeed from '../components/InstagramFeed';
 import './Home.css';
@@ -9,6 +10,7 @@ const PEOPLE = ['1', '2', '3', '4', '5', '6+'];
 const LOCS = ['Monterrey — Fundadores', 'Saltillo', 'Hermosillo', 'Cd. Obregón'];
 
 export default function Home() {
+  const { t } = useTranslation();
   const [form, setForm] = useState({ name: '', phone: '', date: '', time: TIMES[0], people: '2', location: LOCS[0], occasion: '' });
 
   return (
@@ -20,11 +22,11 @@ export default function Home() {
       />
       {/* TICKER */}
       <div className="ticker">
-        <span>Próximamente</span>
+        <span>{t('ticker.comingSoon')}</span>
         <div className="dot" />
         <strong>Mazatlán</strong>
         <div className="dot" />
-        <span>5ta ubicación · Sinaloa</span>
+        <span>{t('ticker.location')}</span>
       </div>
 
       {/* HERO */}
@@ -36,14 +38,14 @@ export default function Home() {
         <div className="hero-content">
           <div className="hero-eyebrow">
             <div className="hero-line" />
-            <span>Cocina Japonesa · Sake Bar · San Pedro, Monterrey</span>
+            <span>{t('hero.eyebrow')}</span>
           </div>
-          <h1 className="hero-title">Donde el <em>silencio</em><br />habla en sabor</h1>
-          <p className="hero-subtitle">い わ — la roca</p>
-          <p className="hero-desc">Una experiencia íntima de cocina japonesa en el corazón de San Pedro. Rolls de autor, nigiri de altura, y curricanes que no olvidarás.</p>
+          <h1 className="hero-title">{t('hero.title1')}<em>{t('hero.titleEm')}</em><br />{t('hero.title2')}</h1>
+          <p className="hero-subtitle">{t('hero.subtitle')}</p>
+          <p className="hero-desc">{t('hero.desc')}</p>
           <div className="hero-actions">
-            <button className="btn-gold" onClick={() => document.getElementById('reservar')?.scrollIntoView({ behavior: 'smooth' })}>Reservar Ahora</button>
-            <Link to="/menu" className="btn-ghost">Ver Menú</Link>
+            <button className="btn-gold" onClick={() => document.getElementById('reservar')?.scrollIntoView({ behavior: 'smooth' })}>{t('hero.reserveNow')}</button>
+            <Link to="/menu" className="btn-ghost">{t('hero.viewMenu')}</Link>
           </div>
         </div>
         <div className="scroll-cue">
@@ -57,13 +59,13 @@ export default function Home() {
       {/* PHILOSOPHY */}
       <section className="philosophy" id="nosotros">
         <div>
-          <div className="section-tag"><div className="section-tag-line" /><span>Nuestra filosofía</span></div>
-          <h2>El arte de lo <em>simple</em><br />ejecutado en perfección</h2>
-          <p>Desde 2020, Sushi IWA ha sido el secreto mejor guardado de Monterrey. Escondido en el segundo piso de Sienna Tower, nuestro bar ofrece una experiencia única donde el chef trabaja frente a ti.</p>
-          <p>Pescado de primera calidad, arroz templado, y técnica japonesa auténtica fusionada con el paladar regio. No es sushi de franquicia — es IWA.</p>
+          <div className="section-tag"><div className="section-tag-line" /><span>{t('philosophy.tag')}</span></div>
+          <h2>{t('philosophy.title1')}<em>{t('philosophy.titleEm')}</em><br />{t('philosophy.title2')}</h2>
+          <p>{t('philosophy.p1')}</p>
+          <p>{t('philosophy.p2')}</p>
           <div className="stats">
-            <div className="stat"><div className="stat-num">4</div><div className="stat-label">Ciudades</div></div>
-            <div className="stat"><div className="stat-num">4.6★</div><div className="stat-label">Calificación</div></div>
+            <div className="stat"><div className="stat-num">4</div><div className="stat-label">{t('philosophy.cities')}</div></div>
+            <div className="stat"><div className="stat-num">4.6★</div><div className="stat-label">{t('philosophy.rating')}</div></div>
           </div>
         </div>
         <div className="chef-frame">
@@ -156,33 +158,33 @@ export default function Home() {
       {/* RESERVATION */}
       <section className="reservation" id="reservar">
         <div className="reservation-left">
-          <div className="section-tag" style={{ marginBottom: 26 }}><div className="section-tag-line" /><span>Reservaciones</span></div>
-          <h2>Reserva tu<br /><em>experiencia</em></h2>
-          <p>El espacio es íntimo — solo 12 lugares en barra. Reserva con anticipación para garantizar tu lugar.</p>
-          <div className="contact-row"><div className="contact-icon">✆</div><div className="contact-text"><p>Teléfono · WhatsApp</p><span>+52 81 1123 9849</span></div></div>
-          <div className="contact-row"><div className="contact-icon">✉</div><div className="contact-text"><p>Email</p><span>sushi.iwa@hotmail.com</span></div></div>
-          <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>Horario</p><span>L·Mi·J·V·S·D 1:45pm · Cerrado martes</span></div></div>
+          <div className="section-tag" style={{ marginBottom: 26 }}><div className="section-tag-line" /><span>{t('reservation.tag')}</span></div>
+          <h2>{t('reservation.title1')}<br /><em>{t('reservation.titleEm')}</em></h2>
+          <p>{t('reservation.desc')}</p>
+          <div className="contact-row"><div className="contact-icon">✆</div><div className="contact-text"><p>{t('reservation.phone')}</p><span>+52 81 1123 9849</span></div></div>
+          <div className="contact-row"><div className="contact-icon">✉</div><div className="contact-text"><p>{t('reservation.email')}</p><span>sushi.iwa@hotmail.com</span></div></div>
+          <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>{t('reservation.schedule')}</p><span>{t('reservation.scheduleValue')}</span></div></div>
           <div className="contact-row" style={{ marginTop: 8 }}><div className="contact-icon">@</div><div className="contact-text"><p>Instagram</p><span>@sushi.iwa</span></div></div>
         </div>
         <div className="form-card">
-          <div className="form-title">Solicitar Reservación</div>
+          <div className="form-title">{t('reservation.formTitle')}</div>
           <div className="form-row">
-            <div className="field"><label>Nombre</label><input type="text" placeholder="Tu nombre completo" value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
-            <div className="field"><label>Teléfono / WhatsApp</label><input type="tel" placeholder="+52 81 ··· ····" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} /></div>
+            <div className="field"><label>{t('reservation.name')}</label><input type="text" placeholder="Tu nombre completo" value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
+            <div className="field"><label>{t('reservation.phone')}</label><input type="tel" placeholder="+52 81 ··· ····" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} /></div>
           </div>
           <div className="form-row">
-            <div className="field"><label>Fecha</label><input type="date" value={form.date} onChange={e => setForm({...form, date: e.target.value})} /></div>
-            <div className="field"><label>Hora preferida</label><select value={form.time} onChange={e => setForm({...form, time: e.target.value})}>{TIMES.map(t => <option key={t}>{t}</option>)}</select></div>
+            <div className="field"><label>{t('reservation.date')}</label><input type="date" value={form.date} onChange={e => setForm({...form, date: e.target.value})} /></div>
+            <div className="field"><label>{t('reservation.preferredTime')}</label><select value={form.time} onChange={e => setForm({...form, time: e.target.value})}>{TIMES.map(t => <option key={t}>{t}</option>)}</select></div>
           </div>
           <div className="form-row">
-            <div className="field"><label>Personas</label><select value={form.people} onChange={e => setForm({...form, people: e.target.value})}>{PEOPLE.map(p => <option key={p}>{p}</option>)}</select></div>
-            <div className="field"><label>Ubicación</label><select value={form.location} onChange={e => setForm({...form, location: e.target.value})}>{LOCS.map(l => <option key={l}>{l}</option>)}</select></div>
+            <div className="field"><label>{t('reservation.guests')}</label><select value={form.people} onChange={e => setForm({...form, people: e.target.value})}>{PEOPLE.map(p => <option key={p}>{p}</option>)}</select></div>
+            <div className="field"><label>{t('reservation.location')}</label><select value={form.location} onChange={e => setForm({...form, location: e.target.value})}>{LOCS.map(l => <option key={l}>{l}</option>)}</select></div>
           </div>
-          <div className="field"><label>Ocasión especial (opcional)</label><input type="text" placeholder="Cumpleaños, aniversario..." value={form.occasion} onChange={e => setForm({...form, occasion: e.target.value})} /></div>
-          <button className="form-submit" onClick={() => {
+          <div className="field"><label>{t('reservation.occasion')}</label><input type="text" placeholder="Cumpleaños, aniversario..." value={form.occasion} onChange={e => setForm({...form, occasion: e.target.value})} /></div>
+          <button className="form-submit" type="button" onClick={() => {
             const msg = `Reservación IWA:\n${form.name}\n${form.date} ${form.time}\n${form.people} personas\n${form.location}\n${form.occasion}`;
             window.open(`https://wa.me/528111239849?text=${encodeURIComponent(msg)}`, '_blank');
-          }}>Enviar Solicitud →</button>
+          }}>{t('reservation.submit')}</button>
         </div>
       </section>
     </>
