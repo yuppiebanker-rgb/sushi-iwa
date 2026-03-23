@@ -1,0 +1,57 @@
+.lcard {
+  border: 0.5px solid var(--border);
+  background: var(--ink);
+  transition: border-color 0.3s;
+  overflow: hidden;
+}
+.lcard:hover { border-color: rgba(184,146,42,0.35); }
+.lcard--soon { opacity: 0.65; }
+.lcard-soon-badge {
+  font-size: 7.5px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(200,100,100,0.75); background: rgba(139,26,26,0.12);
+  padding: 6px 14px; border-bottom: 0.5px solid rgba(139,26,26,0.25);
+  text-align: center;
+}
+
+.lcard-map { overflow: hidden; }
+.lcard-map--placeholder {
+  height: 220px; background: var(--warm);
+}
+
+.lcard-body { padding: 28px 24px; }
+.lcard-num {
+  font-family: var(--font-d); font-size: 36px; font-weight: 300;
+  color: rgba(184,146,42,0.12); line-height: 1; margin-bottom: 10px;
+}
+.lcard-city {
+  font-family: var(--font-d); font-size: 24px; font-weight: 300;
+  color: var(--cream); margin-bottom: 3px;
+}
+.lcard-state {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.lcard-address {
+  font-size: 12px; line-height: 1.7; color: rgba(244,239,230,0.45);
+  margin-bottom: 10px;
+}
+.lcard-ig {
+  font-size: 12px; color: var(--gold); margin-bottom: 10px;
+}
+.lcard-hours {
+  font-size: 11px; line-height: 1.8; color: rgba(244,239,230,0.38);
+  margin-bottom: 20px;
+}
+
+.lcard-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.lcard-btn {
+  font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cream); border: 0.5px solid var(--border);
+  padding: 8px 16px; text-decoration: none; font-family: var(--font-b);
+  transition: all 0.2s; cursor: pointer; background: none;
+}
+.lcard-btn:hover { border-color: var(--gold); color: var(--gold); }
+.lcard-btn--gold {
+  background: var(--gold); color: var(--ink); border-color: var(--gold);
+}
+.lcard-btn--gold:hover { background: var(--gold-light); color: var(--ink); }

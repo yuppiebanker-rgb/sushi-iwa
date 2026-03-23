@@ -3,7 +3,7 @@ import './Nav.css';
 
 export default function Nav() {
   const { pathname } = useLocation();
-  const isMenu = pathname === '/menu';
+  const isHome = pathname === '/';
 
   return (
     <nav className="nav">
@@ -12,23 +12,29 @@ export default function Nav() {
         <span className="logo-jp">い わ</span>
       </Link>
 
-      {isMenu ? (
-        <Link className="nav-back" to="/">Inicio</Link>
-      ) : (
-        <ul className="nav-links">
-          <li><a href="#menu">Menú</a></li>
-          <li><a href="#nosotros">Nosotros</a></li>
-          <li><a href="#ubicaciones">Ubicaciones</a></li>
-          <li><a href="#reservar">Reservaciones</a></li>
-        </ul>
-      )}
+      <ul className="nav-links">
+        {isHome ? (
+          <>
+            <li><a href="#menu">Menú</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#ubicaciones">Ubicaciones</a></li>
+            <li><a href="#reservar">Reservaciones</a></li>
+          </>
+        ) : (
+          <>
+            <li><Link to="/">Inicio</Link></li>
+            <li><Link to="/menu">Menú</Link></li>
+            <li><Link to="/ubicaciones">Ubicaciones</Link></li>
+          </>
+        )}
+      </ul>
 
-      {isMenu ? (
-        <Link className="nav-cta" to="/#reservar">Reservar</Link>
-      ) : (
+      {isHome ? (
         <button className="nav-cta" onClick={() => document.getElementById('reservar')?.scrollIntoView({ behavior: 'smooth' })}>
           Reservar
         </button>
+      ) : (
+        <Link className="nav-cta" to="/#reservar">Reservar</Link>
       )}
     </nav>
   );

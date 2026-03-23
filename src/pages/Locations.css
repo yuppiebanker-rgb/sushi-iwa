@@ -1,0 +1,25 @@
+.loc-page { padding-bottom: 80px; }
+
+.loc-hero { position: relative; height: 240px; overflow: hidden; display: flex; align-items: flex-end; padding: 0 48px 36px; }
+.loc-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(0.25) saturate(0.7); }
+.loc-hero-ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.98) 0%, rgba(12,11,9,0.3) 65%, transparent 100%); }
+.loc-hero-c { position: relative; z-index: 2; }
+.loc-hero-tag {
+  font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 9px;
+  display: flex; align-items: center; gap: 13px;
+}
+.loc-hero-tag::before { content: ""; display: block; width: 28px; height: 0.5px; background: var(--gold); }
+.loc-hero-h { font-family: var(--font-d); font-size: clamp(32px, 5vw, 52px); font-weight: 300; line-height: 1; color: var(--cream); }
+.loc-hero-h em { font-style: italic; color: var(--gold-light); }
+
+.loc-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+  background: var(--border); border: 0.5px solid var(--border);
+  margin: 48px 48px 0;
+}
+
+@media (max-width: 768px) {
+  .loc-grid { grid-template-columns: 1fr; margin: 24px 16px 0; }
+  .loc-hero { padding: 0 16px 24px; }
+}

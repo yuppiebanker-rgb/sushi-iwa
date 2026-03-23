@@ -3,6 +3,7 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Menu from './pages/Menu';
+import Locations from './pages/Locations';
 import './styles/tokens.css';
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/ubicaciones" element={<Locations />} />
       </Routes>
       <Footer />
     </>
