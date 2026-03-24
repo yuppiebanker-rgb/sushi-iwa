@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SEO from '../components/SEO';
+import KineticText from '../components/KineticText';
 import './Events.css';
 
 const WA_NUMBER = '528111239849';
@@ -158,7 +159,19 @@ export default function Events() {
         <div className="ev-hero-bg" style={{ backgroundImage: 'url(/images/interior.jpg)' }} />
         <div className="ev-hero-overlay" />
         <div className="ev-hero-content">
-          <h1>Experiencias <em>Privadas</em> · いわ</h1>
+          <KineticText
+            text="Experiencias Privadas · いわ"
+            tag="h1"
+            stagger={70}
+            style={{
+              fontFamily: '"Cormorant Garamond", serif',
+              fontSize: 'clamp(36px, 6vw, 72px)',
+              fontWeight: 300,
+              fontStyle: 'italic',
+              color: '#f4efe6',
+              lineHeight: 1.1,
+            }}
+          />
           <p className="ev-hero-subtitle">特別な体験</p>
           <p className="ev-hero-desc">
             Cenas íntimas. Eventos corporativos. Celebraciones únicas.

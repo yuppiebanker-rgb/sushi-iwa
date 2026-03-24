@@ -123,3 +123,65 @@
   transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
 }
 .gallery-item:hover img { transform: scale(1.06); }
+
+/* ── Photo Desaturate Treatment ── */
+/* All menu card photos: desaturated dark at rest → full color on hover */
+.menu-card .card-img,
+.masonry-img,
+.gallery-item img,
+.nigiri-thumb {
+  filter: brightness(0.72) saturate(0.35);
+  transition: filter 0.55s cubic-bezier(0.22,1,0.36,1),
+              transform 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+.menu-card:hover .card-img,
+.masonry-item:hover .masonry-img,
+.gallery-item:hover img,
+.ni:hover .nigiri-thumb {
+  filter: brightness(0.95) saturate(1.0);
+}
+
+/* ── Stagger entrance for photo grids ── */
+/* When a grid's parent has class 'photo-grid-stagger', each child img
+   gets a progressively longer delay */
+.photo-grid-stagger .menu-card:nth-child(1)  { animation-delay:   0ms; }
+.photo-grid-stagger .menu-card:nth-child(2)  { animation-delay:  80ms; }
+.photo-grid-stagger .menu-card:nth-child(3)  { animation-delay: 160ms; }
+.photo-grid-stagger .menu-card:nth-child(4)  { animation-delay: 240ms; }
+.photo-grid-stagger .menu-card:nth-child(5)  { animation-delay: 320ms; }
+.photo-grid-stagger .menu-card:nth-child(6)  { animation-delay: 400ms; }
+.photo-grid-stagger .menu-card:nth-child(7)  { animation-delay: 480ms; }
+.photo-grid-stagger .menu-card:nth-child(8)  { animation-delay: 560ms; }
+.photo-grid-stagger .menu-card:nth-child(9)  { animation-delay: 640ms; }
+
+.photo-grid-stagger .menu-card {
+  opacity: 0;
+  animation: photoEnter 0.7s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.photo-grid-stagger.visible .menu-card { /* triggered by scroll reveal */ }
+
+@keyframes photoEnter {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Menu page: nigiri row hover ── */
+.ni:hover { background: #131109 !important; }
+.ni:hover .nigiri-thumb {
+  filter: brightness(0.95) saturate(1.0);
+}
+
+/* ── Respect reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .menu-card .card-img,
+  .masonry-img,
+  .gallery-item img {
+    filter: brightness(0.82) saturate(0.75);
+    transition: filter 0.2s ease;
+  }
+  .photo-grid-stagger .menu-card {
+    animation: none;
+    opacity: 1;
+  }
+}

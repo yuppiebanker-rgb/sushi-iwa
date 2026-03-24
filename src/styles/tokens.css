@@ -70,6 +70,7 @@
 /* ── Global performance CSS ── */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   overflow-x: hidden;
@@ -82,6 +83,9 @@ body {
   font-weight: 300;
   overflow-x: hidden;
   max-width: 100vw;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Touch momentum scrolling */
@@ -100,20 +104,24 @@ body {
 /* Minimum touch targets */
 button, a, [role="button"] { min-height: 44px; }
 
-a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; text-underline-offset: 3px; }
+a, button { transition: color 0.2s ease, background 0.2s ease, opacity 0.2s ease; }
+img { display: block; max-width: 100%; height: auto; -webkit-user-drag: none; user-select: none; }
 button { font-family: var(--font-b); }
 ul { list-style: none; }
 
 /* Focus visible (accessibility) */
 :focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
+  outline: 1.5px solid rgba(184,146,42,0.7);
+  outline-offset: 3px;
 }
 :focus:not(:focus-visible) { outline: none; }
 
-/* Selection color */
-::selection { background: var(--gold); color: var(--ink); }
+/* Gold selection */
+::selection { background: rgba(184,146,42,0.3); color: #f4efe6; }
+
+/* Remove tap highlight on mobile */
+* { -webkit-tap-highlight-color: transparent; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }

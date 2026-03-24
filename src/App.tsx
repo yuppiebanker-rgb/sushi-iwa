@@ -11,6 +11,11 @@ import WhatsAppWidget from './components/WhatsAppWidget';
 import ScrollProgress from './components/ScrollProgress';
 import './styles/accessibility.css';
 
+// Enable CSS View Transitions where supported
+if ('startViewTransition' in document) {
+  document.documentElement.style.viewTransitionName = 'root';
+}
+
 // Loading fallback — minimal, branded
 const PageLoader = () => (
   <div style={{

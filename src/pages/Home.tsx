@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import HeroVideo from '../components/HeroVideo';
 import InstagramFeed from '../components/InstagramFeed';
+import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
 import CustomerQuotes from '../components/CustomerQuotes';
 import PressStrip from '../components/PressStrip';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
+import KineticText from '../components/KineticText';
 import './Home.css';
 import '../styles/menu-effects.css';
-import KineticText from '../components/KineticText';
 import { useRevealAll } from '../hooks/useScrollReveal';
 
 export default function Home() {
@@ -110,6 +111,19 @@ export default function Home() {
         <div data-reveal="left">
           <div className="section-tag"><div className="section-tag-line" /><span>{t('philosophy.tag')}</span></div>
           <h2>{t('philosophy.title1')}<em>{t('philosophy.titleEm')}</em><br />{t('philosophy.title2')}</h2>
+          <KineticText
+            text="Donde el silencio habla en sabor."
+            tag="h2"
+            stagger={70}
+            style={{
+              fontFamily: '"Cormorant Garamond", serif',
+              fontSize: 'clamp(28px,4vw,52px)',
+              fontStyle: 'italic',
+              fontWeight: 300,
+              color: '#f4efe6',
+              lineHeight: 1.2,
+            }}
+          />
           <p>{t('philosophy.p1')}</p>
           <p>{t('philosophy.p2')}</p>
           <div className="stats">
@@ -135,82 +149,30 @@ export default function Home() {
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/no-name.jpg" alt="Sushi IWA" /></div>
       </div>
 
-      {/* MENU HIGHLIGHTS */}
-      <section className="menu-section" id="menu">
-        <div data-reveal className="menu-header">
-          <div>
-            <div className="section-tag" style={{ marginBottom: 14 }}><div className="section-tag-line" /><span>Carta</span></div>
-            <h2>Nuestros <em>destacados</em></h2>
-          </div>
-        </div>
-        {/* SEASONAL HIGHLIGHT */}
-        <div data-reveal style={{
-          position: 'relative', overflow: 'hidden',
-          borderRadius: '2px', marginBottom: '32px',
-          background: '#0c0b09',
-          border: '0.5px solid rgba(184,146,42,0.15)',
-        }}>
-          <div style={{
-            position: 'absolute', inset: 0,
-            backgroundImage: 'url(/images/hamachi-jalap.jpg)',
-            backgroundSize: 'cover', backgroundPosition: 'center',
-            opacity: 0.18,
-          }} />
-          <div style={{
-            position: 'relative',
-            padding: 'clamp(32px, 5vw, 56px) clamp(24px, 4vw, 48px)',
-            textAlign: 'center',
-          }}>
-            <div style={{
-              fontFamily: '"DM Sans", sans-serif',
-              fontSize: '9px', letterSpacing: '0.35em',
-              textTransform: 'uppercase' as const, color: '#b8922a',
-              marginBottom: '12px',
-            }}>Platillo de Temporada</div>
-            <h3 style={{
-              fontFamily: '"Cormorant Garamond", serif',
-              fontSize: 'clamp(24px, 3.5vw, 38px)',
-              fontWeight: 300, color: '#f4efe6',
-              lineHeight: 1.2, marginBottom: '10px',
-            }}>Esta temporada · <em style={{ fontStyle: 'italic', color: '#b8922a' }}>Hamachi de Japón</em></h3>
-            <p style={{
-              fontSize: '13px', color: '#7a7670',
-              lineHeight: 1.6, maxWidth: '420px',
-              margin: '0 auto',
-            }}>Disponible en sashimi, jalapeño y curry hasta abril</p>
-          </div>
-        </div>
-
-        <div className="menu-grid reveal-group">
-          {[
-            { img: 'iwa-roll.jpg', tag: 'Firma · Gluten free disponible', name: 'IWA Roll', desc: 'Callo de hacha + aguacate + pasta de cangrejo, envuelto en lajas de atún.', price: '$310' },
-            { img: 'no-name.jpg', tag: 'El legendario', name: 'No Name Roll', desc: 'Aguacate + pepino + pasta de cangrejo por dentro, envuelto de salmón con topping de salmón spicy.', price: '$385' },
-            { img: 'curricanes-spoons.jpg', tag: 'Icónico · Imprescindible', name: 'Curricanes', desc: 'Atún o salmón. La pieza más pedida. Técnica japonesa con alma regia — hay que probarlo.', price: 'desde $310' },
-            { img: 'fermedina.jpg', tag: "Chef's Pick", name: "Fermedina's Roll", desc: 'Spicy kanikama + atún + salmón + hamachi + aguacate, envuelto en pepino.', price: '$310' },
-            { img: 'hamachi-jalap.jpg', tag: 'Del mar · Directo', name: 'Sashimi Hamachi', desc: 'Hamachi, hamachi jalapeño o curry. Pescado de temporada seleccionado diariamente.', price: '$325' },
-          ].map((item, i) => (
-            <div data-reveal className="menu-item menu-card" key={i}>
-              <div className="menu-thumb-wrap"><img className="menu-thumb" src={`/images/${item.img}`} alt={item.name} /></div>
-              <div className="menu-body">
-                <div className="menu-tag">{item.tag}</div>
-                <h3>{item.name}</h3>
-                <p>{item.desc}</p>
-                <div className="menu-footer"><span className="menu-price">{item.price}</span><div className="menu-arrow">→</div></div>
-              </div>
-            </div>
-          ))}
-          <Link to="/menu" className="menu-item menu-more" data-reveal>
-            <div className="menu-more-arrow">→</div>
-            <span>Ver menú completo</span>
-          </Link>
-        </div>
-      </section>
+            {/* SIGNATURE DISHES — horizontal scroll */}
+      <HorizontalScroll />
 
       {/* CUSTOMER QUOTES */}
       <CustomerQuotes />
 
       {/* INSTAGRAM FEED */}
       <InstagramFeed />
+
+      {/* BRAND STATEMENT */}
+      <div style={{ textAlign: 'center', padding: 'clamp(40px,6vw,80px) 24px' }}>
+        <KineticText
+          text="Una experiencia íntima. Doce asientos. Todo el Pacífico."
+          tag="p"
+          stagger={45}
+          delay={200}
+          style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: 'clamp(18px,2.5vw,30px)',
+            fontStyle: 'italic',
+            color: 'rgba(244,239,230,0.6)',
+          }}
+        />
+      </div>
 
       {/* LOCATIONS */}
       <section className="locations" id="ubicaciones">

@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 
 export function useRevealAll() {
   useEffect(() => {
-    const els = document.querySelectorAll('[data-reveal]');
+    const els = document.querySelectorAll('[data-reveal], .photo-grid-stagger');
     if (!els.length) return;
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
             e.target.classList.add('revealed');
+            e.target.classList.add('visible');
             obs.unobserve(e.target);
           }
         });

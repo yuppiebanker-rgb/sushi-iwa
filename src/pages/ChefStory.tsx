@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import KineticText from '../components/KineticText';
 import { useRevealAll } from '../hooks/useScrollReveal';
 
 const gold = '#b8922a';
@@ -88,6 +89,20 @@ export default function ChefStory() {
             letterSpacing: '0.25em', textTransform: 'uppercase',
             color: gold, marginBottom: '28px',
           }}>El origen</p>
+          <KineticText
+            text="いわ — en japonés, roca. Permanencia."
+            tag="h1"
+            stagger={80}
+            style={{
+              fontFamily: '"Cormorant Garamond", serif',
+              fontSize: 'clamp(30px, 5vw, 52px)',
+              fontWeight: 300,
+              fontStyle: 'italic',
+              color: text,
+              lineHeight: 1.3,
+              marginBottom: '24px',
+            }}
+          />
           <p style={{
             fontFamily: '"Cormorant Garamond", serif',
             fontSize: 'clamp(22px, 3.5vw, 30px)', fontWeight: 300,
