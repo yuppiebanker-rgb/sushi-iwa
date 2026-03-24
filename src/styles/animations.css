@@ -87,3 +87,6 @@
     animation: none; opacity: 1; transform: none;
   }
 }
+
+/* Kinetic text base — all inline, just ensure overflow:hidden doesn't break layout */
+.kinetic-word { display: inline-block; overflow: hidden; }
