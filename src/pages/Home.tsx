@@ -6,19 +6,30 @@ import HeroVideo from '../components/HeroVideo';
 import InstagramFeed from '../components/InstagramFeed';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
 import CustomerQuotes from '../components/CustomerQuotes';
-import PressStrip from '../components/PressStrip';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
-import StickyPhotoSection from '../components/StickyPhotoSection';
-import AmbientTicker from '../components/AmbientTicker';
-import FullBleedSection from '../components/FullBleedSection';
-import HorizontalScroll from '../components/HorizontalScroll';
-import KineticText from '../components/KineticText';
+import StatementSection from '../components/StatementSection';
 import SectionDivider from '../components/SectionDivider';
+import AmbientTicker from '../components/AmbientTicker';
+import StickyPhotoSection from '../components/StickyPhotoSection';
+import HorizontalScroll from '../components/HorizontalScroll';
+import FullBleedSection from '../components/FullBleedSection';
 import './Home.css';
 import '../styles/menu-effects.css';
+import '../styles/gallery.css';
 import { useRevealAll } from '../hooks/useScrollReveal';
+
+const MASONRY_IMAGES = [
+  { src: 'curricanes-spoons.jpg', label: 'Curricanes' },
+  { src: 'hamachi-jalap.jpg', label: 'Hamachi Jalapeño' },
+  { src: 'iwa-roll.jpg', label: 'IWA Roll' },
+  { src: 'no-name.jpg', label: 'No Name Roll' },
+  { src: 'fermedina.jpg', label: "Fermedina's Roll" },
+  { src: 'chef-plating.jpg', label: 'Chef IWA' },
+  { src: 'temaki-hold.jpg', label: 'Temaki' },
+  { src: 'rainbow-roll.jpg', label: 'Rainbow Roll' },
+];
 
 export default function Home() {
   const { t } = useTranslation();
@@ -42,14 +53,12 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Parallax: hero background moves at 40% scroll speed
   useEffect(() => {
     const handleScroll = () => {
       const hero = document.getElementById('hero-bg');
       if (!hero) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const scrollY = window.scrollY;
-      hero.style.transform = `translate3d(0, ${scrollY * 0.4}px, 0)`;
+      hero.style.transform = `translate3d(0, ${window.scrollY * 0.4}px, 0)`;
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -63,6 +72,7 @@ export default function Home() {
         keywords="sushi san pedro garza garcia, mejor sushi monterrey, restaurante japones spgg, curricanes sushi, hamachi jalapeño monterrey, sushi iwa monterrey, japonés san pedro"
         path="/"
       />
+
       {/* HERO */}
       <section className="hero" style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
         <div id="hero-bg" style={{
@@ -79,7 +89,14 @@ export default function Home() {
         </div>
         <div className="hero-pattern" />
         <div className="hero-jp-watermark">岩</div>
-        <div className="hero-content">
+        <div style={{
+          position: 'absolute',
+          left: 'clamp(24px, 5vw, var(--page-h-pad, 52px))',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          maxWidth: '600px',
+          zIndex: 2,
+        }}>
           <div className="hero-text" style={{
             fontFamily: '"Noto Serif JP", serif',
             fontSize: '10px',
@@ -102,11 +119,7 @@ export default function Home() {
             Cocina<br/>
             <em style={{ color: '#d4a843' }}>Japonesa</em>
           </h1>
-          <div className="hero-cta" style={{
-            display: 'flex',
-            gap: '16px',
-            flexWrap: 'wrap',
-          }}>
+          <div className="hero-cta" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
             <Link to="/menu" style={{
               fontFamily: '"DM Sans"',
               fontSize: '11px',
@@ -136,7 +149,18 @@ export default function Home() {
             }}>Reservar Mesa</button>
           </div>
         </div>
-        <div className="hero-scroll-cue">
+        <div style={{
+          position: 'absolute',
+          bottom: '48px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
+          animation: 'scrollFloat 2.2s ease-in-out infinite',
+          zIndex: 2,
+        }}>
           <div style={{
             width: '1px',
             height: '48px',
@@ -151,168 +175,171 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRESS STRIP */}
-      <PressStrip />
-
-      {/* STICKY PHOTO PHILOSOPHY */}
-      <div className="section-gap" />
-      <SectionDivider label="Nuestra Filosofía" labelJp="哲学" number="02" />
-      <StickyPhotoSection />
-
-      {/* GALLERY STRIP */}
-      <div className="section-gap" />
-      <SectionDivider label="Galería" labelJp="写真" number="03" />
-      <div className="gallery reveal-group photo-grid-stagger" style={{ scrollSnapAlign: "start" }}>
-        <div data-reveal className="gallery-cell gallery-item"><img src="/images/curricanes-spoons.jpg" alt="Sushi IWA" /></div>
-        <div data-reveal className="gallery-cell gallery-item"><img src="/images/hamachi-jalap.jpg" alt="Sushi IWA" /></div>
-        <div data-reveal className="gallery-cell gallery-item"><img src="/images/iwa-roll.jpg" alt="Sushi IWA" /></div>
-        <div data-reveal className="gallery-cell gallery-item"><img src="/images/no-name.jpg" alt="Sushi IWA" /></div>
-      </div>
-
-
       {/* AMBIENT TICKER */}
       <AmbientTicker />
 
-      {/* FULL-BLEED — Hamachi */}
-      <FullBleedSection
-        imageSrc="hamachi-jalap"
-        imageAlt="Hamachi Jalapeño Sushi IWA"
-        topLabel="Platillo Firma"
-        headline="Hamachi Jalapeño"
-        subline="Yellowtail fresco con jalapeño serrano. El más pedido de la carta desde el primer día."
-        ctaLabel="Ver en el Menú"
-        ctaHref="/menu"
-        overlayPosition="bottom-left"
+      {/* STICKY PHOTO SECTION */}
+      <StickyPhotoSection />
+
+      {/* STATEMENT */}
+      <StatementSection
+        word="Curricanes."
+        subtitle="El platillo que define a IWA."
       />
 
-      {/* SIGNATURE DISHES — horizontal scroll */}
-      <div className="section-gap" />
-      <SectionDivider label="El Menú" labelJp="メニュー" number="04" />
+      {/* HORIZONTAL SCROLL */}
       <HorizontalScroll />
 
-      {/* CUSTOMER QUOTES */}
-      <div className="section-gap-sm" />
-      <CustomerQuotes />
+      {/* FULL-BLEED HAMACHI */}
+      <FullBleedSection
+        imageSrc="hamachi-jalap"
+        imageAlt="Hamachi Jalapeño — Sushi IWA"
+        topLabel="Del Mar"
+        headline="Hamachi Jalapeño"
+        subline="Yellowtail fresco, jalapeño serrano, ponzu."
+      />
 
-      {/* INSTAGRAM FEED */}
-      <div className="section-gap-sm" />
-      <InstagramFeed />
+      {/* AMBIENT TICKER 2 */}
+      <AmbientTicker singleRow />
 
-      {/* BRAND STATEMENT */}
-      <div style={{ textAlign: 'center', padding: 'clamp(40px,6vw,80px) 24px' }}>
-        <KineticText
-          text="Una experiencia íntima. Doce asientos. Todo el Pacífico."
-          tag="p"
-          stagger={45}
-          delay={200}
-          style={{
-            fontFamily: '"Cormorant Garamond", serif',
-            fontSize: 'clamp(18px,2.5vw,30px)',
-            fontStyle: 'italic',
-            color: 'rgba(244,239,230,0.6)',
-          }}
-        />
-      </div>
+      {/* MASONRY GALLERY */}
+      <section style={{ padding: 'clamp(48px,6vw,80px) var(--page-h-pad, 52px)' }}>
+        <div className="masonry-grid">
+          {MASONRY_IMAGES.map((img) => (
+            <div className="masonry-item" key={img.src} style={{
+              breakInside: 'avoid',
+              marginBottom: '4px',
+              position: 'relative',
+              overflow: 'hidden',
+              cursor: 'pointer',
+            }}>
+              <img
+                className="masonry-img"
+                src={`/images/${img.src}`}
+                alt={img.label}
+                loading="lazy"
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  filter: 'brightness(0.78) saturate(0.85)',
+                  transition: 'filter 0.4s ease, transform 0.55s ease',
+                }}
+              />
+              <div className="masonry-overlay" style={{
+                position: 'absolute', inset: 0,
+                background: 'rgba(12,11,9,0.15)',
+                transition: 'background 0.3s ease',
+              }} />
+              <span className="masonry-label" style={{
+                position: 'absolute',
+                bottom: '12px', left: '14px',
+                fontFamily: '"DM Sans", sans-serif',
+                fontSize: '9px',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: 'rgba(244,239,230,0.6)',
+                transition: 'color 0.3s ease',
+              }}>{img.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION DIVIDER UBICACIONES */}
+      <SectionDivider label="Ubicaciones" labelJp="場所" />
 
       {/* LOCATIONS */}
-      <div className="section-gap" />
-      <SectionDivider label="Ubicaciones" labelJp="場所" number="05" />
       <section className="locations" id="ubicaciones">
-        <h2 data-reveal>Encuéntranos en <em>4 ciudades</em></h2>
         <div className="locations-grid reveal-group">
           <div data-reveal className="loc location-card">
             <div className="loc-num">01</div>
             <div className="loc-city">Monterrey</div>
             <div className="loc-state">Nuevo León</div>
-            <div className="loc-info">Av. Fundadores 955<br />Sienna Tower, 2° piso<br />+52 81 1123 9849<br /><br />L·Mi·J·V·S·D 1:45–10:30pm<br />Cerramos los martes</div>
+            <div className="loc-info">Av. Fundadores 955, Sienna Tower 2°<br />+52 81 1123 9849<br />L·Mi–D 1:45–10:30pm · Martes cerrado</div>
           </div>
           <div data-reveal className="loc location-card">
             <div className="loc-num">02</div>
             <div className="loc-city">Saltillo</div>
             <div className="loc-state">Coahuila</div>
-            <div className="loc-info">@iwa.saltillo<br /><br />Lu–Mi 1:30–11:30pm<br />J–S 1:30pm–12:30am<br />D 1:30–7:00pm</div>
+            <div className="loc-info">@iwa.saltillo<br />Lu–Mi 1:30–11:30pm · J–S 1:30–12:30am<br />D 1:30–7pm</div>
           </div>
           <div data-reveal className="loc location-card">
             <div className="loc-num">03</div>
             <div className="loc-city">Hermosillo</div>
             <div className="loc-state">Sonora</div>
-            <div className="loc-info">@iwa.hmo<br />(662) 191 8131<br /><br />M–Mi 1–12am<br />J–S 1pm–2am<br />D 1–11pm · L cerrado</div>
+            <div className="loc-info">@iwa.hmo · (662) 191 8131<br />M–Mi 1–12am · J–S 1pm–2am<br />D 1–11pm · L cerrado</div>
           </div>
           <div data-reveal className="loc location-card">
             <div className="loc-soon">Próximamente</div>
             <div className="loc-num" style={{ opacity: 0.28 }}>04</div>
             <div className="loc-city" style={{ opacity: 0.45 }}>Mazatlán</div>
             <div className="loc-state">Sinaloa</div>
-            <div className="loc-info" style={{ opacity: 0.3 }}>Próxima apertura<br />Regístrate para<br />recibir novedades</div>
           </div>
         </div>
       </section>
 
-      {/* FULL-BLEED — Interior */}
-      <div style={{ scrollSnapAlign: "start" }}>
+      {/* FULL-BLEED BAR */}
       <FullBleedSection
         imageSrc="bar"
-        imageAlt="Interior Sushi IWA"
-        topLabel="Monterrey · San Pedro"
+        imageAlt="Barra Sushi IWA — 12 asientos"
         headline="12 asientos. Una historia."
-        subline="La barra más íntima de San Pedro. Frente al chef. Sin intermediarios."
-        ctaLabel="Reservar tu lugar"
-        ctaHref="/#reservar"
-        overlayPosition="bottom-right"
+        subline="Omakase frente al chef."
+        overlayPosition="center"
       />
-      </div>
+
+      {/* SECTION DIVIDER RESERVACIONES */}
+      <SectionDivider label="Reservaciones" labelJp="予約" />
 
       {/* RESERVATION */}
-      <div className="section-gap" />
-      <SectionDivider label="Reservaciones" labelJp="予約" number="06" />
       <section className="reservation" id="reservar">
         <div data-reveal="left" className="reservation-left">
           <h2>{t('reservation.title1')}<br /><em>{t('reservation.titleEm')}</em></h2>
-          <p>{t('reservation.desc')}</p>
+          <p>Reserva en 3 pasos y confirma por WhatsApp.</p>
           <div className="contact-row"><div className="contact-icon">✆</div><div className="contact-text"><p>{t('reservation.phone')}</p><span>+52 81 1123 9849</span></div></div>
           <div className="contact-row"><div className="contact-icon">✉</div><div className="contact-text"><p>{t('reservation.email')}</p><span>sushi.iwa@hotmail.com</span></div></div>
           <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>{t('reservation.schedule')}</p><span>{t('reservation.scheduleValue')}</span></div></div>
-          <div className="contact-row" style={{ marginTop: 8 }}><div className="contact-icon">@</div><div className="contact-text"><p>Instagram</p><span>@sushi.iwa</span></div></div>
         </div>
         <div data-reveal="right" className="form-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '60px 38px' }}>
           <AvailabilityBadge />
           <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16, marginTop: 12 }}>岩</div>
           <div className="form-title" style={{ marginBottom: 12 }}>{t('reservation.formTitle')}</div>
-          <p style={{ fontSize: 13, color: 'rgba(244,239,230,0.48)', lineHeight: 1.7, marginBottom: 28, maxWidth: 320 }}>
-            Reserva en 3 pasos. Selecciona ubicación, fecha, y confirma por WhatsApp.
-          </p>
           <button className="form-submit" type="button" onClick={() => setResOpen(true)} style={{ maxWidth: 320 }}>
             Reservar Ahora →
           </button>
         </div>
       </section>
 
+      {/* CUSTOMER QUOTES */}
+      <CustomerQuotes />
+
+      {/* AWARDS */}
+      <AwardsBadges />
+
+      {/* INSTAGRAM */}
+      <InstagramFeed />
+
       {/* GIFT CARD BANNER */}
       <Link to="/gift-cards" style={{
         display: 'block', background: 'var(--warm)', borderTop: '0.5px solid var(--border)',
-        borderBottom: '0.5px solid var(--border)', padding: '22px 24px', textAlign: 'center',
+        borderBottom: '0.5px solid var(--border)', padding: '22px var(--page-h-pad, 52px)', textAlign: 'center',
         textDecoration: 'none',
       }}>
         <span style={{ fontFamily: 'var(--font-d)', fontSize: 17, fontWeight: 300, color: 'var(--cream)', letterSpacing: '0.02em' }}>
-          ¿Buscas el regalo perfecto?
+          ¿El regalo perfecto?
         </span>
         <span style={{ color: 'var(--gold)', fontWeight: 500, fontSize: 14, marginLeft: 12, letterSpacing: '0.08em' }}>
           Gift Cards IWA →
         </span>
       </Link>
 
-      {/* NEWSLETTER BANNER */}
+      {/* NEWSLETTER */}
       <NewsletterBanner />
 
-      {/* AWARDS STRIP */}
-      <AwardsBadges />
-
-      {/* FLOATING RESERVE BUTTON — mobile only */}
+      {/* FLOATING RESERVE */}
       <button className={`fab-reserve floating-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
         <span className="fab-jp">岩</span> Reservar Mesa{preOrderCount > 0 ? ` (${preOrderCount})` : ''}
       </button>
 
-      {/* RESERVATION FLOW MODAL */}
       <ReservationFlow open={resOpen} onClose={() => setResOpen(false)} />
     </>
   );

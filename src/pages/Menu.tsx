@@ -5,6 +5,7 @@ import MenuModal from '../components/MenuModal';
 import SeasonalBadge from '../components/SeasonalBadge';
 import ReservationFlow from '../components/ReservationFlow';
 import SEO from '../components/SEO';
+import StatementSection from '../components/StatementSection';
 import { useRevealAll } from '../hooks/useScrollReveal';
 import './Menu.css';
 import '../styles/menu-effects.css';
@@ -98,6 +99,13 @@ export default function Menu() {
           <h1 className="mhero-h">La <em>carta</em> de IWA</h1>
         </div>
       </div>
+
+      {/* STATEMENT */}
+      <StatementSection
+        word="El Menú."
+        subtitle="65 platillos. Ingredientes premium."
+        cta={null}
+      />
 
       {/* SEARCH + FILTERS */}
       <div className="search-bar">

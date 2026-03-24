@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 interface Props {
   word?: string;
   subtitle?: string;
-  cta?: { label: string; href: string };
+  cta?: { label: string; href: string } | null;
 }
 
 export default function StatementSection({
