@@ -11,8 +11,12 @@ import PressStrip from '../components/PressStrip';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
+import StickyPhotoSection from '../components/StickyPhotoSection';
+import AmbientTicker from '../components/AmbientTicker';
+import FullBleedSection from '../components/FullBleedSection';
 import HorizontalScroll from '../components/HorizontalScroll';
 import KineticText from '../components/KineticText';
+import SectionDivider from '../components/SectionDivider';
 import './Home.css';
 import '../styles/menu-effects.css';
 import { useRevealAll } from '../hooks/useScrollReveal';
@@ -68,7 +72,7 @@ export default function Home() {
       </div>
 
       {/* HERO */}
-      <section className="hero" style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+      <section className="hero" style={{ position: 'relative', height: '100vh', overflow: 'hidden', scrollSnapAlign: 'start' }}>
         <div id="hero-bg" style={{
           position: 'absolute',
           inset: '-20% 0',
@@ -105,42 +109,8 @@ export default function Home() {
       {/* PRESS STRIP */}
       <PressStrip />
 
-      <div className="divider"><div className="divider-line" /><span className="divider-mark">一</span><div className="divider-line" /></div>
-
-      {/* PHILOSOPHY */}
-      <section className="philosophy" id="nosotros">
-        <div data-reveal="left">
-          <div className="section-tag"><div className="section-tag-line" /><span>{t('philosophy.tag')}</span></div>
-          <h2>{t('philosophy.title1')}<em>{t('philosophy.titleEm')}</em><br />{t('philosophy.title2')}</h2>
-          <KineticText
-            text="Donde el silencio habla en sabor."
-            tag="h2"
-            stagger={70}
-            style={{
-              fontFamily: '"Cormorant Garamond", serif',
-              fontSize: 'clamp(28px,4vw,52px)',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              color: '#f4efe6',
-              lineHeight: 1.2,
-            }}
-          />
-          <p>{t('philosophy.p1')}</p>
-          <p>{t('philosophy.p2')}</p>
-          <div className="stats">
-            <div className="stat"><div className="stat-num">4</div><div className="stat-label">{t('philosophy.cities')}</div></div>
-            <div className="stat"><div className="stat-num">4.6★</div><div className="stat-label">{t('philosophy.rating')}</div></div>
-          </div>
-        </div>
-        <div data-reveal="right" className="chef-frame">
-          <div className="chef-corner"><span>岩</span></div>
-          <img className="chef-img" src="/images/chef-plating.jpg" alt="Chef IWA preparando" />
-          <div className="chef-badge">
-            <p>Chef · Barra abierta</p>
-            <h4>Experiencia frente al chef</h4>
-          </div>
-        </div>
-      </section>
+      {/* STICKY PHOTO PHILOSOPHY */}
+      <StickyPhotoSection />
 
       {/* GALLERY STRIP */}
       <div className="gallery reveal-group photo-grid-stagger">
@@ -154,9 +124,11 @@ export default function Home() {
       <HorizontalScroll />
 
       {/* CUSTOMER QUOTES */}
+      <div className="section-gap-sm" />
       <CustomerQuotes />
 
       {/* INSTAGRAM FEED */}
+      <div className="section-gap-sm" />
       <InstagramFeed />
 
       {/* BRAND STATEMENT */}
@@ -176,8 +148,9 @@ export default function Home() {
       </div>
 
       {/* LOCATIONS */}
+      <div className="section-gap" />
+      <SectionDivider label="Ubicaciones" labelJp="場所" number="05" />
       <section className="locations" id="ubicaciones">
-        <div data-reveal className="section-tag" style={{ marginBottom: 14 }}><div className="section-tag-line" /><span>Ubicaciones</span></div>
         <h2 data-reveal>Encuéntranos en <em>4 ciudades</em></h2>
         <div className="locations-grid reveal-group">
           <div data-reveal className="loc location-card">
@@ -208,10 +181,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FULL-BLEED — Interior */}
+      <FullBleedSection
+        imageSrc="bar"
+        imageAlt="Interior Sushi IWA"
+        topLabel="Monterrey · San Pedro"
+        headline="12 asientos. Una historia."
+        subline="La barra más íntima de San Pedro. Frente al chef. Sin intermediarios."
+        ctaLabel="Reservar tu lugar"
+        ctaHref="/#reservar"
+        overlayPosition="bottom-right"
+      />
+
       {/* RESERVATION */}
+      <div className="section-gap" />
+      <SectionDivider label="Reservaciones" labelJp="予約" number="06" />
       <section className="reservation" id="reservar">
         <div data-reveal="left" className="reservation-left">
-          <div className="section-tag" style={{ marginBottom: 26 }}><div className="section-tag-line" /><span>{t('reservation.tag')}</span></div>
           <h2>{t('reservation.title1')}<br /><em>{t('reservation.titleEm')}</em></h2>
           <p>{t('reservation.desc')}</p>
           <div className="contact-row"><div className="contact-icon">✆</div><div className="contact-text"><p>{t('reservation.phone')}</p><span>+52 81 1123 9849</span></div></div>

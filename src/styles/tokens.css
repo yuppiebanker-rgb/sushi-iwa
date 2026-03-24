@@ -123,6 +123,18 @@ ul { list-style: none; }
 /* Remove tap highlight on mobile */
 * { -webkit-tap-highlight-color: transparent; }
 
+/* ── Sticky Photo Section — Mobile ── */
+@media (max-width: 768px) {
+  .sticky-section {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .sticky-section > div:first-child {
+    position: relative !important;
+    height: 60vw !important;
+  }
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }

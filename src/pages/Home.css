@@ -89,7 +89,7 @@
 .divider-mark { font-family: var(--font-jp); font-size: 15px; color: var(--gold); opacity: 0.45; }
 
 /* ── PHILOSOPHY ── */
-.philosophy { padding: 110px 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: center; }
+.philosophy { padding: 0 var(--page-h-pad); display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: center; }
 .section-tag { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
 .section-tag-line { width: 22px; height: 0.5px; background: var(--gold); }
 .section-tag span { font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
@@ -127,7 +127,7 @@
 .gallery-cell:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.05); }
 
 /* ── MENU SECTION ── */
-.menu-section { padding: 100px 52px; background: #0e0d0b; }
+.menu-section { padding: 0 var(--page-h-pad); background: #0e0d0b; }
 .menu-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
 .menu-header h2 { font-family: var(--font-d); font-size: clamp(26px, 3.8vw, 46px); font-weight: 300; color: var(--cream); }
 .menu-header h2 em { font-style: italic; color: var(--gold-light); }
@@ -153,7 +153,7 @@
 .menu-more:hover .menu-more-arrow { opacity: 0.7; }
 
 /* ── LOCATIONS ── */
-.locations { padding: 100px 52px; }
+.locations { padding: 0 var(--page-h-pad); }
 .locations h2 { font-family: var(--font-d); font-size: clamp(26px, 3.8vw, 46px); font-weight: 300; color: var(--cream); margin-bottom: 52px; }
 .locations h2 em { font-style: italic; color: var(--gold-light); }
 .locations-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 0.5px solid var(--border); }
@@ -167,7 +167,7 @@
 .loc-soon { position: absolute; top: 26px; right: 18px; font-size: 7.5px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(200,100,100,0.75); background: rgba(139,26,26,0.12); padding: 3px 9px; border: 0.5px solid rgba(139,26,26,0.25); }
 
 /* ── RESERVATION ── */
-.reservation { padding: 100px 52px; background: #0e0d0b; display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start; }
+.reservation { padding: 0 var(--page-h-pad); padding-bottom: var(--section-gap-sm); background: #0e0d0b; display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start; }
 .reservation-left h2 { font-family: var(--font-d); font-size: clamp(28px, 3.8vw, 52px); font-weight: 300; line-height: 1.1; color: var(--cream); margin-bottom: 18px; }
 .reservation-left h2 em { font-style: italic; color: var(--gold-light); }
 .reservation-left > p { font-size: 14px; line-height: 1.9; color: rgba(244,239,230,0.48); margin-bottom: 36px; }
@@ -222,13 +222,12 @@
   .hero { padding: 0 32px 70px; }
   .ticker { padding: 11px 32px; }
   .divider { padding: 0 32px; }
-  .philosophy { padding: 80px 32px; gap: 48px; }
+  .philosophy { gap: 48px; }
   .gallery { height: 300px; }
-  .menu-section { padding: 80px 32px; }
-  .locations { padding: 80px 32px; }
+  .locations {}
   .locations-grid { grid-template-columns: repeat(2, 1fr); }
   .loc { border-bottom: 0.5px solid var(--border); }
-  .reservation { padding: 80px 32px; gap: 48px; }
+  .reservation { gap: 48px; }
   .scroll-cue { right: 32px; }
 }
 
@@ -247,24 +246,24 @@
   .scroll-cue { display: none; }
 
   .divider { padding: 0 20px; }
-  .philosophy { grid-template-columns: 1fr; padding: 60px 20px; gap: 36px; }
+  .philosophy { grid-template-columns: 1fr; gap: 36px; }
   .chef-corner { width: 60px; height: 60px; top: -8px; right: -8px; }
   .chef-corner span { font-size: 18px; }
 
   .gallery { grid-template-columns: repeat(2, 1fr); height: 240px; }
 
-  .menu-section { padding: 60px 20px; }
+  .menu-section {}
   .menu-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 32px; }
   .menu-grid { grid-template-columns: 1fr; }
   .menu-item { border-right: none !important; }
   .menu-thumb { height: 180px; }
   .menu-body { padding: 18px 18px 16px; }
 
-  .locations { padding: 60px 20px; }
+  .locations {}
   .locations h2 { margin-bottom: 32px; }
   .locations-grid { grid-template-columns: 1fr; }
 
-  .reservation { grid-template-columns: 1fr; padding: 60px 20px; gap: 32px; }
+  .reservation { grid-template-columns: 1fr; gap: 32px; }
   .form-card { padding: 28px 20px; }
   .form-row { grid-template-columns: 1fr; }
 }
@@ -278,16 +277,16 @@
   .hero-actions { flex-direction: column; align-items: flex-start; gap: 14px; }
   .btn-gold { width: 100%; text-align: center; }
 
-  .philosophy { padding: 48px 16px; }
+  .philosophy {}
   .philosophy h2 { font-size: 28px; }
   .philosophy p { font-size: 13px; }
   .stat-num { font-size: 32px; }
 
   .gallery { grid-template-columns: 1fr 1fr; height: 200px; }
 
-  .menu-section { padding: 48px 16px; }
-  .locations { padding: 48px 16px; }
-  .reservation { padding: 48px 16px; }
+  .menu-section {}
+  .locations {}
+  .reservation {}
   .form-card { padding: 24px 16px; }
 
   .ticker { padding: 8px 16px; gap: 8px; }

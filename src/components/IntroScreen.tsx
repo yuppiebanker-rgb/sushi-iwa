@@ -10,20 +10,20 @@ export default function IntroScreen() {
     }
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      sessionStorage.setItem('iwa-intro-seen', '1');
+      sessionStorage.setItem('iwa-intro-seen', 'true');
       setPhase('done');
       return;
     }
 
     document.body.style.overflow = 'hidden';
+    sessionStorage.setItem('iwa-intro-seen', 'true');
 
-    const t1 = setTimeout(() => setPhase('hold'), 700);
-    const t2 = setTimeout(() => setPhase('out'), 1500);
+    const t1 = setTimeout(() => setPhase('hold'), 600);
+    const t2 = setTimeout(() => setPhase('out'), 1400);
     const t3 = setTimeout(() => {
       setPhase('done');
       document.body.style.overflow = '';
-      sessionStorage.setItem('iwa-intro-seen', '1');
-    }, 2400);
+    }, 2200);
 
     return () => {
       [t1, t2, t3].forEach(clearTimeout);
@@ -33,44 +33,30 @@ export default function IntroScreen() {
 
   if (phase === 'done') return null;
 
-  const opacity = phase === 'in' ? 0 : phase === 'out' ? 0 : 1;
+  const textOpacity = phase === 'in' ? 0 : 1;
   const scale = phase === 'in' ? 0.88 : 1;
-  const bgOpacity = phase === 'out' ? 0 : 1;
+  const overlayOpacity = phase === 'out' ? 0 : 1;
 
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 9999,
       background: '#0c0b09',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      flexDirection: 'column', gap: '14px',
-      opacity: bgOpacity,
+      opacity: overlayOpacity,
       transition: phase === 'out'
-        ? 'opacity 0.85s cubic-bezier(0.4,0,0.2,1)'
+        ? 'opacity 800ms ease-in'
         : 'none',
       pointerEvents: phase === 'out' ? 'none' : 'all',
     }}>
-      {/* いわ */}
       <div style={{
         fontFamily: '"Noto Serif JP", serif',
-        fontSize: 'clamp(64px, 12vw, 108px)',
+        fontSize: 'clamp(56px, 10vw, 96px)',
         fontWeight: 200,
         color: '#b8922a',
-        letterSpacing: '0.18em',
-        opacity,
+        opacity: textOpacity,
         transform: `scale(${scale})`,
-        transition: 'opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1)',
+        transition: 'opacity 600ms ease-out, transform 600ms ease-out',
       }}>いわ</div>
-      {/* SUSHI IWA */}
-      <div style={{
-        fontFamily: '"DM Sans", sans-serif',
-        fontSize: '10px',
-        fontWeight: 300,
-        letterSpacing: '0.45em',
-        textTransform: 'uppercase',
-        color: 'rgba(244,239,230,0.35)',
-        opacity,
-        transition: 'opacity 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s',
-      }}>SUSHI&nbsp;&nbsp;IWA</div>
     </div>
   );
 }
