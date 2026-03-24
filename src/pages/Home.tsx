@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import HeroVideo from '../components/HeroVideo';
 import InstagramFeed from '../components/InstagramFeed';
-import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
 import CustomerQuotes from '../components/CustomerQuotes';
 import PressStrip from '../components/PressStrip';
@@ -12,6 +11,7 @@ import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
 import StickyPhotoSection from '../components/StickyPhotoSection';
+import AmbientTicker from '../components/AmbientTicker';
 import FullBleedSection from '../components/FullBleedSection';
 import HorizontalScroll from '../components/HorizontalScroll';
 import KineticText from '../components/KineticText';
@@ -27,6 +27,10 @@ export default function Home() {
   const preOrderCount = getPreOrder().length;
 
   useRevealAll();
+
+  const scrollToReservation = () => {
+    document.getElementById('reservar')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -59,19 +63,8 @@ export default function Home() {
         keywords="sushi san pedro garza garcia, mejor sushi monterrey, restaurante japones spgg, curricanes sushi, hamachi jalapeño monterrey, sushi iwa monterrey, japonés san pedro"
         path="/"
       />
-      {/* TICKER */}
-      <div className="ticker">
-        <span>{t('ticker.comingSoon')}</span>
-        <div className="dot" />
-        <strong>Mazatlán</strong>
-        <div className="dot" />
-        <span>{t('ticker.location')}</span>
-        <div className="dot" />
-        <MazatlanNotify compact />
-      </div>
-
       {/* HERO */}
-      <section className="hero" style={{ position: 'relative', height: '100vh', overflow: 'hidden', scrollSnapAlign: 'start' }}>
+      <section className="hero" style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
         <div id="hero-bg" style={{
           position: 'absolute',
           inset: '-20% 0',
@@ -87,21 +80,74 @@ export default function Home() {
         <div className="hero-pattern" />
         <div className="hero-jp-watermark">岩</div>
         <div className="hero-content">
-          <div className="hero-eyebrow">
-            <div className="hero-line" />
-            <span>{t('hero.eyebrow')}</span>
-          </div>
-          <h1 className="hero-title hero-text">{t('hero.title1')}<em>{t('hero.titleEm')}</em><br />{t('hero.title2')}</h1>
-          <p className="hero-subtitle hero-sub">{t('hero.subtitle')}</p>
-          <p className="hero-desc hero-sub">{t('hero.desc')}</p>
-          <div className="hero-actions hero-cta">
-            <button className="btn-gold" onClick={() => setResOpen(true)}>{t('hero.reserveNow')}</button>
-            <Link to="/menu" className="btn-ghost">{t('hero.viewMenu')}</Link>
+          <div className="hero-text" style={{
+            fontFamily: '"Noto Serif JP", serif',
+            fontSize: '10px',
+            fontWeight: 200,
+            letterSpacing: '0.5em',
+            color: '#b8922a',
+            marginBottom: '20px',
+            opacity: 0.8,
+          }}>い わ</div>
+          <h1 className="hero-h1" style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: 'clamp(52px, 9vw, 118px)',
+            fontWeight: 300,
+            fontStyle: 'italic',
+            color: '#f4efe6',
+            lineHeight: 0.92,
+            letterSpacing: '-0.01em',
+            marginBottom: '48px',
+          }}>
+            Cocina<br/>
+            <em style={{ color: '#d4a843' }}>Japonesa</em>
+          </h1>
+          <div className="hero-cta" style={{
+            display: 'flex',
+            gap: '16px',
+            flexWrap: 'wrap',
+          }}>
+            <Link to="/menu" style={{
+              fontFamily: '"DM Sans"',
+              fontSize: '11px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: '#f4efe6',
+              border: '0.5px solid rgba(244,239,230,0.4)',
+              padding: '14px 32px',
+              textDecoration: 'none',
+              transition: 'border-color 0.2s, color 0.2s',
+              minHeight: '44px',
+              display: 'flex',
+              alignItems: 'center',
+            }}>Ver Menú</Link>
+            <button onClick={() => scrollToReservation()} style={{
+              fontFamily: '"DM Sans"',
+              fontSize: '11px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: '#0c0b09',
+              background: '#b8922a',
+              border: 'none',
+              padding: '14px 32px',
+              cursor: 'pointer',
+              transition: 'background 0.2s',
+              minHeight: '44px',
+            }}>Reservar Mesa</button>
           </div>
         </div>
-        <div className="scroll-cue">
-          <div className="scroll-line" />
-          <span>Scroll</span>
+        <div className="hero-scroll-cue">
+          <div style={{
+            width: '1px',
+            height: '48px',
+            background: 'linear-gradient(to bottom, rgba(184,146,42,0.7), transparent)',
+          }}/>
+          <span style={{
+            fontSize: '9px',
+            letterSpacing: '0.3em',
+            color: 'rgba(184,146,42,0.5)',
+            textTransform: 'uppercase',
+          }}>scroll</span>
         </div>
       </section>
 
@@ -122,6 +168,22 @@ export default function Home() {
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/iwa-roll.jpg" alt="Sushi IWA" /></div>
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/no-name.jpg" alt="Sushi IWA" /></div>
       </div>
+
+
+      {/* AMBIENT TICKER */}
+      <AmbientTicker />
+
+      {/* FULL-BLEED — Hamachi */}
+      <FullBleedSection
+        imageSrc="hamachi-jalap"
+        imageAlt="Hamachi Jalapeño Sushi IWA"
+        topLabel="Platillo Firma"
+        headline="Hamachi Jalapeño"
+        subline="Yellowtail fresco con jalapeño serrano. El más pedido de la carta desde el primer día."
+        ctaLabel="Ver en el Menú"
+        ctaHref="/menu"
+        overlayPosition="bottom-left"
+      />
 
       {/* SIGNATURE DISHES — horizontal scroll */}
       <div className="section-gap" />
