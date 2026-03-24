@@ -1,3 +1,9 @@
+/* Intro screen font — block display so いわ renders correctly */
+@font-face {
+  font-family: 'Noto Serif JP';
+  font-display: block;
+}
+
 /* ── Self-hosted font declarations ── */
 @font-face {
   font-family: 'Cormorant Garamond';

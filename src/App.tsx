@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import StaffGuard from './components/staff/StaffGuard';
 import PageTransition from './components/PageTransition';
+import IntroScreen from './components/IntroScreen';
 import './styles/tokens.css';
 import './styles/micro-interactions.css';
 import WhatsAppWidget from './components/WhatsAppWidget';
@@ -74,6 +75,7 @@ function AppShell() {
 
   return (
     <>
+      <IntroScreen />
       <PageTransition />
       <Nav />
       <main id="main-content">
