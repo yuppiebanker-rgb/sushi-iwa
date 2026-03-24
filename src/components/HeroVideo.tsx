@@ -23,7 +23,6 @@ export default function HeroVideo({ videoSrc, posterSrc, overlayOpacity = 0.45 }
 
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
-      {/* Background: photo always present as fallback */}
       <img
         src={posterSrc}
         alt=""
@@ -39,7 +38,6 @@ export default function HeroVideo({ videoSrc, posterSrc, overlayOpacity = 0.45 }
         }}
       />
 
-      {/* Video layer */}
       {shouldShowVideo && (
         <video
           ref={videoRef}
@@ -58,10 +56,9 @@ export default function HeroVideo({ videoSrc, posterSrc, overlayOpacity = 0.45 }
         </video>
       )}
 
-      {/* Dark gradient overlay */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(to top, rgba(12,11,9,0.97) 0%, rgba(12,11,9,0.28) 60%, transparent 100%)',
+        background: 'linear-gradient(to top, rgba(12,11,9,0.85) 0%, transparent 60%)',
       }} />
     </div>
   );

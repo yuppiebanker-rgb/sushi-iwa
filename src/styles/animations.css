@@ -53,12 +53,18 @@
 
 /* Hero entrance animation */
 @keyframes heroEnter {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.hero-text  { animation: heroEnter 1.1s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
-.hero-sub   { animation: heroEnter 1.1s cubic-bezier(0.22,1,0.36,1) 0.45s both; }
-.hero-cta   { animation: heroEnter 1.1s cubic-bezier(0.22,1,0.36,1) 0.65s both; }
+.hero-text { animation: heroEnter 1.2s cubic-bezier(0.22,1,0.36,1) 0.1s both; }
+.hero-h1   { animation: heroEnter 1.2s cubic-bezier(0.22,1,0.36,1) 0.3s both; }
+.hero-cta  { animation: heroEnter 1.2s cubic-bezier(0.22,1,0.36,1) 0.55s both; }
+
+/* Scroll cue float */
+@keyframes scrollFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.7; }
+  50%      { transform: translateX(-50%) translateY(8px); opacity: 1; }
+}
 
 /* Page transitions (View Transitions API) */
 @keyframes fadeIn {
@@ -77,14 +83,27 @@
 }
 .page-enter { animation: fadeIn 0.4s ease forwards; }
 
+/* ── Ambient Ticker ── */
+@keyframes tickerLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+@keyframes tickerRight {
+  from { transform: translateX(-33.333%); }
+  to   { transform: translateX(0); }
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     opacity: 1; transform: none; transition: none;
   }
   .line-draw { width: 100%; transition: none; }
-  .hero-text, .hero-sub, .hero-cta {
+  .hero-text, .hero-h1, .hero-cta {
     animation: none; opacity: 1; transform: none;
+  }
+  [style*="tickerLeft"], [style*="tickerRight"] {
+    animation: none !important;
   }
 }
 

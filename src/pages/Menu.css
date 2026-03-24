@@ -32,8 +32,8 @@
 .cb:hover:not(.on) { color: var(--cream); }
 
 /* ── MAIN BODY ── */
-.mb { padding: 0 48px 80px; }
-.ms { padding-top: 60px; }
+.mb { padding: 0 var(--page-h-pad) 80px; }
+.ms { padding-top: var(--section-gap-sm); }
 
 /* SECTION HEADER */
 .sh { display: flex; align-items: baseline; gap: 18px; margin-bottom: 32px; padding-bottom: 18px; border-bottom: 0.5px solid var(--border); }

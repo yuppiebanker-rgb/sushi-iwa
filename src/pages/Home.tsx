@@ -12,7 +12,6 @@ import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
 import StickyPhotoSection from '../components/StickyPhotoSection';
-import AmbientTicker from '../components/AmbientTicker';
 import FullBleedSection from '../components/FullBleedSection';
 import HorizontalScroll from '../components/HorizontalScroll';
 import KineticText from '../components/KineticText';
@@ -110,17 +109,23 @@ export default function Home() {
       <PressStrip />
 
       {/* STICKY PHOTO PHILOSOPHY */}
+      <div className="section-gap" />
+      <SectionDivider label="Nuestra Filosofía" labelJp="哲学" number="02" />
       <StickyPhotoSection />
 
       {/* GALLERY STRIP */}
-      <div className="gallery reveal-group photo-grid-stagger">
+      <div className="section-gap" />
+      <SectionDivider label="Galería" labelJp="写真" number="03" />
+      <div className="gallery reveal-group photo-grid-stagger" style={{ scrollSnapAlign: "start" }}>
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/curricanes-spoons.jpg" alt="Sushi IWA" /></div>
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/hamachi-jalap.jpg" alt="Sushi IWA" /></div>
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/iwa-roll.jpg" alt="Sushi IWA" /></div>
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/no-name.jpg" alt="Sushi IWA" /></div>
       </div>
 
-            {/* SIGNATURE DISHES — horizontal scroll */}
+      {/* SIGNATURE DISHES — horizontal scroll */}
+      <div className="section-gap" />
+      <SectionDivider label="El Menú" labelJp="メニュー" number="04" />
       <HorizontalScroll />
 
       {/* CUSTOMER QUOTES */}
@@ -182,6 +187,7 @@ export default function Home() {
       </section>
 
       {/* FULL-BLEED — Interior */}
+      <div style={{ scrollSnapAlign: "start" }}>
       <FullBleedSection
         imageSrc="bar"
         imageAlt="Interior Sushi IWA"
@@ -192,6 +198,7 @@ export default function Home() {
         ctaHref="/#reservar"
         overlayPosition="bottom-right"
       />
+      </div>
 
       {/* RESERVATION */}
       <div className="section-gap" />
