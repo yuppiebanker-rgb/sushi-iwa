@@ -8,6 +8,7 @@ import IntroScreen from './components/IntroScreen';
 import './styles/tokens.css';
 import './styles/micro-interactions.css';
 import WhatsAppWidget from './components/WhatsAppWidget';
+import ScrollProgress from './components/ScrollProgress';
 import './styles/accessibility.css';
 
 // Loading fallback — minimal, branded
@@ -97,6 +98,7 @@ function AppShell() {
       </main>
       <Footer />
       <WhatsAppWidget />
+      <ScrollProgress />
     </>
   );
 }

@@ -33,6 +33,19 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Parallax: hero background moves at 40% scroll speed
+  useEffect(() => {
+    const handleScroll = () => {
+      const hero = document.getElementById('hero-bg');
+      if (!hero) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const scrollY = window.scrollY;
+      hero.style.transform = `translate3d(0, ${scrollY * 0.4}px, 0)`;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <SEO
@@ -53,12 +66,19 @@ export default function Home() {
       </div>
 
       {/* HERO */}
-      <section className="hero">
-        <HeroVideo
-          videoSrc={undefined}
-          posterSrc="/images/bar.jpg"
-          overlayOpacity={0.45}
-        />
+      <section className="hero" style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+        <div id="hero-bg" style={{
+          position: 'absolute',
+          inset: '-20% 0',
+          willChange: 'transform',
+          transform: 'translate3d(0,0,0)',
+        }}>
+          <HeroVideo
+            videoSrc={undefined}
+            posterSrc="/images/bar.jpg"
+            overlayOpacity={0.45}
+          />
+        </div>
         <div className="hero-pattern" />
         <div className="hero-jp-watermark">岩</div>
         <div className="hero-content">
