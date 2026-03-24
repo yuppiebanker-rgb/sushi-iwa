@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import HeroVideo from '../components/HeroVideo';
 import InstagramFeed from '../components/InstagramFeed';
-import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
 import CustomerQuotes from '../components/CustomerQuotes';
 import PressStrip from '../components/PressStrip';
@@ -13,6 +12,7 @@ import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
 import './Home.css';
 import '../styles/menu-effects.css';
+import KineticText from '../components/KineticText';
 import { useRevealAll } from '../hooks/useScrollReveal';
 
 export default function Home() {
