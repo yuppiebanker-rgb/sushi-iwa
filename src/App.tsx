@@ -6,7 +6,6 @@ import StaffGuard from './components/staff/StaffGuard';
 import PageTransition from './components/PageTransition';
 import './styles/tokens.css';
 import './styles/micro-interactions.css';
-import CustomCursor from './components/CustomCursor';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import './styles/accessibility.css';
 
@@ -101,8 +100,5 @@ function AppShell() {
 }
 
 export default function App() {
-  return (<>
-      <CustomCursor />
-      <AppShell />
-    </>);
+  return <AppShell />;
 }
