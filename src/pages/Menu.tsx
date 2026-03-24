@@ -184,7 +184,7 @@ export default function Menu() {
                     </div>
 
                     {meta.layout === 'nigiri' ? (
-                      <div className="ng">
+                      <div className="ng photo-grid-stagger">
                         {items.map(item => (
                           <div className="ni item-fade nigiri-row" key={item.id} role="button" tabIndex={0} onClick={() => openModal(item)} onKeyDown={(e) => handleCardKey(e, item)} aria-label={`${item.name} — ${item.price}`}>
                             <img className="nth" src={`/images/${item.image}`} alt={getAlt(item.image)} loading="lazy" />
@@ -197,7 +197,7 @@ export default function Menu() {
                         ))}
                       </div>
                     ) : (
-                      <div className={`ig ${meta.cols === 2 ? 'ig2' : ''}`}>
+                      <div className={`ig photo-grid-stagger ${meta.cols === 2 ? 'ig2' : ''}`}>
                         {items.map(item => (
                           <div className="item item-fade menu-card" key={item.id} role="button" tabIndex={0} onClick={() => openModal(item)} onKeyDown={(e) => handleCardKey(e, item)} aria-label={`${item.name} — ${item.price}`}>
                             <div className="item-img-wrap">

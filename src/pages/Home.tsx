@@ -11,6 +11,7 @@ import PressStrip from '../components/PressStrip';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
+import HorizontalScroll from '../components/HorizontalScroll';
 import KineticText from '../components/KineticText';
 import './Home.css';
 import '../styles/menu-effects.css';
@@ -142,7 +143,7 @@ export default function Home() {
       </section>
 
       {/* GALLERY STRIP */}
-      <div className="gallery reveal-group">
+      <div className="gallery reveal-group photo-grid-stagger">
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/curricanes-spoons.jpg" alt="Sushi IWA" /></div>
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/hamachi-jalap.jpg" alt="Sushi IWA" /></div>
         <div data-reveal className="gallery-cell gallery-item"><img src="/images/iwa-roll.jpg" alt="Sushi IWA" /></div>
