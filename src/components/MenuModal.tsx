@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { addPreOrder, getPreOrder } from './ReservationFlow';
 import { IMAGE_ALTS } from '../data/imageAlts';
+import DishPairing from './DishPairing';
+import DishPairing from './DishPairing';
 import './MenuModal.css';
 
 interface Props {
-  item: { name: string; badge: string; desc: string; price: string; image: string } | null;
+  item: { id: string; name: string; badge: string; desc: string; price: string; image: string; category: string } | null;
   onClose: () => void;
   onOpenReservation?: (note: string) => void;
 }
@@ -88,6 +90,7 @@ export default function MenuModal({ item, onClose, onOpenReservation }: Props) {
           <button className="mpreorder" onClick={handlePreOrder} disabled={added}>
             {added ? '✓ Agregado a tu reservación' : 'Pedir con mi reservación →'}
           </button>
+          <DishPairing itemId={item.id} itemName={item.name} category={item.category} />
         </div>
         <button className="mc" onClick={onClose} aria-label="Cerrar">✕</button>
       </div>

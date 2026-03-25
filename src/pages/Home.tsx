@@ -163,100 +163,42 @@ export default function Home() {
         </div>
       </section>
 
+      {/* AMBIENT TICKER — atmospheric, right after hero */}
       <AmbientTicker />
 
-      <div className="section-gap" />
-      <SectionDivider label="Nuestra Filosofía" labelJp="哲学" number="02" />
-
+      {/* STICKY PHOTO SECTION — philosophy via sticky scroll */}
       <StickyPhotoSection />
 
-      <div style={{ textAlign: 'center', padding: '60px 24px 0', maxWidth: '800px', margin: '0 auto' }}>
-        <KineticText
-          text="Donde el silencio habla en sabor."
-          tag="h2"
-          stagger={70}
-          style={{
-            fontFamily: '"Cormorant Garamond", serif',
-            fontSize: 'clamp(28px,4vw,52px)',
-            fontStyle: 'italic',
-            fontWeight: 300,
-            color: '#f4efe6',
-            lineHeight: 1.2,
-          }}
-        />
-      </div>
+      {/* STATEMENT — "Curricanes." oversized type */}
+      <StatementSection
+        word="Curricanes."
+        subtitle="El platillo que define a IWA."
+      />
 
-      {/* Tanaka-style masonry gallery */}
-      <section style={{ padding: 'clamp(48px,6vw,80px) 0' }}>
-        <div style={{ textAlign: 'center', marginBottom: '48px', padding: '0 24px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ width: '32px', height: '0.5px', background: '#b8922a' }} />
-            <span style={{
-              fontFamily: '"DM Sans"', fontSize: '9px',
-              letterSpacing: '0.35em', textTransform: 'uppercase',
-              color: '#b8922a',
-            }}>Galería · いわ</span>
-            <div style={{ width: '32px', height: '0.5px', background: '#b8922a' }} />
+      {/* HORIZONTAL SCROLL — 6 signature dishes */}
+      <HorizontalScroll />
+
+      {/* FULL BLEED — Hamachi */}
+      <FullBleedSection
+        imageSrc="hamachi-jalap"
+        imageAlt="Hamachi Jalapeño Sushi IWA"
+        topLabel="Platillo Firma"
+        headline="Hamachi Jalapeño"
+        subline="Yellowtail fresco. Jalapeño serrano. Sin adornos."
+        overlayPosition="bottom-left"
+      />
+
+      {/* AMBIENT TICKER — second instance, reversed */}
+      <AmbientTicker singleRow />
+
+      {/* MASONRY GALLERY */}
+      <div className="masonry-gallery">
+        {GALLERY_IMAGES.map((img, i) => (
+          <div className={`masonry-item${img.tall ? ' masonry-tall' : ''}`} key={img.src} onClick={() => setLightboxIndex(i)}>
+            <img src={`/images/${img.src}.jpg`} alt={img.alt} loading="lazy" />
           </div>
-        </div>
-
-        <div style={{ columnCount: 3, columnGap: '3px' }} className="masonry-grid">
-          {GALLERY_IMAGES.map((img, i) => (
-            <div
-              key={img.src}
-              className="masonry-item"
-              onClick={() => setLightboxIndex(i)}
-              style={{
-                breakInside: 'avoid',
-                marginBottom: '3px',
-                cursor: 'pointer',
-                overflow: 'hidden',
-                display: 'block',
-                position: 'relative',
-              }}
-            >
-              <img
-                src={`/images/${img.src}.jpg`}
-                alt={img.alt}
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  display: 'block',
-                  aspectRatio: img.tall ? '3/4' : '4/3',
-                  objectFit: 'cover',
-                  filter: 'brightness(0.78) saturate(0.9)',
-                  transition: 'filter 0.4s ease, transform 0.55s cubic-bezier(0.22,1,0.36,1)',
-                }}
-                className="masonry-img"
-              />
-              <div className="masonry-overlay" style={{
-                position: 'absolute', inset: 0,
-                background: 'rgba(12,11,9,0)',
-                transition: 'background 0.3s ease',
-                display: 'flex', alignItems: 'flex-end',
-                padding: '16px',
-              }}>
-                <span style={{
-                  fontFamily: '"Cormorant Garamond", serif',
-                  fontSize: '13px', fontStyle: 'italic',
-                  color: 'rgba(244,239,230,0)',
-                  transition: 'color 0.3s ease',
-                }} className="masonry-label">{img.alt}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ textAlign: 'center', marginTop: '48px' }}>
-          <Link to="/galeria" style={{
-            fontFamily: '"DM Sans"', fontSize: '10px',
-            letterSpacing: '0.25em', textTransform: 'uppercase',
-            color: '#b8922a', textDecoration: 'none',
-            borderBottom: '0.5px solid rgba(184,146,42,0.4)',
-            paddingBottom: '3px',
-          }}>Ver Galería Completa →</Link>
-        </div>
-      </section>
+        ))}
+      </div>
 
       <Lightbox
         open={lightboxIndex >= 0}
@@ -265,44 +207,11 @@ export default function Home() {
         slides={GALLERY_IMAGES.map(img => ({ src: `/images/${img.src}.jpg`, alt: img.alt }))}
       />
 
-      <AmbientTicker />
-      <FullBleedSection
-        imageSrc="hamachi-jalap"
-        imageAlt="Hamachi Jalapeño Sushi IWA"
-        topLabel="Platillo Firma"
-        headline="Hamachi Jalapeño"
-        subline="Yellowtail fresco con jalapeño serrano. El más pedido de la carta desde el primer día."
-        ctaLabel="Ver en el Menú"
-        ctaHref="/menu"
-        overlayPosition="bottom-left"
-      />
-      <HorizontalScroll />
-
-      <CustomerQuotes />
-      <InstagramFeed />
-
-      <StatementSection />
-
-      <div style={{ textAlign: 'center', padding: '40px 24px 0', maxWidth: '800px', margin: '0 auto' }}>
-        <KineticText
-          text="Una experiencia íntima. Doce asientos. Todo el Pacífico."
-          tag="p"
-          stagger={45}
-          delay={200}
-          style={{
-            fontFamily: '"Cormorant Garamond", serif',
-            fontSize: 'clamp(18px,2.5vw,30px)',
-            fontStyle: 'italic',
-            color: 'rgba(244,239,230,0.6)',
-          }}
-        />
-      </div>
-
+      {/* LOCATIONS */}
       <div className="section-gap" />
-      <SectionDivider label="Ubicaciones" labelJp="場所" number="05" />
+      <SectionDivider label="Ubicaciones" labelJp="場所" />
 
       <section className="locations" id="ubicaciones">
-        <h2 data-reveal>Encuéntranos en <em>4 ciudades</em></h2>
         <div className="locations-grid reveal-group">
           <div data-reveal className="loc location-card">
             <div className="loc-city">Monterrey</div>
@@ -347,57 +256,47 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="section-gap" />
+      {/* FULL BLEED — bar/interior */}
       <FullBleedSection
         imageSrc="bar"
-        imageAlt="Interior Sushi IWA"
-        topLabel="Monterrey · San Pedro"
+        imageAlt="Barra Sushi IWA"
+        topLabel="La Barra"
         headline="12 asientos. Una historia."
-        subline="La barra más íntima de San Pedro. Frente al chef. Sin intermediarios."
-        ctaLabel="Reservar tu lugar"
-        ctaHref="/#reservar"
         overlayPosition="bottom-right"
       />
 
-      <SectionDivider label="Reservaciones" labelJp="予約" number="06" />
+      {/* RESERVATIONS */}
+      <div className="section-gap" />
+      <SectionDivider label="Reservaciones" labelJp="予約" />
 
       <section className="reservation" id="reservar">
         <div data-reveal="left" className="reservation-left">
           <h2>Reserva tu<br /><em>experiencia</em></h2>
-          <p>{t('reservation.desc')}</p>
-          <div className="contact-row"><div className="contact-icon">✆</div><div className="contact-text"><p>{t('reservation.phone')}</p><span>+52 81 1123 9849</span></div></div>
-          <div className="contact-row"><div className="contact-icon">✉</div><div className="contact-text"><p>{t('reservation.email')}</p><span>sushi.iwa@hotmail.com</span></div></div>
-          <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>{t('reservation.schedule')}</p><span>{t('reservation.scheduleValue')}</span></div></div>
-          <div className="contact-row" style={{ marginTop: 8 }}><div className="contact-icon">@</div><div className="contact-text"><p>Instagram</p><span>@sushi.iwa</span></div></div>
+          <div className="contact-row"><div className="contact-icon">✆</div><div className="contact-text"><p>Teléfono</p><span>+52 81 1123 9849</span></div></div>
+          <div className="contact-row"><div className="contact-icon">✉</div><div className="contact-text"><p>Email</p><span>sushi.iwa@hotmail.com</span></div></div>
+          <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>Horario</p><span>L·Mi–D 1:45–10:30pm</span></div></div>
         </div>
         <div data-reveal="right" className="form-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '60px 38px' }}>
           <AvailabilityBadge />
           <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16, marginTop: 12 }}>岩</div>
-          <div className="form-title" style={{ marginBottom: 12 }}>{t('reservation.formTitle')}</div>
-          <p style={{ fontSize: 13, color: 'rgba(244,239,230,0.48)', lineHeight: 1.7, marginBottom: 28, maxWidth: 320 }}>
-            Reserva en 3 pasos. Selecciona ubicación, fecha, y confirma por WhatsApp.
-          </p>
+          <div className="form-title" style={{ marginBottom: 12 }}>Reserva en 3 pasos</div>
           <button className="form-submit" type="button" onClick={() => setResOpen(true)} style={{ maxWidth: 320 }}>
             Reservar Ahora →
           </button>
         </div>
       </section>
 
-      <Link to="/gift-cards" style={{
-        display: 'block', background: 'var(--warm)', borderTop: '0.5px solid var(--border)',
-        borderBottom: '0.5px solid var(--border)', padding: '22px 24px', textAlign: 'center',
-        textDecoration: 'none',
-      }}>
-        <span style={{ fontFamily: 'var(--font-d)', fontSize: 17, fontWeight: 300, color: 'var(--cream)', letterSpacing: '0.02em' }}>
-          ¿Buscas el regalo perfecto?
-        </span>
-        <span style={{ color: 'var(--gold)', fontWeight: 500, fontSize: 14, marginLeft: 12, letterSpacing: '0.08em' }}>
-          Gift Cards IWA →
-        </span>
-      </Link>
+      {/* CUSTOMER QUOTES */}
+      <CustomerQuotes />
 
-      <NewsletterBanner />
+      {/* AWARDS */}
       <AwardsBadges />
+
+      {/* INSTAGRAM */}
+      <InstagramFeed />
+
+      {/* NEWSLETTER */}
+      <NewsletterBanner />
 
       <button className={`fab-reserve floating-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
         <span className="fab-jp">岩</span> Reservar Mesa{preOrderCount > 0 ? ` (${preOrderCount})` : ''}

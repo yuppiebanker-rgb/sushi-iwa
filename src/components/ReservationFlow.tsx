@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
+import { track, trackReservationStep } from '../lib/analytics';
 import './ReservationFlow.css';
 import AvailabilityBadge from './AvailabilityBadge';
+import BirthdayCapture from './BirthdayCapture';
+import { supabase } from '../lib/supabase';
 
 const LOCATIONS = [
   { id: 'mty', city: 'Monterrey', state: 'Nuevo León', address: 'Av. Fundadores 955, Sienna Tower 2°', phone: '+528111239849', wa: '528111239849', hours: 'L·Mi·J·V·S·D 1:45–10:30pm', closed: [2] },
@@ -13,7 +16,7 @@ const BASE_TIMES = ['1:45 PM', '3:00 PM', '5:00 PM', '7:00 PM', '8:00 PM', '9:00
 const SAT_EXTRA = '10:30 PM';
 
 const OCCASIONS = ['Ninguna', 'Cumpleaños', 'Aniversario', 'Cena de negocios', 'Propuesta de matrimonio', 'Otra celebración'];
-const OCCASION_EMOJI: Record<string, string> = { 'Cumpleaños': '🎂', 'Aniversario': '💍', 'Cena de negocios': '💼', 'Propuesta de matrimonio': '💒', 'Otra celebración': '🎉' };
+const OCCASION_EMOJI: Record<string, string> = { 'Cumpleaños': '🎂', 'Aniversario': '💍', 'Cena de negocios': '💼', 'Propuesta de matrimonio': '💒', 'Otra celebración': '🎉', 'birthday': '🎂', 'anniversary': '💍', 'business': '🥂', 'graduation': '🎓' };
 
 function formatDate(d: string) {
   const dt = new Date(d + 'T12:00:00');
@@ -58,6 +61,7 @@ export default function ReservationFlow({ open, onClose, preNote }: Props) {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [occasion, setOccasion] = useState('Ninguna');
+  const [occasionData, setOccasionData] = useState<{ type: string; date?: string } | null>(null);
   const [request, setRequest] = useState(preNote || '');
   const [firstTime, setFirstTime] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -125,20 +129,38 @@ export default function ReservationFlow({ open, onClose, preNote }: Props) {
   };
 
   const next = () => {
-    if (step === 1 && validateStep1()) { setStep(2); setErrors({}); }
-    else if (step === 2 && validateStep2()) { setStep(3); setErrors({}); }
+    if (step === 1 && validateStep1()) {
+      trackReservationStep(2, { location: selLoc?.city, time, party_size: guests });
+      setStep(2); setErrors({});
+    } else if (step === 2 && validateStep2()) {
+      trackReservationStep(3);
+      setStep(3); setErrors({});
+    }
   };
 
   const sendWhatsApp = () => {
     if (!selLoc) return;
     let msg = `Hola, quisiera reservar en Sushi IWA ${selLoc.city}.\n📅 ${formatDate(date)} a las ${time}\n👥 ${guests} personas\n👤 ${name}`;
-    if (occasion !== 'Ninguna') msg += `\n${OCCASION_EMOJI[occasion] || '🎉'} ${occasion}`;
+    if (occasionData) msg += `\n${OCCASION_EMOJI[occasion] || '🎉'} ${occasion}`;
     if (request.trim()) msg += `\n📝 ${request}`;
     if (preOrder.length > 0) msg += `\n🍣 Pre-orden: ${preOrder.join(', ')}`;
     msg += '\nGracias 🙏';
     const wa = selLoc.wa || '528111239849';
+    track('reservation_whatsapp_opened', { location: selLoc.city, time });
     window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank');
     clearPreOrder();
+
+    // Save occasion data for birthday/anniversary auto-WhatsApp
+    if (supabase && occasionData?.date) {
+      supabase.from('guests').upsert({
+        phone: phone.replace(/\D/g, ''),
+        name,
+        special_occasions: {
+          [occasionData.type]: occasionData.date,
+        },
+      }, { onConflict: 'phone' }).then(() => {});
+    }
+
     setSent(true);
   };
 
@@ -240,10 +262,10 @@ export default function ReservationFlow({ open, onClose, preNote }: Props) {
             <label className="rf-label">Email (opcional)</label>
             <input className="rf-input iwa-input" type="email" placeholder="tu@email.com" value={email} onChange={e => setEmail(e.target.value)} />
 
-            <label className="rf-label">Ocasión especial</label>
-            <select className="rf-select" value={occasion} onChange={e => setOccasion(e.target.value)}>
-              {OCCASIONS.map(o => <option key={o}>{o}</option>)}
-            </select>
+            <BirthdayCapture onChange={(data) => {
+              setOccasionData(data);
+              setOccasion(data ? data.type : 'Ninguna');
+            }} />
 
             <label className="rf-label">Solicitudes especiales</label>
             <textarea className="rf-textarea" placeholder="Alergias, preferencias, etc." maxLength={200} value={request} onChange={e => setRequest(e.target.value)} />
@@ -273,7 +295,7 @@ export default function ReservationFlow({ open, onClose, preNote }: Props) {
               <div className="rf-confirm-time">{time}</div>
               <div className="rf-confirm-guests">{guests} persona{guests > 1 ? 's' : ''}</div>
               <div className="rf-confirm-name">{name}</div>
-              {occasion !== 'Ninguna' && <div className="rf-confirm-occasion">{OCCASION_EMOJI[occasion] || '🎉'} {occasion}</div>}
+              {occasionData && <div className="rf-confirm-occasion">{OCCASION_EMOJI[occasion] || '🎉'} {occasion}</div>}
               {preOrder.length > 0 && (
                 <div className="rf-confirm-preorder">
                   <div className="rf-confirm-preorder-label">Pre-orden:</div>

@@ -192,6 +192,10 @@
   .sn { font-size: 36px; }
   .cb { padding: 11px 14px; font-size: 8px; }
 }
+/* Recommendation sidebar — hide on mobile/tablet */
+.rec-sidebar { display: block; }
+@media (max-width: 900px) { .rec-sidebar { display: none; } }
+
 @media (max-width: 480px) {
   .mb { padding: 0 16px 60px; }
   .mhero { padding: 0 16px 20px; }

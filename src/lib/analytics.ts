@@ -19,7 +19,9 @@ export type IWAEvent =
   | 'chef_story_read'
   | 'location_map_clicked'
   | 'qr_generated'
-  | 'staff_portal_accessed';
+  | 'staff_portal_accessed'
+  | 'reservation_deposit_started'
+  | 'reservation_deposit_completed';
 
 interface EventProps {
   [key: string]: string | number | boolean;
@@ -45,6 +47,17 @@ export function track(event: IWAEvent, props?: EventProps) {
 // Track menu item views (called from MenuModal)
 export function trackMenuItem(name: string, category: string, price: string) {
   track('menu_item_clicked', { name, category, price });
+}
+
+// Detect UTM traffic source from URL parameters
+export function detectTrafficSource(): string {
+  const params = new URLSearchParams(window.location.search);
+  const utm = params.get('utm_source');
+  if (utm) {
+    track('reservation_started', { source: utm });
+    return utm;
+  }
+  return 'direct';
 }
 
 // Track reservation funnel

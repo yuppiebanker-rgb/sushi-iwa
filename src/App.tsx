@@ -1,5 +1,6 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { detectTrafficSource } from './lib/analytics';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import StaffGuard from './components/staff/StaffGuard';
@@ -9,6 +10,7 @@ import './styles/tokens.css';
 import './styles/micro-interactions.css';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import ScrollProgress from './components/ScrollProgress';
+import GuestProfile from './components/GuestProfile';
 import './styles/accessibility.css';
 
 // Enable CSS View Transitions where supported
@@ -41,6 +43,7 @@ const ChefStory  = lazy(() => import('./pages/ChefStory'));
 const GiftCards  = lazy(() => import('./pages/GiftCards'));
 const Loyalty    = lazy(() => import('./pages/Loyalty'));
 const Newsletter = lazy(() => import('./pages/Newsletter'));
+const ReservacionConfirmada = lazy(() => import('./pages/ReservacionConfirmada'));
 
 // Staff portal — heaviest chunk, load separately
 const StaffLogin     = lazy(() => import('./pages/staff/StaffLogin'));
@@ -98,16 +101,22 @@ function AppShell() {
             <Route path="/loyalty" element={<Loyalty />} />
             <Route path="/newsletter" element={<Newsletter />} />
             <Route path="/novedades" element={<Newsletter />} />
+            <Route path="/reservacion-confirmada" element={<ReservacionConfirmada />} />
           </Routes>
         </Suspense>
       </main>
       <Footer />
       <WhatsAppWidget />
       <ScrollProgress />
+      <GuestProfile />
     </>
   );
 }
 
 export default function App() {
+  useEffect(() => {
+    detectTrafficSource();
+  }, []);
+
   return <AppShell />;
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SEO from '../components/SEO';
+import { lookupGuest, type GuestMemory } from '../lib/guest-memory';
 
 const WHATSAPP = '528111239849';
 const STAMPS_TOTAL = 10;
@@ -55,6 +56,11 @@ export default function Loyalty() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* B2) LOYALTY LOOKUP */}
+      <section className="ly-section">
+        <LoyaltyLookup />
       </section>
 
       {/* C) REGISTRATION FORM */}
@@ -127,7 +133,7 @@ export default function Loyalty() {
             { q: '¿Caduca mi tarjeta de lealtad?', a: 'No. Tus visitas se acumulan sin fecha de caducidad.' },
             { q: '¿Puedo transferir mis visitas?', a: 'Las visitas están ligadas a tu número de WhatsApp y no son transferibles.' },
             { q: '¿En qué sucursales aplica?', a: 'El programa aplica en todas las sucursales de Sushi IWA.' },
-            { q: '¿Cómo sé cuántas visitas tengo?', a: 'Pregunta a cualquier miembro de nuestro staff o envíanos un WhatsApp.' },
+            { q: '¿Cómo sé cuántas visitas tengo?', a: 'Consulta tu saldo arriba con tu número de WhatsApp, o pregunta a cualquier miembro de nuestro staff.' },
             { q: '¿Necesito descargar una app?', a: 'No. Todo funciona con tu número de WhatsApp, sin apps.' },
           ].map(f => (
             <details className="ly-faq-item" key={f.q}>
@@ -138,6 +144,180 @@ export default function Loyalty() {
         </div>
       </section>
     </>
+  );
+}
+
+function LoyaltyLookup() {
+  const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [guest, setGuest] = useState<GuestMemory | null>(null);
+  const [notFound, setNotFound] = useState(false);
+
+  const handleLookup = async () => {
+    if (!phone.trim()) return;
+    setLoading(true);
+    setNotFound(false);
+    const result = await lookupGuest(phone);
+    if (result) {
+      setGuest(result);
+    } else {
+      setNotFound(true);
+    }
+    setLoading(false);
+  };
+
+  const stamps = guest?.loyaltyStamps || 0;
+  const isReady = stamps >= 10;
+
+  return (
+    <div style={{ maxWidth: '440px', margin: '0 auto' }}>
+      {/* Phone input */}
+      {!guest && (
+        <div>
+          <div style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: 'clamp(22px,3vw,32px)',
+            fontStyle: 'italic', color: '#f4efe6',
+            marginBottom: '8px', textAlign: 'center',
+          }}>Consulta tus visitas</div>
+          <div style={{
+            fontSize: '12px', color: '#7a7670',
+            marginBottom: '20px', lineHeight: 1.6, textAlign: 'center',
+          }}>
+            Ingresa tu número de WhatsApp para ver tu progreso en el Club IWA.
+          </div>
+          <div style={{ display: 'flex', gap: '0' }}>
+            <div style={{
+              background: 'rgba(184,146,42,0.06)',
+              border: '0.5px solid rgba(184,146,42,0.25)',
+              borderRight: 'none',
+              padding: '0 14px',
+              display: 'flex', alignItems: 'center',
+              fontSize: '13px', color: '#7a7670',
+            }}>+52</div>
+            <input
+              type="tel"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleLookup()}
+              placeholder="81 1234 5678"
+              style={{
+                flex: 1, background: 'rgba(184,146,42,0.04)',
+                border: '0.5px solid rgba(184,146,42,0.25)',
+                padding: '13px 16px',
+                color: '#f4efe6', fontSize: '14px',
+                fontFamily: '"DM Sans"', outline: 'none',
+              }}
+            />
+            <button onClick={handleLookup} disabled={loading} style={{
+              background: '#b8922a', border: 'none',
+              padding: '13px 22px', cursor: 'pointer',
+              color: '#0c0b09', fontSize: '11px',
+              letterSpacing: '0.2em', fontWeight: 500,
+              fontFamily: '"DM Sans"',
+            }}>
+              {loading ? '...' : 'Ver →'}
+            </button>
+          </div>
+          {notFound && (
+            <div style={{
+              marginTop: '12px', fontSize: '12px',
+              color: '#7a7670', textAlign: 'center',
+            }}>
+              No encontramos este número. ¿Quieres{' '}
+              <a href="#join" style={{ color: '#b8922a' }}>unirte al Club IWA</a>?
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Results */}
+      {guest && (
+        <div>
+          <div style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: '26px', fontStyle: 'italic',
+            color: '#f4efe6', marginBottom: '4px', textAlign: 'center',
+          }}>
+            {isReady ? '¡Premio listo!' : `${stamps} de 10 visitas`}
+          </div>
+          <div style={{
+            fontSize: '12px', color: '#7a7670', marginBottom: '24px', textAlign: 'center',
+          }}>
+            {isReady
+              ? 'Muestra esta pantalla al llegar — un orden de curricanes va por nuestra cuenta.'
+              : `Te faltan ${10 - stamps} visita${10 - stamps !== 1 ? 's' : ''} para tu curricanes gratis.`
+            }
+          </div>
+
+          {/* Stamp circles */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(5, 1fr)',
+            gap: '8px', marginBottom: '24px',
+          }}>
+            {Array.from({ length: 10 }, (_, i) => (
+              <div key={i} style={{
+                aspectRatio: '1',
+                borderRadius: '50%',
+                background: i < stamps ? 'rgba(184,146,42,0.2)' : 'transparent',
+                border: `1px solid ${i < stamps ? '#b8922a' : 'rgba(184,146,42,0.2)'}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: '"Noto Serif JP", serif',
+                fontSize: '16px',
+                color: i < stamps ? '#b8922a' : 'rgba(184,146,42,0.2)',
+                transition: 'all 0.3s ease',
+              }}>
+                {i < stamps ? '✦' : ''}
+              </div>
+            ))}
+          </div>
+
+          {guest.lastVisit && (
+            <div style={{
+              fontSize: '11px', color: '#7a7670', textAlign: 'center', marginBottom: '16px',
+            }}>
+              Última visita: {new Date(guest.lastVisit).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </div>
+          )}
+
+          {isReady && (
+            <div style={{
+              background: 'rgba(184,146,42,0.1)',
+              border: '0.5px solid rgba(184,146,42,0.4)',
+              padding: '16px', textAlign: 'center',
+              marginBottom: '16px',
+            }}>
+              <div style={{
+                fontFamily: '"Noto Serif JP", serif',
+                fontSize: '20px', color: '#b8922a',
+              }}>いわ</div>
+              <div style={{
+                fontFamily: '"Cormorant Garamond", serif',
+                fontSize: '18px', fontStyle: 'italic',
+                color: '#f4efe6', marginTop: '4px',
+              }}>1 Orden de Curricanes · Gratis</div>
+              <div style={{
+                fontSize: '10px', color: '#7a7670',
+                marginTop: '6px', letterSpacing: '0.1em',
+              }}>Válido en cualquier sucursal IWA</div>
+            </div>
+          )}
+
+          <div style={{ textAlign: 'center' }}>
+            <button
+              onClick={() => { setGuest(null); setPhone(''); }}
+              style={{
+                background: 'none', border: 'none',
+                color: '#7a7670', cursor: 'pointer',
+                fontSize: '11px', letterSpacing: '0.15em',
+                padding: '0',
+              }}
+            >← Consultar otro número</button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

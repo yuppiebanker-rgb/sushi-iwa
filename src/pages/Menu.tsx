@@ -6,6 +6,9 @@ import SeasonalBadge from '../components/SeasonalBadge';
 import ReservationFlow from '../components/ReservationFlow';
 import SEO from '../components/SEO';
 import StatementSection from '../components/StatementSection';
+import AIRecommendations from '../components/AIRecommendations';
+import AIMenuSearch, { type SearchResult } from '../components/AIMenuSearch';
+import { track, trackMenuItem } from '../lib/analytics';
 import { useRevealAll } from '../hooks/useScrollReveal';
 import './Menu.css';
 import '../styles/menu-effects.css';
@@ -44,17 +47,28 @@ function getAlt(image: string): string {
 
 export default function Menu() {
   const [activeTab, setActiveTab] = useState<string>('entradas');
-  const [modal, setModal] = useState<{ name: string; badge: string; desc: string; price: string; image: string } | null>(null);
+  const [modal, setModal] = useState<{ id: string; name: string; badge: string; desc: string; price: string; image: string; category: string } | null>(null);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<Filter>('all');
   const mbRef = useRef<HTMLDivElement>(null);
   const eighted = get86();
   const [resOpen, setResOpen] = useState(false);
   const [resNote, setResNote] = useState('');
+  const [aiResult, setAiResult] = useState<SearchResult | null>(null);
 
   useRevealAll();
 
+  const handleAIResult = useCallback((result: SearchResult) => {
+    setAiResult(result);
+  }, []);
+
   const filtered = useMemo(() => {
+    // If AI search returned results, use those
+    if (aiResult && (aiResult.banner || aiResult.explanation)) {
+      let items = aiResult.items;
+      if (filter !== 'all') items = items.filter(i => matchesFilter(i, filter));
+      return items;
+    }
     let items = MENU_ITEMS;
     if (filter !== 'all') items = items.filter(i => matchesFilter(i, filter));
     if (search.trim()) {
@@ -62,9 +76,9 @@ export default function Menu() {
       items = items.filter(i => i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q) || i.badge.toLowerCase().includes(q));
     }
     return items;
-  }, [search, filter]);
+  }, [search, filter, aiResult]);
 
-  const isFiltering = search.trim() !== '' || filter !== 'all';
+  const isFiltering = search.trim() !== '' || filter !== 'all' || !!(aiResult?.banner);
 
   const scrollTo = useCallback((id: string) => {
     setActiveTab(id);
@@ -73,7 +87,7 @@ export default function Menu() {
   }, []);
 
   const openModal = (item: MenuItem) => {
-    setModal({ name: item.name, badge: item.badge, desc: item.desc, price: item.price, image: item.image });
+    setModal({ id: item.id, name: item.name, badge: item.badge, desc: item.desc, price: item.price, image: item.image, category: item.category });
   };
 
   const handleCardKey = (e: KeyboardEvent<HTMLDivElement>, item: MenuItem) => {
@@ -109,18 +123,7 @@ export default function Menu() {
 
       {/* SEARCH + FILTERS */}
       <div className="search-bar">
-        <div className="search-wrap">
-          <svg className="search-icon" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="1.5"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" strokeWidth="1.5"/></svg>
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Buscar platillo..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            aria-label="Buscar platillo"
-          />
-          {search && <button className="search-clear" onClick={() => setSearch('')} aria-label="Limpiar búsqueda">✕</button>}
-        </div>
+        <AIMenuSearch onResults={handleAIResult} />
         <div className="filter-pills" role="group" aria-label="Filtros de menú">
           {FILTERS.map(f => (
             <button key={f.id} className={`fpill ${filter === f.id ? 'fpill-on' : ''}`} onClick={() => setFilter(f.id)} aria-pressed={filter === f.id}>
@@ -129,6 +132,30 @@ export default function Menu() {
           ))}
         </div>
       </div>
+
+      {/* AI SEARCH BANNER */}
+      {aiResult?.banner && (
+        <div style={{
+          maxWidth: '900px', margin: '0 auto', padding: '12px 24px',
+          display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap',
+          background: 'rgba(184,146,42,0.06)',
+          borderBottom: '0.5px solid rgba(184,146,42,0.12)',
+        }}>
+          <span style={{ fontSize: '11px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b8922a' }}>
+            {aiResult.banner}
+          </span>
+          {aiResult.explanation && (
+            <span style={{ fontSize: '12px', color: 'rgba(244,239,230,0.45)' }}>
+              — {aiResult.explanation}
+            </span>
+          )}
+          <button
+            onClick={() => setAiResult(null)}
+            style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#7a7670', fontSize: '12px', cursor: 'pointer', padding: '4px 8px' }}
+            aria-label="Limpiar filtro AI"
+          >✕</button>
+        </div>
+      )}
 
       {/* CATEGORY NAV */}
       {!isFiltering && (
@@ -141,8 +168,9 @@ export default function Menu() {
         </div>
       )}
 
-      {/* MAIN BODY */}
-      <div className="mb" ref={mbRef}>
+      {/* MAIN BODY + SIDEBAR */}
+      <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+      <div className="mb" ref={mbRef} style={{ flex: 1, minWidth: 0 }}>
         {/* FILTERED VIEW — flat grid */}
         {isFiltering ? (
           filtered.length > 0 ? (
@@ -266,6 +294,15 @@ export default function Menu() {
             ))}
           </>
         )}
+      </div>
+
+      {/* SIDEBAR — desktop only */}
+      <aside className="rec-sidebar" style={{
+        width: '280px', flexShrink: 0,
+        position: 'sticky', top: '80px', alignSelf: 'flex-start',
+      }}>
+        <AIRecommendations variant="sidebar" />
+      </aside>
       </div>
 
       <p className="notice">

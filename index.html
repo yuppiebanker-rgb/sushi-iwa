@@ -88,7 +88,30 @@
             "https://www.instagram.com/sushi.iwa",
             "https://sushiiwa.mx"
           ],
-          "keywords": "sushi monterrey, sushi san pedro garza garcia, restaurante japones monterrey, curricanes sushi, hamachi jalapeño"
+          "keywords": "sushi monterrey, sushi san pedro garza garcia, restaurante japones monterrey, curricanes sushi, hamachi jalapeño",
+          "potentialAction": [
+            {
+              "@type": "ReserveAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://sushiiwa.mx/#reservar",
+                "inLanguage": "es-MX",
+                "actionPlatform": [
+                  "http://schema.org/DesktopWebPlatform",
+                  "http://schema.org/MobileWebPlatform"
+                ]
+              },
+              "result": {
+                "@type": "Reservation",
+                "name": "Reservación en Sushi IWA"
+              }
+            },
+            {
+              "@type": "ViewAction",
+              "target": "https://sushiiwa.mx/menu",
+              "name": "Ver Menú"
+            }
+          ]
         },
         {
           "@type": "WebSite",

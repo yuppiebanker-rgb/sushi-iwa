@@ -1,0 +1,15 @@
+{
+  "bookingUrl": "https://sushiiwa.mx/#reservar",
+  "name": "Sushi IWA",
+  "phone": "+528111239849",
+  "address": "Av. Fundadores 955, Sienna Tower 2° piso, San Pedro Garza García, NL",
+  "hours": {
+    "monday": "13:45-22:30",
+    "tuesday": "closed",
+    "wednesday": "13:45-22:30",
+    "thursday": "13:45-22:30",
+    "friday": "13:45-22:30",
+    "saturday": "13:45-22:30",
+    "sunday": "13:45-22:30"
+  }
+}

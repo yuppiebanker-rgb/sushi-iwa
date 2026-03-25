@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
+import GoogleReserveLinks from '../../components/GoogleReserve';
 import './staff.css';
 
 const LOCS = [
@@ -15,7 +16,10 @@ const DESTINATIONS = [
   { path: '/galeria', label: 'Galería' },
 ];
 
+type Tab = 'qr' | 'links';
+
 export default function QRGenerator() {
+  const [tab, setTab] = useState<Tab>('qr');
   const [loc, setLoc] = useState(LOCS[0].id);
   const [dest, setDest] = useState(DESTINATIONS[0].path);
   const [customLabel, setCustomLabel] = useState('');
@@ -60,6 +64,26 @@ export default function QRGenerator() {
         </div>
       </div>
 
+      <div style={{ display: 'flex', gap: 0, marginBottom: 20, borderBottom: '0.5px solid rgba(184,146,42,0.2)' }}>
+        {([['qr', 'QR Codes'], ['links', 'Links de Reservación']] as const).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => setTab(key)}
+            style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              padding: '10px 20px',
+              fontSize: '11px', letterSpacing: '0.15em', textTransform: 'uppercase',
+              color: tab === key ? '#b8922a' : '#7a7670',
+              borderBottom: tab === key ? '2px solid #b8922a' : '2px solid transparent',
+              fontFamily: '"DM Sans"', transition: 'all 0.2s',
+            }}
+          >{label}</button>
+        ))}
+      </div>
+
+      {tab === 'links' && <GoogleReserveLinks />}
+
+      {tab === 'qr' && <>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, marginBottom: 20 }}>
         <div>
           <label style={{ fontSize: 8, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mist)', display: 'block', marginBottom: 4 }}>Ubicación</label>
@@ -101,6 +125,7 @@ export default function QRGenerator() {
           </button>
         ))}
       </div>
+      </>}
     </div>
   );
 }
