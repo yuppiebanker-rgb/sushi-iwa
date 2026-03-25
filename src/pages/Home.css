@@ -49,7 +49,7 @@
 .section-divider {
   display: flex; align-items: center; gap: 14px;
   justify-content: center;
-  padding: 80px 52px;
+  padding: 80px var(--page-h-pad);
 }
 .sd-line { width: 28px; height: 0.5px; background: var(--gold); opacity: 0.3; flex: none; }
 .sd-label {

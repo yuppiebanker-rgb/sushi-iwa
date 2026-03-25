@@ -7,6 +7,7 @@ import HeroVideo from '../components/HeroVideo';
 import LiveInstagram from '../components/LiveInstagram';
 import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
+import ConversationalReservation from '../components/ConversationalReservation';
 import CustomerQuotes from '../components/CustomerQuotes';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
@@ -17,6 +18,7 @@ import FullBleedSection from '../components/FullBleedSection';
 import HorizontalScroll from '../components/HorizontalScroll';
 import StatementSection from '../components/StatementSection';
 import AmbientTicker from '../components/AmbientTicker';
+import AIRecommendations from '../components/AIRecommendations';
 import './Home.css';
 import '../styles/gallery.css';
 import '../styles/menu-effects.css';
@@ -45,6 +47,7 @@ const GALLERY_IMAGES = [
 
 export default function Home() {
   const [resOpen, setResOpen] = useState(false);
+  const [resMode, setResMode] = useState<'ai' | 'form'>('ai');
   const [showFab, setShowFab] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(-1);
   const preOrderCount = getPreOrder().length;
@@ -163,6 +166,8 @@ export default function Home() {
         </div>
       </section>
 
+      <AIRecommendations variant="inline" />
+
       {/* AMBIENT TICKER — atmospheric, right after hero */}
       <AmbientTicker />
 
@@ -276,13 +281,27 @@ export default function Home() {
           <div className="contact-row"><div className="contact-icon">✉</div><div className="contact-text"><p>Email</p><span>sushi.iwa@hotmail.com</span></div></div>
           <div className="contact-row"><div className="contact-icon">⌂</div><div className="contact-text"><p>Horario</p><span>L·Mi–D 1:45–10:30pm</span></div></div>
         </div>
-        <div data-reveal="right" className="form-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '60px 38px' }}>
+        <div data-reveal="right" className="form-card" id="reservation-form" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '24px 20px' }}>
           <AvailabilityBadge />
-          <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16, marginTop: 12 }}>岩</div>
-          <div className="form-title" style={{ marginBottom: 12 }}>Reserva en 3 pasos</div>
-          <button className="form-submit" type="button" onClick={() => setResOpen(true)} style={{ maxWidth: 320 }}>
-            Reservar Ahora →
-          </button>
+          <div style={{ display: 'flex', gap: '0', margin: '16px 0 20px', border: '0.5px solid rgba(184,146,42,0.2)', width: '100%', maxWidth: 360 }}>
+            <button onClick={() => setResMode('ai')} style={{ flex: 1, padding: '10px 0', border: 'none', cursor: 'pointer', background: resMode === 'ai' ? 'rgba(184,146,42,0.15)' : 'transparent', color: resMode === 'ai' ? '#b8922a' : '#7a7670', fontSize: 12, fontWeight: 500, letterSpacing: '0.08em', fontFamily: '"DM Sans", sans-serif', transition: 'all 0.2s' }}>
+              Reservar con IA
+            </button>
+            <button onClick={() => setResMode('form')} style={{ flex: 1, padding: '10px 0', border: 'none', cursor: 'pointer', borderLeft: '0.5px solid rgba(184,146,42,0.2)', background: resMode === 'form' ? 'rgba(184,146,42,0.15)' : 'transparent', color: resMode === 'form' ? '#b8922a' : '#7a7670', fontSize: 12, fontWeight: 500, letterSpacing: '0.08em', fontFamily: '"DM Sans", sans-serif', transition: 'all 0.2s' }}>
+              Formulario clásico
+            </button>
+          </div>
+          {resMode === 'ai' ? (
+            <ConversationalReservation />
+          ) : (
+            <>
+              <div style={{ fontFamily: 'var(--font-jp)', fontSize: 36, color: 'var(--gold)', marginBottom: 16, marginTop: 12 }}>岩</div>
+              <div className="form-title" style={{ marginBottom: 12 }}>Reserva en 3 pasos</div>
+              <button className="form-submit" type="button" onClick={() => setResOpen(true)} style={{ maxWidth: 320 }}>
+                Reservar Ahora →
+              </button>
+            </>
+          )}
         </div>
       </section>
 

@@ -6,9 +6,7 @@ import SeasonalBadge from '../components/SeasonalBadge';
 import ReservationFlow from '../components/ReservationFlow';
 import SEO from '../components/SEO';
 import StatementSection from '../components/StatementSection';
-import AIRecommendations from '../components/AIRecommendations';
 import AIMenuSearch, { type SearchResult } from '../components/AIMenuSearch';
-import MenuPDF from '../components/MenuPDF';
 import { useRevealAll } from '../hooks/useScrollReveal';
 import './Menu.css';
 import '../styles/menu-effects.css';
@@ -48,7 +46,7 @@ function getAlt(image: string): string {
 export default function Menu() {
   const [activeTab, setActiveTab] = useState<string>('entradas');
   const [modal, setModal] = useState<{ id: string; name: string; badge: string; desc: string; price: string; image: string; category: string } | null>(null);
-  const [search, _setSearch] = useState('');
+  const [search] = useState('');
   const [filter, setFilter] = useState<Filter>('all');
   const mbRef = useRef<HTMLDivElement>(null);
   const eighted = get86();
@@ -63,7 +61,6 @@ export default function Menu() {
   }, []);
 
   const filtered = useMemo(() => {
-    // If AI search returned results, use those
     if (aiResult && (aiResult.banner || aiResult.explanation)) {
       let items = aiResult.items;
       if (filter !== 'all') items = items.filter(i => matchesFilter(i, filter));
@@ -124,9 +121,6 @@ export default function Menu() {
       {/* SEARCH + FILTERS */}
       <div className="search-bar">
         <AIMenuSearch onResults={handleAIResult} />
-        <div className="pdf-desktop-only" style={{ display: 'none' }}>
-          <MenuPDF />
-        </div>
         <div className="filter-pills" role="group" aria-label="Filtros de menú">
           {FILTERS.map(f => (
             <button key={f.id} className={`fpill ${filter === f.id ? 'fpill-on' : ''}`} onClick={() => setFilter(f.id)} aria-pressed={filter === f.id}>
@@ -171,9 +165,8 @@ export default function Menu() {
         </div>
       )}
 
-      {/* MAIN BODY + SIDEBAR */}
-      <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
-      <div className="mb" ref={mbRef} style={{ flex: 1, minWidth: 0 }}>
+      {/* MAIN BODY */}
+      <div className="mb" ref={mbRef}>
         {/* FILTERED VIEW — flat grid */}
         {isFiltering ? (
           filtered.length > 0 ? (
@@ -297,15 +290,6 @@ export default function Menu() {
             ))}
           </>
         )}
-      </div>
-
-      {/* SIDEBAR — desktop only */}
-      <aside className="rec-sidebar" style={{
-        width: '280px', flexShrink: 0,
-        position: 'sticky', top: '80px', alignSelf: 'flex-start',
-      }}>
-        <AIRecommendations variant="sidebar" />
-      </aside>
       </div>
 
       <p className="notice">

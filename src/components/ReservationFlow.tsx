@@ -15,7 +15,6 @@ const LOCATIONS = [
 const BASE_TIMES = ['1:45 PM', '3:00 PM', '5:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM'];
 const SAT_EXTRA = '10:30 PM';
 
-const OCCASIONS = ['Ninguna', 'Cumpleaños', 'Aniversario', 'Cena de negocios', 'Propuesta de matrimonio', 'Otra celebración'];
 const OCCASION_EMOJI: Record<string, string> = { 'Cumpleaños': '🎂', 'Aniversario': '💍', 'Cena de negocios': '💼', 'Propuesta de matrimonio': '💒', 'Otra celebración': '🎉', 'birthday': '🎂', 'anniversary': '💍', 'business': '🥂', 'graduation': '🎓' };
 
 function formatDate(d: string) {
