@@ -8,6 +8,7 @@ import HeroVideo from '../components/HeroVideo';
 import InstagramFeed from '../components/InstagramFeed';
 import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
+import ConversationalReservation from '../components/ConversationalReservation';
 import CustomerQuotes from '../components/CustomerQuotes';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
@@ -47,6 +48,7 @@ const GALLERY_IMAGES = [
 export default function Home() {
   const { t } = useTranslation();
   const [resOpen, setResOpen] = useState(false);
+  const [resMode, setResMode] = useState<'ai' | 'form'>('ai');
   const [showFab, setShowFab] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(-1);
   const preOrderCount = getPreOrder().length;
@@ -172,13 +174,77 @@ export default function Home() {
 
       <StickyPhotoSection />
 
-      <div className="masonry-gallery">
-        {GALLERY_IMAGES.map((img, i) => (
-          <div className={`masonry-item${img.tall ? ' masonry-tall' : ''}`} key={img.src} onClick={() => setLightboxIndex(i)}>
-            <img src={`/images/${img.src}.jpg`} alt={img.alt} loading="lazy" />
+      {/* Tanaka-style masonry gallery */}
+      <section style={{ padding: 'clamp(48px,6vw,80px) 0' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px', padding: '0 24px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ width: '32px', height: '0.5px', background: '#b8922a' }} />
+            <span style={{
+              fontFamily: '"DM Sans"', fontSize: '9px',
+              letterSpacing: '0.35em', textTransform: 'uppercase',
+              color: '#b8922a',
+            }}>Galería · いわ</span>
+            <div style={{ width: '32px', height: '0.5px', background: '#b8922a' }} />
           </div>
-        ))}
-      </div>
+        </div>
+
+        <div style={{ columnCount: 3, columnGap: '3px' }} className="masonry-grid">
+          {GALLERY_IMAGES.map((img, i) => (
+            <div
+              key={img.src}
+              className="masonry-item"
+              onClick={() => setLightboxIndex(i)}
+              style={{
+                breakInside: 'avoid',
+                marginBottom: '3px',
+                cursor: 'pointer',
+                overflow: 'hidden',
+                display: 'block',
+                position: 'relative',
+              }}
+            >
+              <img
+                src={`/images/${img.src}.jpg`}
+                alt={img.alt}
+                loading="lazy"
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  aspectRatio: img.tall ? '3/4' : '4/3',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.78) saturate(0.9)',
+                  transition: 'filter 0.4s ease, transform 0.55s cubic-bezier(0.22,1,0.36,1)',
+                }}
+                className="masonry-img"
+              />
+              <div className="masonry-overlay" style={{
+                position: 'absolute', inset: 0,
+                background: 'rgba(12,11,9,0)',
+                transition: 'background 0.3s ease',
+                display: 'flex', alignItems: 'flex-end',
+                padding: '16px',
+              }}>
+                <span style={{
+                  fontFamily: '"Cormorant Garamond", serif',
+                  fontSize: '13px', fontStyle: 'italic',
+                  color: 'rgba(244,239,230,0)',
+                  transition: 'color 0.3s ease',
+                }} className="masonry-label">{img.alt}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: '48px' }}>
+          <Link to="/galeria" style={{
+            fontFamily: '"DM Sans"', fontSize: '10px',
+            letterSpacing: '0.25em', textTransform: 'uppercase',
+            color: '#b8922a', textDecoration: 'none',
+            borderBottom: '0.5px solid rgba(184,146,42,0.4)',
+            paddingBottom: '3px',
+          }}>Ver Galería Completa →</Link>
+        </div>
+      </section>
 
       <Lightbox
         open={lightboxIndex >= 0}
