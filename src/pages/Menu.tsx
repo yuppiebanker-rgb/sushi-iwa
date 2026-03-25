@@ -10,7 +10,7 @@ import AIMenuSearch, { type SearchResult } from '../components/AIMenuSearch';
 import { useRevealAll } from '../hooks/useScrollReveal';
 import './Menu.css';
 import '../styles/menu-effects.css';
-import { track, trackMenuItem } from '../lib/analytics';
+import { trackMenuItem } from '../lib/analytics';
 
 type Filter = 'all' | 'firma' | 'gf' | 'spicy' | 'chef';
 const FILTERS: { id: Filter; label: string }[] = [
