@@ -102,8 +102,8 @@ export default function Menu() {
 
       {/* STATEMENT */}
       <StatementSection
-        word="El Menú."
-        subtitle="65 platillos. Ingredientes premium."
+        word="Hamachi."
+        subtitle="Del Pacífico a San Pedro."
         cta={null}
       />
 

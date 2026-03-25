@@ -16,8 +16,6 @@ import StickyPhotoSection from '../components/StickyPhotoSection';
 import SectionDivider from '../components/SectionDivider';
 import FullBleedSection from '../components/FullBleedSection';
 import HorizontalScroll from '../components/HorizontalScroll';
-import AmbientTicker from '../components/AmbientTicker';
-import KineticText from '../components/KineticText';
 import StatementSection from '../components/StatementSection';
 import './Home.css';
 import '../styles/gallery.css';
@@ -201,10 +199,13 @@ export default function Home() {
         slides={GALLERY_IMAGES.map(img => ({ src: `/images/${img.src}.jpg`, alt: img.alt }))}
       />
 
+      <FullBleedSection        imageSrc="hamachi-jalap"        imageAlt="Hamachi Jalapeño Sushi IWA"        topLabel="Platillo Firma"        headline="Hamachi Jalapeño"        subline="Yellowtail fresco con jalapeño serrano. El más pedido de la carta desde el primer día."        ctaLabel="Ver en el Menú"        ctaHref="/menu"        overlayPosition="bottom-left"      />
       <HorizontalScroll />
 
       <CustomerQuotes />
       <InstagramFeed />
+
+      <StatementSection />
 
       <div className="section-gap" />
       <SectionDivider label="Ubicaciones" labelJp="場所" number="05" />
