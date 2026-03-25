@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 export default function IntroScreen() {
   const [phase, setPhase] = useState<'in' | 'hold' | 'out' | 'done'>('in');
 
+  document.body.style.overflow = 'hidden';
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
   useEffect(() => {
     // Skip if already seen this session
     if (sessionStorage.getItem('iwa-intro-seen')) {
