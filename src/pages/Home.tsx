@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import SEO from '../components/SEO';
@@ -8,7 +7,6 @@ import HeroVideo from '../components/HeroVideo';
 import InstagramFeed from '../components/InstagramFeed';
 import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
-import ConversationalReservation from '../components/ConversationalReservation';
 import CustomerQuotes from '../components/CustomerQuotes';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
@@ -46,9 +44,7 @@ const GALLERY_IMAGES = [
 ];
 
 export default function Home() {
-  const { t } = useTranslation();
   const [resOpen, setResOpen] = useState(false);
-  const [resMode, setResMode] = useState<'ai' | 'form'>('ai');
   const [showFab, setShowFab] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(-1);
   const preOrderCount = getPreOrder().length;
@@ -174,6 +170,22 @@ export default function Home() {
 
       <StickyPhotoSection />
 
+      <div style={{ textAlign: 'center', padding: '60px 24px 0', maxWidth: '800px', margin: '0 auto' }}>
+        <KineticText
+          text="Donde el silencio habla en sabor."
+          tag="h2"
+          stagger={70}
+          style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: 'clamp(28px,4vw,52px)',
+            fontStyle: 'italic',
+            fontWeight: 300,
+            color: '#f4efe6',
+            lineHeight: 1.2,
+          }}
+        />
+      </div>
+
       {/* Tanaka-style masonry gallery */}
       <section style={{ padding: 'clamp(48px,6vw,80px) 0' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px', padding: '0 24px' }}>
@@ -270,6 +282,21 @@ export default function Home() {
       <InstagramFeed />
 
       <StatementSection />
+
+      <div style={{ textAlign: 'center', padding: '40px 24px 0', maxWidth: '800px', margin: '0 auto' }}>
+        <KineticText
+          text="Una experiencia íntima. Doce asientos. Todo el Pacífico."
+          tag="p"
+          stagger={45}
+          delay={200}
+          style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: 'clamp(18px,2.5vw,30px)',
+            fontStyle: 'italic',
+            color: 'rgba(244,239,230,0.6)',
+          }}
+        />
+      </div>
 
       <div className="section-gap" />
       <SectionDivider label="Ubicaciones" labelJp="場所" number="05" />
