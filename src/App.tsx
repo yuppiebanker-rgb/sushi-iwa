@@ -120,6 +120,10 @@ function AppShell() {
 export default function App() {
   useEffect(() => {
     detectTrafficSource();
+    // Strip hash on initial load to prevent auto-scroll to #reservar
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
   }, []);
 
   return <AppShell />;

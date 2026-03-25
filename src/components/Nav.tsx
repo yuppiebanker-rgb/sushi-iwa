@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import GoogleRating from './GoogleRating';
 import { GOOGLE_RATING } from '../data/reviews';
@@ -7,8 +7,23 @@ import './Nav.css';
 
 export default function Nav() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const isHome = pathname === '/';
+
+  const goToReservar = useCallback(() => {
+    if (isHome) {
+      document.getElementById('reservar')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      // Wait for Home to mount, then scroll
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          document.getElementById('reservar')?.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      });
+    }
+  }, [isHome, navigate]);
   const lang = i18n.language?.startsWith('en') ? 'en' : 'es';
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -60,13 +75,9 @@ export default function Nav() {
           </>
         )}
 
-        {isHome ? (
-          <button className="nav-cta btn-reservar-idle" onClick={() => document.getElementById('reservar')?.scrollIntoView({ behavior: 'smooth' })}>
-            {t('nav.reserve')}
-          </button>
-        ) : (
-          <Link className="nav-cta btn-reservar-idle" to="/#reservar">{t('nav.reserve')}</Link>
-        )}
+        <button className="nav-cta btn-reservar-idle" onClick={goToReservar}>
+          {t('nav.reserve')}
+        </button>
 
         <button
           className={`nav-burger ${menuOpen ? 'nav-burger--open' : ''}`}
@@ -90,12 +101,12 @@ export default function Nav() {
             { label: 'Ubicaciones',      href: '/ubicaciones' },
             { label: 'Eventos',          href: '/eventos' },
             { label: 'Club IWA',         href: '/loyalty' },
-            { label: 'Reservar',         href: isHome ? '#reservar' : '/#reservar' },
+            { label: 'Reservar',         href: '__reservar__' },
           ].map((link, i) => (
             <div className="nav-overlay-link" key={link.href} style={{ transitionDelay: menuOpen ? `${(i + 1) * 60}ms` : '0ms' }}>
               {i > 0 && <div className="nav-overlay-sep" />}
-              {link.href.startsWith('#') ? (
-                <a href={link.href} onClick={closeMenu}>{link.label}</a>
+              {link.href === '__reservar__' ? (
+                <a href="#" onClick={(e) => { e.preventDefault(); closeMenu(); goToReservar(); }}>{link.label}</a>
               ) : (
                 <Link to={link.href} onClick={closeMenu}>{link.label}</Link>
               )}
