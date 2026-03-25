@@ -87,7 +87,7 @@ export default function Home() {
         </div>
         <div className="hero-content">
           <span className="hero-jp hero-text">いわ</span>
-          <h1 className="hero-title hero-text">Cocina <em>Japonesa</em></h1>
+          <h1 className="hero-title hero-text">Cocina Japonesa</h1>
           <div className="hero-actions hero-cta">
             <Link to="/menu" className="btn-ghost-outline">Ver Menú →</Link>
             <button className="btn-gold" onClick={scrollToReservation}>Reservar Mesa</button>
@@ -129,8 +129,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <div className="section-divider"><div className="sd-line" /><span className="sd-label">GALERÍA</span><div className="sd-line" /></div>
 
       <div className="masonry-gallery">
         {MASONRY_IMAGES.map((file, i) => (

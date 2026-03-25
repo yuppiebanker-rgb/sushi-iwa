@@ -12,7 +12,7 @@
   position: relative; z-index: 2;
   display: flex; flex-direction: column; align-items: center;
   text-align: center;
-  margin-top: 10vh;
+  margin-top: 5vh;
 }
 .hero-jp {
   font-family: var(--font-jp); font-size: 11px; font-weight: 200;
@@ -96,12 +96,13 @@
   .ticker-left, .ticker-right { animation-play-state: paused; }
 }
 
-/* SECTION DIVIDER -- gold lines */
+/* SECTION DIVIDER -- short gold lines, centered */
 .section-divider {
-  display: flex; align-items: center; gap: 18px;
-  padding: 60px 52px;
+  display: flex; align-items: center; gap: 14px;
+  justify-content: center;
+  padding: 80px 52px;
 }
-.sd-line { flex: 1; height: 0.5px; background: var(--gold); opacity: 0.3; }
+.sd-line { width: 28px; height: 0.5px; background: var(--gold); opacity: 0.3; flex: none; }
 .sd-label {
   font-family: var(--font-b); font-size: 9px; font-weight: 400;
   letter-spacing: 0.35em; text-transform: uppercase;
@@ -337,7 +338,7 @@
 
 /* RESPONSIVE -- TABLET */
 @media (max-width: 1024px) {
-  .section-divider { padding: 40px 32px; }
+  .section-divider { padding: 50px 32px; }
   .philosophy { padding: 80px 32px; gap: 48px; }
   .masonry-gallery { columns: 2; }
   .menu-section { padding: 80px 32px; }
@@ -353,7 +354,7 @@
   .hero { min-height: 100vh; min-height: 100dvh; }
   .hero-actions { flex-direction: column; gap: 12px; }
   .btn-gold, .btn-ghost-outline { width: 240px; text-align: center; justify-content: center; }
-  .section-divider { padding: 30px 20px; }
+  .section-divider { padding: 40px 20px; }
   .philosophy { grid-template-columns: 1fr; padding: 80px 20px; gap: 36px; }
   .masonry-gallery { columns: 2; }
   .menu-section { padding: 80px 20px; }
@@ -378,7 +379,7 @@
   .locations { padding: 60px 16px; }
   .reservation { padding: 60px 16px; }
   .form-card { padding: 24px 16px; }
-  .section-divider { padding: 24px 16px; }
+  .section-divider { padding: 30px 16px; }
 }
 
 /* KEN BURNS */
