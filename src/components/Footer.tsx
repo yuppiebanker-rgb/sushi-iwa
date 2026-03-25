@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="footer-brand">
           <div className="footer-iwa-giant">いわ</div>
           <div className="footer-brand-name">SUSHI IWA</div>
-          <div className="footer-brand-sub">Cocina Japonesa · San Pedro, Monterrey</div>
+          <div className="footer-brand-sub">Sushi IWA · San Pedro, Monterrey</div>
           <a href="https://sushi-iwa.com" className="footer-brand-url" target="_blank" rel="noopener noreferrer">sushi-iwa.com</a>
         </div>
 

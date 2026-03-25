@@ -113,8 +113,8 @@ export default function Home() {
             letterSpacing: '-0.01em',
             marginBottom: '48px',
           }}>
-            Cocina<br/>
-            <em style={{ color: '#d4a843' }}>Japonesa</em>
+            Sushi<br/>
+            <em style={{ color: '#d4a843' }}>IWA</em>
           </h1>
 
           <div className="hero-cta" style={{

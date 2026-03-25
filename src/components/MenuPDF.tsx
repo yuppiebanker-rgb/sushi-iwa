@@ -153,7 +153,7 @@ export default function MenuPDF() {
 <div class="cover">
   <div class="cover-jp">いわ</div>
   <div class="cover-name">SUSHI IWA</div>
-  <div class="cover-sub">Cocina Japonesa · San Pedro, Monterrey</div>
+  <div class="cover-sub">Sushi IWA · San Pedro, Monterrey</div>
   <div class="cover-line"></div>
   <div class="cover-location">Av. Fundadores 955, Sienna Tower 2° piso · San Pedro Garza García, N.L.</div>
   <div class="cover-location">L/Mi/J/V/S/D · 1:45pm – 10:30pm · Cerramos los martes</div>
