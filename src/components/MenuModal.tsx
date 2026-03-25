@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { addPreOrder, getPreOrder } from './ReservationFlow';
 import { IMAGE_ALTS } from '../data/imageAlts';
 import DishPairing from './DishPairing';
-import DishPairing from './DishPairing';
 import './MenuModal.css';
 
 interface Props {

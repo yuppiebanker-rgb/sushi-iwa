@@ -4,7 +4,7 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import SEO from '../components/SEO';
 import HeroVideo from '../components/HeroVideo';
-import InstagramFeed from '../components/InstagramFeed';
+import LiveInstagram from '../components/LiveInstagram';
 import MazatlanNotify from '../components/MazatlanNotify';
 import ReservationFlow, { getPreOrder } from '../components/ReservationFlow';
 import CustomerQuotes from '../components/CustomerQuotes';
@@ -293,7 +293,7 @@ export default function Home() {
       <AwardsBadges />
 
       {/* INSTAGRAM */}
-      <InstagramFeed />
+      <LiveInstagram />
 
       {/* NEWSLETTER */}
       <NewsletterBanner />
