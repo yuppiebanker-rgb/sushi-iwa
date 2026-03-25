@@ -118,13 +118,6 @@ function AppShell() {
 }
 
 export default function App() {
-  const location = useLocation();
-
-  useEffect(() => {
-    window.history.scrollRestoration = 'manual';
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [location.pathname]);
-
   useEffect(() => {
     detectTrafficSource();
     // Strip hash on initial load to prevent auto-scroll to #reservar
