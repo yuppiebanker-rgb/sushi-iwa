@@ -24,9 +24,9 @@ export default function IntroScreen() {
     const t2 = setTimeout(() => setPhase('out'), 3000);
     const t3 = setTimeout(() => {
       setPhase('done');
-      document.body.style.overflow = '';
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
+      document.body.style.overflow = '';
       sessionStorage.setItem('iwa-intro-seen', '1');
     }, 4000);
 
