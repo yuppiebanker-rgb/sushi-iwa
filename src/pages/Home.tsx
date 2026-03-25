@@ -13,8 +13,12 @@ import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
 import StickyPhotoSection from '../components/StickyPhotoSection';
-import FullBleedSection from '../components/FullBleedSection';
 import SectionDivider from '../components/SectionDivider';
+import FullBleedSection from '../components/FullBleedSection';
+import HorizontalScroll from '../components/HorizontalScroll';
+import AmbientTicker from '../components/AmbientTicker';
+import KineticText from '../components/KineticText';
+import StatementSection from '../components/StatementSection';
 import './Home.css';
 import '../styles/gallery.css';
 import '../styles/menu-effects.css';
@@ -197,39 +201,13 @@ export default function Home() {
         slides={GALLERY_IMAGES.map(img => ({ src: `/images/${img.src}.jpg`, alt: img.alt }))}
       />
 
-      <div className="section-divider"><div className="sd-line" /><span className="sd-label">CURRICANES</span><div className="sd-line" /></div>
-
-      <section className="menu-section" id="menu">
-        <div data-reveal className="menu-header">
-          <h2>Nuestros <em>destacados</em></h2>
-        </div>
-        <div className="menu-grid reveal-group">
-          {[
-            { img: 'iwa-roll.jpg', name: 'IWA Roll', price: '$310' },
-            { img: 'no-name.jpg', name: 'No Name Roll', price: '$385' },
-            { img: 'curricanes-spoons.jpg', name: 'Curricanes', price: 'desde $310' },
-            { img: 'fermedina.jpg', name: "Fermedina's Roll", price: '$310' },
-            { img: 'hamachi-jalap.jpg', name: 'Sashimi Hamachi', price: '$325' },
-          ].map((item, i) => (
-            <div data-reveal className="menu-item menu-card" key={i}>
-              <div className="menu-thumb-wrap"><img className="menu-thumb" src={`/images/${item.img}`} alt={item.name} /></div>
-              <div className="menu-body">
-                <h3>{item.name}</h3>
-                <div className="menu-footer"><span className="menu-price">{item.price}</span><div className="menu-arrow">→</div></div>
-              </div>
-            </div>
-          ))}
-          <Link to="/menu" className="menu-item menu-more" data-reveal>
-            <div className="menu-more-arrow">→</div>
-            <span>Ver menú completo</span>
-          </Link>
-        </div>
-      </section>
+      <HorizontalScroll />
 
       <CustomerQuotes />
       <InstagramFeed />
 
-      <div className="section-divider"><div className="sd-line" /><span className="sd-label">UBICACIONES</span><div className="sd-line" /></div>
+      <div className="section-gap" />
+      <SectionDivider label="Ubicaciones" labelJp="場所" number="05" />
 
       <section className="locations" id="ubicaciones">
         <h2 data-reveal>Encuéntranos en <em>4 ciudades</em></h2>
@@ -277,7 +255,8 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="section-divider"><div className="sd-line" /><span className="sd-label">RESERVACIONES</span><div className="sd-line" /></div>
+      <div className="section-gap" />
+      <SectionDivider label="Reservaciones" labelJp="予約" number="06" />
 
       <section className="reservation" id="reservar">
         <div data-reveal="left" className="reservation-left">

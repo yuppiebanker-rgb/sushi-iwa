@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
 
+// Global transition state — allows programmatic navigation with transition
+const transitionState = { callback: null as (() => void) | null };
+
+export function navigateWithTransition(cb: () => void) {
+  transitionState.callback = cb;
+}
+
 export default function PageTransition() {
   const [phase, setPhase] = useState<'idle' | 'fadeOut' | 'logo' | 'fadeIn'>('idle');
 
