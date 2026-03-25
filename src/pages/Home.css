@@ -2,6 +2,7 @@
 .hero {
   position: relative; height: 100vh; min-height: 600px;
   overflow: hidden;
+  scroll-snap-align: start;
 }
 .hero-bg-parallax {
   position: absolute; inset: -20% 0;
@@ -59,7 +60,7 @@
 
 /* PHILOSOPHY */
 .philosophy {
-  padding: 120px 52px; display: grid;
+  padding: var(--section-gap) var(--page-h-pad); display: grid;
   grid-template-columns: 1fr 1fr; gap: 88px; align-items: center;
 }
 .philosophy-quote {
@@ -110,7 +111,7 @@
 .masonry-item:hover img { filter: brightness(0.85); }
 
 /* MENU SECTION */
-.menu-section { padding: 120px 52px; background: #0e0d0b; }
+.menu-section { padding: var(--section-gap) var(--page-h-pad); background: #0e0d0b; }
 .menu-header {
   display: flex; align-items: flex-end;
   justify-content: space-between; margin-bottom: 52px;
@@ -176,7 +177,7 @@
 .menu-more:hover .menu-more-arrow { opacity: 0.7; }
 
 /* LOCATIONS */
-.locations { padding: 120px 52px; }
+.locations { padding: var(--section-gap) var(--page-h-pad); }
 .locations h2 {
   font-family: var(--font-d); font-size: clamp(26px, 3.8vw, 46px);
   font-weight: 300; color: var(--cream); margin-bottom: 52px;
@@ -226,7 +227,7 @@
 
 /* RESERVATION */
 .reservation {
-  padding: 120px 52px; background: #0e0d0b;
+  padding: var(--section-gap) var(--page-h-pad); background: #0e0d0b;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 88px; align-items: start;
 }
@@ -286,14 +287,11 @@
 
 /* RESPONSIVE -- TABLET */
 @media (max-width: 1024px) {
-  .section-divider { padding: 50px 32px; }
-  .philosophy { padding: 80px 32px; gap: 48px; }
+  .philosophy { gap: 48px; }
   .masonry-gallery { columns: 2; }
-  .menu-section { padding: 80px 32px; }
-  .locations { padding: 80px 32px; }
   .locations-grid { grid-template-columns: repeat(2, 1fr); }
   .loc { border-bottom: 0.5px solid var(--border); }
-  .reservation { padding: 80px 32px; gap: 48px; }
+  .reservation { gap: 48px; }
 }
 
 /* RESPONSIVE -- MOBILE */
@@ -304,32 +302,24 @@
     top: auto; bottom: 120px;
     transform: none;
   }
-  .section-divider { padding: 40px 20px; }
-  .philosophy { grid-template-columns: 1fr; padding: 80px 20px; gap: 36px; }
+  .philosophy { grid-template-columns: 1fr; gap: 36px; }
   .masonry-gallery { columns: 2; }
-  .menu-section { padding: 80px 20px; }
   .menu-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 32px; }
   .menu-grid { grid-template-columns: 1fr; }
   .menu-item { border-right: none !important; }
   .menu-thumb { height: 180px; }
   .menu-body { padding: 18px 18px 16px; }
-  .locations { padding: 80px 20px; }
   .locations h2 { margin-bottom: 32px; }
   .locations-grid { grid-template-columns: 1fr; }
-  .reservation { grid-template-columns: 1fr; padding: 80px 20px; gap: 32px; }
+  .reservation { grid-template-columns: 1fr; gap: 32px; }
   .form-card { padding: 28px 20px; }
 }
 
 /* RESPONSIVE -- SMALL MOBILE */
 @media (max-width: 480px) {
   .hero-content h1 { font-size: clamp(42px, 12vw, 64px) !important; }
-  .philosophy { padding: 60px 16px; }
   .philosophy-quote { font-size: 28px; }
-  .menu-section { padding: 60px 16px; }
-  .locations { padding: 60px 16px; }
-  .reservation { padding: 60px 16px; }
   .form-card { padding: 24px 16px; }
-  .section-divider { padding: 30px 16px; }
 }
 
 /* KEN BURNS */

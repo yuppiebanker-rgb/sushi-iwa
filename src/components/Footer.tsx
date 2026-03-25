@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import AmbientTicker from './AmbientTicker';
+import NewsletterBanner from './NewsletterBanner';
 import './Footer.css';
 
 export default function Footer() {
   return (
     <footer className="footer">
-      <AmbientTicker singleRow />
+      <NewsletterBanner />
       <div className="footer-gold-line" />
       <div className="footer-main">
         {/* Left — Brand */}
