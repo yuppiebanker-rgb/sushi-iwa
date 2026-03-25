@@ -12,30 +12,33 @@ import CustomerQuotes from '../components/CustomerQuotes';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
 import NewsletterBanner from '../components/NewsletterBanner';
+import StickyPhotoSection from '../components/StickyPhotoSection';
+import FullBleedSection from '../components/FullBleedSection';
+import SectionDivider from '../components/SectionDivider';
 import './Home.css';
+import '../styles/gallery.css';
 import '../styles/menu-effects.css';
 import { useRevealAll } from '../hooks/useScrollReveal';
 
-const MASONRY_IMAGES = [
-  'curricanes-spoons.jpg', 'hamachi-jalap.jpg', 'chef-plating.jpg',
-  'iwa-roll.jpg', 'interior.jpg', 'no-name.jpg',
-  'sashimi-salmon.jpg', 'fermedina.jpg', 'temaki-hold.jpg',
-  'nigiri-platter.jpg', 'chef-rolling.jpg', 'hamachi-jalap2.jpg',
-  'curricanes-salmon.jpg', 'rainbow-roll.jpg', 'mochis.jpg',
-  'bar.jpg', 'iwa-roll2.jpg', 'spicy-salmon.jpg',
-  'chef-arranging.jpg', 'tostada-atun.jpg', 'edamames.jpg',
-  'nigiri-salmon.jpg', 'fermedina2.jpg', 'temaki-chef.jpg',
-  'sashimi-atun.jpg', 'curricanes-spoons2.jpg', 'tropical-roll.jpg',
-  'iwa-roll3.jpg', 'crispy-rice.jpg', 'hamachi-roll.jpg',
-  'spicy-atun.jpg', 'nigiri-mixed.jpg', 'chef-roll.jpg',
-  'curricanes-salmon2.jpg', 'mashi-roll.jpg', 'temaki-sauce.jpg',
-  'alcaparra-roll.jpg', 'sashimi-mix.jpg', 'nigiri-maguro.jpg',
-  'baked-crab.jpg', 'spicy-hamachi.jpg', 'roca-roll.jpg',
-  'camarones-roca.jpg', 'diegos-roll.jpg', 'nigiri-selection.jpg',
-  'yakimeshi.jpg', 'spicy-callo.jpg', 'taisa-roll.jpg',
-  'temaki-spicy.jpg', 'salmon-plancha.jpg', 'unagui-roll.jpg',
-  'mochis2.jpg', 'spicy-kanikama.jpg', 'yakimeshi2.jpg',
-  'curricanes-logo.jpg',
+const GALLERY_IMAGES = [
+  { src: 'chef-rolling',      alt: 'Chef IWA en la barra',       tall: true  },
+  { src: 'curricanes-spoons', alt: 'Curricanes de salmón',       tall: false },
+  { src: 'hamachi-jalap',     alt: 'Hamachi Jalapeño',           tall: false },
+  { src: 'nigiri-selection',  alt: 'Selección de nigiris',       tall: true  },
+  { src: 'interior',          alt: 'Interior Sushi IWA',         tall: false },
+  { src: 'temaki-spicy',      alt: 'Spicy Tuna Temaki',          tall: true  },
+  { src: 'sashimi-mix',       alt: 'Sashimi mixto',              tall: false },
+  { src: 'bar',               alt: 'Barra de sushi IWA',         tall: false },
+  { src: 'chef-plating',      alt: 'Chef presentando nigiris',   tall: true  },
+  { src: 'iwa-roll',          alt: 'IWA Roll',                   tall: false },
+  { src: 'rainbow-roll',      alt: 'Rainbow Roll',               tall: false },
+  { src: 'mochis',            alt: 'Mochis IWA',                 tall: true  },
+  { src: 'yakimeshi',         alt: 'Yakimeshi IWA',              tall: false },
+  { src: 'fermedina',         alt: "Fermedina's Roll",           tall: false },
+  { src: 'no-name',           alt: 'No Name Roll',               tall: true  },
+  { src: 'chef-arranging',    alt: 'Chef preparando rolls',      tall: false },
+  { src: 'nigiri-maguro',     alt: 'Nigiri Maguro',              tall: false },
+  { src: 'spicy-atun',        alt: 'Spicy Tuna',                 tall: true  },
 ];
 
 export default function Home() {
@@ -85,17 +88,77 @@ export default function Home() {
         <div id="hero-bg" className="hero-bg-parallax">
           <HeroVideo videoSrc={undefined} posterSrc="/images/bar.jpg" overlayOpacity={0.45} />
         </div>
+
         <div className="hero-content">
-          <span className="hero-jp hero-text">いわ</span>
-          <h1 className="hero-title hero-text">Cocina Japonesa</h1>
-          <div className="hero-actions hero-cta">
-            <Link to="/menu" className="btn-ghost-outline">Ver Menú →</Link>
-            <button className="btn-gold" onClick={scrollToReservation}>Reservar Mesa</button>
+          <div className="hero-text" style={{
+            fontFamily: '"Noto Serif JP", serif',
+            fontSize: '10px', fontWeight: 200,
+            letterSpacing: '0.5em',
+            color: '#b8922a',
+            marginBottom: '20px',
+            opacity: 0.8,
+          }}>い わ</div>
+
+          <h1 className="hero-h1" style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: 'clamp(52px, 9vw, 118px)',
+            fontWeight: 300,
+            fontStyle: 'italic',
+            color: '#f4efe6',
+            lineHeight: 0.92,
+            letterSpacing: '-0.01em',
+            marginBottom: '48px',
+          }}>
+            Cocina<br/>
+            <em style={{ color: '#d4a843' }}>Japonesa</em>
+          </h1>
+
+          <div className="hero-cta" style={{
+            display: 'flex', gap: '16px',
+            flexWrap: 'wrap',
+          }}>
+            <Link to="/menu" style={{
+              fontFamily: '"DM Sans"', fontSize: '11px',
+              letterSpacing: '0.2em', textTransform: 'uppercase',
+              color: '#f4efe6',
+              border: '0.5px solid rgba(244,239,230,0.4)',
+              padding: '14px 32px',
+              textDecoration: 'none',
+              transition: 'border-color 0.2s, color 0.2s',
+              minHeight: '44px', display: 'flex', alignItems: 'center',
+            }}>Ver Menú</Link>
+            <button onClick={() => scrollToReservation()} style={{
+              fontFamily: '"DM Sans"', fontSize: '11px',
+              letterSpacing: '0.2em', textTransform: 'uppercase',
+              color: '#0c0b09',
+              background: '#b8922a', border: 'none',
+              padding: '14px 32px', cursor: 'pointer',
+              transition: 'background 0.2s',
+              minHeight: '44px',
+            }}>Reservar Mesa</button>
           </div>
         </div>
-        <div className="scroll-cue">
-          <span className="scroll-arrow">↓</span>
-          <span className="scroll-label">scroll</span>
+
+        <div style={{
+          position: 'absolute',
+          bottom: '48px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
+          animation: 'scrollFloat 2.2s ease-in-out infinite',
+        }}>
+          <div style={{
+            width: '1px', height: '48px',
+            background: 'linear-gradient(to bottom, rgba(184,146,42,0.7), transparent)',
+          }}/>
+          <span style={{
+            fontSize: '9px', letterSpacing: '0.3em',
+            color: 'rgba(184,146,42,0.5)',
+            textTransform: 'uppercase',
+          }}>scroll</span>
         </div>
       </section>
 
@@ -114,26 +177,15 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="section-divider"><div className="sd-line" /><span className="sd-label">FILOSOFÍA</span><div className="sd-line" /></div>
+      <div className="section-gap" />
+      <SectionDivider label="Nuestra Filosofía" labelJp="哲学" number="02" />
 
-      <section className="philosophy" id="nosotros">
-        <div data-reveal="left">
-          <h2 className="philosophy-quote">El arte de lo <em>simple</em>, ejecutado en perfección.</h2>
-          <p>Desde 2020, Sushi IWA ha sido el secreto mejor guardado de Monterrey — cocina japonesa auténtica fusionada con el paladar regio, servida frente a ti en barra íntima.</p>
-        </div>
-        <div data-reveal="right" className="chef-frame">
-          <img className="chef-img" src="/images/chef-plating.jpg" alt="Chef IWA preparando" />
-          <div className="chef-badge">
-            <p>Chef · Barra abierta</p>
-            <h4>Experiencia frente al chef</h4>
-          </div>
-        </div>
-      </section>
+      <StickyPhotoSection />
 
       <div className="masonry-gallery">
-        {MASONRY_IMAGES.map((file, i) => (
-          <div className="masonry-item" key={file} onClick={() => setLightboxIndex(i)}>
-            <img src={`/images/${file}`} alt="Sushi IWA" loading="lazy" />
+        {GALLERY_IMAGES.map((img, i) => (
+          <div className={`masonry-item${img.tall ? ' masonry-tall' : ''}`} key={img.src} onClick={() => setLightboxIndex(i)}>
+            <img src={`/images/${img.src}.jpg`} alt={img.alt} loading="lazy" />
           </div>
         ))}
       </div>
@@ -142,7 +194,7 @@ export default function Home() {
         open={lightboxIndex >= 0}
         close={() => setLightboxIndex(-1)}
         index={lightboxIndex}
-        slides={MASONRY_IMAGES.map(f => ({ src: `/images/${f}`, alt: f.replace(/[-_.]/g, ' ') }))}
+        slides={GALLERY_IMAGES.map(img => ({ src: `/images/${img.src}.jpg`, alt: img.alt }))}
       />
 
       <div className="section-divider"><div className="sd-line" /><span className="sd-label">CURRICANES</span><div className="sd-line" /></div>
