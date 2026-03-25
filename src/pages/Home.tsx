@@ -17,6 +17,7 @@ import SectionDivider from '../components/SectionDivider';
 import FullBleedSection from '../components/FullBleedSection';
 import HorizontalScroll from '../components/HorizontalScroll';
 import StatementSection from '../components/StatementSection';
+import AmbientTicker from '../components/AmbientTicker';
 import './Home.css';
 import '../styles/gallery.css';
 import '../styles/menu-effects.css';
@@ -164,20 +165,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="ambient-ticker">
-        <div className="ticker-line ticker-line-1">
-          <div className="ticker-track ticker-left">
-            <span>いわ · SUSHI IWA · SAN PEDRO · MONTERREY · 寿司 · いわ · SUSHI IWA · SAN PEDRO · MONTERREY · 寿司 ·&nbsp;</span>
-            <span>いわ · SUSHI IWA · SAN PEDRO · MONTERREY · 寿司 · いわ · SUSHI IWA · SAN PEDRO · MONTERREY · 寿司 ·&nbsp;</span>
-          </div>
-        </div>
-        <div className="ticker-line ticker-line-2">
-          <div className="ticker-track ticker-right">
-            <span>CURRICANES · SASHIMI · NIGIRIS · TEMAKI · SAKE · HAMACHI · SALMÓN · ROLLOS · CURRICANES · SASHIMI · NIGIRIS · TEMAKI · SAKE · HAMACHI · SALMÓN · ROLLOS ·&nbsp;</span>
-            <span>CURRICANES · SASHIMI · NIGIRIS · TEMAKI · SAKE · HAMACHI · SALMÓN · ROLLOS · CURRICANES · SASHIMI · NIGIRIS · TEMAKI · SAKE · HAMACHI · SALMÓN · ROLLOS ·&nbsp;</span>
-          </div>
-        </div>
-      </div>
+      <AmbientTicker />
 
       <div className="section-gap" />
       <SectionDivider label="Nuestra Filosofía" labelJp="哲学" number="02" />
@@ -199,7 +187,17 @@ export default function Home() {
         slides={GALLERY_IMAGES.map(img => ({ src: `/images/${img.src}.jpg`, alt: img.alt }))}
       />
 
-      <FullBleedSection        imageSrc="hamachi-jalap"        imageAlt="Hamachi Jalapeño Sushi IWA"        topLabel="Platillo Firma"        headline="Hamachi Jalapeño"        subline="Yellowtail fresco con jalapeño serrano. El más pedido de la carta desde el primer día."        ctaLabel="Ver en el Menú"        ctaHref="/menu"        overlayPosition="bottom-left"      />
+      <AmbientTicker />
+      <FullBleedSection
+        imageSrc="hamachi-jalap"
+        imageAlt="Hamachi Jalapeño Sushi IWA"
+        topLabel="Platillo Firma"
+        headline="Hamachi Jalapeño"
+        subline="Yellowtail fresco con jalapeño serrano. El más pedido de la carta desde el primer día."
+        ctaLabel="Ver en el Menú"
+        ctaHref="/menu"
+        overlayPosition="bottom-left"
+      />
       <HorizontalScroll />
 
       <CustomerQuotes />
@@ -257,6 +255,17 @@ export default function Home() {
       </section>
 
       <div className="section-gap" />
+      <FullBleedSection
+        imageSrc="bar"
+        imageAlt="Interior Sushi IWA"
+        topLabel="Monterrey · San Pedro"
+        headline="12 asientos. Una historia."
+        subline="La barra más íntima de San Pedro. Frente al chef. Sin intermediarios."
+        ctaLabel="Reservar tu lugar"
+        ctaHref="/#reservar"
+        overlayPosition="bottom-right"
+      />
+
       <SectionDivider label="Reservaciones" labelJp="予約" number="06" />
 
       <section className="reservation" id="reservar">
