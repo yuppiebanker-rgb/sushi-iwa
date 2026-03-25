@@ -1,16 +1,39 @@
-import { useState, useMemo, useRef, useCallback, type KeyboardEvent } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback, type KeyboardEvent } from 'react';
 import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, DRINKS, type MenuItem, type MenuCategory, type DrinkSection, type DrinkGroup } from '../data/menu';
 import { IMAGE_ALTS } from '../data/imageAlts';
 import MenuModal from '../components/MenuModal';
 import SeasonalBadge from '../components/SeasonalBadge';
 import ReservationFlow from '../components/ReservationFlow';
 import SEO from '../components/SEO';
-import StatementSection from '../components/StatementSection';
 import AIMenuSearch, { type SearchResult } from '../components/AIMenuSearch';
 import { useRevealAll } from '../hooks/useScrollReveal';
 import './Menu.css';
 import '../styles/menu-effects.css';
 import { trackMenuItem } from '../lib/analytics';
+
+const ALL_HERO_IMAGES = [
+  'edamames', 'camarones-roca', 'crispy-rice', 'hamachi-jalap', 'tostada-atun',
+  'hamachi-jalap2', 'sashimi-atun', 'sashimi-mix', 'nigiri-maguro', 'nigiri-platter',
+  'nigiri-selection', 'sashimi-salmon', 'curricanes-spoons', 'curricanes-spoons2',
+  'nigiri-mixed', 'nigiri-salmon', 'curricanes-logo', 'curricanes-salmon',
+  'curricanes-salmon2', 'temaki-hold', 'iwa-roll', 'iwa-roll2', 'temaki-chef',
+  'temaki-sauce', 'temaki-spicy', 'fermedina', 'iwa-roll3', 'diegos-roll',
+  'fermedina2', 'no-name', 'spicy-atun', 'spicy-salmon', 'spicy-hamachi',
+  'spicy-kanikama', 'chef-roll', 'alcaparra-roll', 'mashi-roll', 'rainbow-roll',
+  'tropical-roll', 'unagui-roll', 'baked-crab', 'roca-roll', 'taisa-roll',
+  'hamachi-roll', 'spicy-callo', 'mochis', 'salmon-plancha', 'yakimeshi',
+  'yakimeshi2', 'bar', 'chef-plating', 'chef-rolling', 'mochis2',
+  'chef-arranging', 'interior',
+];
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 type Filter = 'all' | 'firma' | 'gf' | 'spicy' | 'chef';
 const FILTERS: { id: Filter; label: string }[] = [
@@ -54,6 +77,21 @@ export default function Menu() {
   const [resOpen, setResOpen] = useState(false);
   const [resNote, setResNote] = useState('');
   const [aiResult, setAiResult] = useState<SearchResult | null>(null);
+
+  const heroImages = useMemo(() => shuffle(ALL_HERO_IMAGES), []);
+  const [heroIdx, setHeroIdx] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setHeroIdx(i => (i + 1) % heroImages.length), 3500);
+    return () => clearInterval(id);
+  }, [heroImages.length]);
+
+  // Preload next image
+  useEffect(() => {
+    const next = (heroIdx + 1) % heroImages.length;
+    const img = new Image();
+    img.src = `/images/webp/${heroImages[next]}.webp`;
+  }, [heroIdx, heroImages]);
 
   useRevealAll();
 
@@ -103,22 +141,31 @@ export default function Menu() {
         keywords="menu sushi monterrey, rollos sushi san pedro, sashimi monterrey, curricanes sushi, menu japones spgg"
         path="/menu"
       />
-      {/* HERO */}
-      <div className="mhero">
-        <div className="mhero-bg" style={{ backgroundImage: `url(/images/bar.jpg)` }} role="img" aria-label={IMAGE_ALTS['bar']} />
+      {/* HERO CAROUSEL */}
+      <div className="mhero mhero--full">
+        {heroImages.map((img, i) => {
+          const prev = (heroIdx - 1 + heroImages.length) % heroImages.length;
+          if (i !== heroIdx && i !== prev) return null;
+          return (
+            <div
+              key={`${img}-${i}`}
+              className={`mhero-slide ${i === heroIdx ? 'mhero-slide--active' : ''}`}
+              role={i === heroIdx ? 'img' : undefined}
+              aria-label={i === heroIdx ? IMAGE_ALTS[img] || img : undefined}
+            >
+              <picture>
+                <source srcSet={`/images/webp/${img}.webp`} type="image/webp" />
+                <img src={`/images/${img}.jpg`} alt="" className="mhero-slide-img" />
+              </picture>
+            </div>
+          );
+        })}
         <div className="mhero-ov" />
-        <div className="mhero-c">
-          <div className="mhero-tag">Menú completo · 2025</div>
+        <div className="mhero-c mhero-c--center">
           <h1 className="mhero-h">La <em>carta</em> de IWA</h1>
+          <div className="mhero-sub">Del Pacífico a San Pedro.</div>
         </div>
       </div>
-
-      {/* STATEMENT */}
-      <StatementSection
-        word="Hamachi."
-        subtitle="Del Pacífico a San Pedro."
-        cta={null}
-      />
 
       {/* SEARCH + FILTERS */}
       <div className="search-bar">
