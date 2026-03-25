@@ -1,24 +1,26 @@
 import { useState, useEffect } from 'react';
+import { useLocation_ } from '../../lib/location-context';
+import LocationSelector from '../../components/staff/LocationSelector';
 import './staff.css';
 
 interface WLEntry { id: string; name: string; size: number; phone: string; notes: string; addedAt: number; }
 
-function getKey(loc: string) {
-  return `iwa-wl-${loc}-${new Date().toISOString().slice(0, 10)}`;
+function getKey(locationId: string) {
+  return `iwa-wl-${locationId}-${new Date().toISOString().slice(0, 10)}`;
 }
 
 export default function Waitlist() {
-  const loc = localStorage.getItem('iwa-staff-loc') || 'Monterrey';
+  const { locationId, location } = useLocation_();
   const [list, setList] = useState<WLEntry[]>([]);
   const [seated, setSeated] = useState(0);
   const [form, setForm] = useState({ name: '', size: '2', phone: '', notes: '' });
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    try { setList(JSON.parse(localStorage.getItem(getKey(loc)) || '[]')); } catch { /* */ }
-  }, [loc]);
+    try { setList(JSON.parse(localStorage.getItem(getKey(locationId)) || '[]')); } catch { /* */ }
+  }, [locationId]);
 
-  const save = (next: WLEntry[]) => { setList(next); localStorage.setItem(getKey(loc), JSON.stringify(next)); };
+  const save = (next: WLEntry[]) => { setList(next); localStorage.setItem(getKey(locationId), JSON.stringify(next)); };
 
   const addEntry = () => {
     if (!form.name.trim()) return;
@@ -32,7 +34,7 @@ export default function Waitlist() {
   const remove = (id: string) => { save(list.filter(e => e.id !== id)); };
 
   const notify = (entry: WLEntry) => {
-    const msg = `Hola ${entry.name}, su mesa está lista en Sushi IWA. Los esperamos en los próximos 5 minutos. いわ`;
+    const msg = `Hola ${entry.name}, su mesa est\u00e1 lista en Sushi IWA ${location.name}. Los esperamos en los pr\u00f3ximos 5 minutos. \u3044\u308f`;
     window.open(`https://wa.me/${entry.phone.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -40,9 +42,11 @@ export default function Waitlist() {
 
   return (
     <div>
+      <LocationSelector />
+
       <div className="sp-header">
         <div>
-          <div className="sp-subtitle">Waitlist · {loc}</div>
+          <div className="sp-subtitle">Waitlist \u00b7 {location.name}</div>
           <h1 className="sp-title">Lista de Espera</h1>
         </div>
         <button className="sp-btn sp-btn--gold" onClick={() => setShowForm(!showForm)}>+ Agregar</button>
@@ -78,7 +82,7 @@ export default function Waitlist() {
               <div>
                 <div style={{ fontSize: 10, color: 'var(--gold)', letterSpacing: '0.2em', marginBottom: 4 }}>#{i + 1}</div>
                 <div style={{ fontFamily: 'var(--font-d)', fontSize: 18, color: 'var(--cream)' }}>{entry.name}</div>
-                <div style={{ fontSize: 11, color: 'var(--mist)' }}>{entry.size} personas · {mins} min esperando</div>
+                <div style={{ fontSize: 11, color: 'var(--mist)' }}>{entry.size} personas \u00b7 {mins} min esperando</div>
                 {entry.notes && <div style={{ fontSize: 10, color: 'var(--mist)', fontStyle: 'italic', marginTop: 2 }}>{entry.notes}</div>}
               </div>
             </div>

@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import { MENU_ITEMS, CATEGORIES, CATEGORY_ORDER, type MenuCategory } from '../../data/menu';
+import { useLocation_ } from '../../lib/location-context';
+import LocationSelector from '../../components/staff/LocationSelector';
 import './staff.css';
 
-const STORAGE_KEY = 'iwa-86';
-
 export default function EightyBoard() {
+  const { locationId, location } = useLocation_();
+  const storageKey = `iwa-86-${locationId}`;
   const [eighted, setEighted] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    try { setEighted(JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')); } catch { /* */ }
-  }, []);
+    try { setEighted(JSON.parse(localStorage.getItem(storageKey) || '{}')); } catch { /* */ }
+  }, [storageKey]);
 
-  const save = (next: Record<string, string>) => { setEighted(next); localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); };
+  const save = (next: Record<string, string>) => { setEighted(next); localStorage.setItem(storageKey, JSON.stringify(next)); };
 
   const toggle = (id: string) => {
     if (eighted[id]) {
@@ -19,13 +21,13 @@ export default function EightyBoard() {
       delete next[id];
       save(next);
     } else {
-      const reason = prompt('Razón (opcional):') || '';
+      const reason = prompt('Raz\u00f3n (opcional):') || '';
       save({ ...eighted, [id]: reason || 'agotado' });
     }
   };
 
   const resetAll = () => {
-    if (confirm('¿Resetear todo el 86 board? Todos los platillos volverán a estar disponibles.')) {
+    if (confirm('\u00bfResetear todo el 86 board? Todos los platillos volver\u00e1n a estar disponibles.')) {
       save({});
     }
   };
@@ -34,9 +36,11 @@ export default function EightyBoard() {
 
   return (
     <div>
+      <LocationSelector />
+
       <div className="sp-header">
         <div>
-          <div className="sp-subtitle">86 Board</div>
+          <div className="sp-subtitle">86 Board \u00b7 {location.name}</div>
           <h1 className="sp-title">{count} platillos no disponibles</h1>
         </div>
         {count > 0 && <button className="sp-btn sp-btn--red" onClick={resetAll}>Resetear todo</button>}

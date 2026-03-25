@@ -27,7 +27,8 @@ export default function StaffNav() {
 
   const eightySixCount = (() => {
     try {
-      const d = JSON.parse(localStorage.getItem('iwa-86') || '{}');
+      const locId = localStorage.getItem('iwa_staff_location') || 'mty';
+      const d = JSON.parse(localStorage.getItem(`iwa-86-${locId}`) || '{}');
       return Object.values(d).filter(Boolean).length;
     } catch { return 0; }
   })();

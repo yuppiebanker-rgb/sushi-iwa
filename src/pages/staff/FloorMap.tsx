@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
+import { useLocation_ } from '../../lib/location-context';
+import LocationSelector from '../../components/staff/LocationSelector';
 import './staff.css';
 
 type SeatStatus = 'available' | 'occupied' | 'reserved';
 interface Seat { status: SeatStatus; party?: number; name?: string; time?: string; }
 
-const TOTAL_BAR = 12;
-const TABLES = ['A', 'B', 'C', 'D'];
-const STORAGE_KEY = 'iwa-floor-mty';
+const FLOOR_CONFIGS: Record<string, { bar: number; tables: string[] }> = {
+  mty: { bar: 12, tables: ['A', 'B', 'C', 'D'] },
+  sal: { bar: 10, tables: ['A', 'B', 'C', 'D', 'E', 'F'] },
+  hmo: { bar: 8, tables: ['A', 'B', 'C', 'D', 'E'] },
+  obr: { bar: 6, tables: ['A', 'B', 'C', 'D'] },
+};
 
-function defaultFloor(): Record<string, Seat> {
+function defaultFloor(locationId: string): Record<string, Seat> {
+  const config = FLOOR_CONFIGS[locationId] || FLOOR_CONFIGS.mty;
   const m: Record<string, Seat> = {};
-  for (let i = 1; i <= TOTAL_BAR; i++) m[`bar-${i}`] = { status: 'available' };
-  for (const t of TABLES) m[`table-${t}`] = { status: 'available' };
+  for (let i = 1; i <= config.bar; i++) m[`bar-${i}`] = { status: 'available' };
+  for (const t of config.tables) m[`table-${t}`] = { status: 'available' };
   return m;
 }
 
@@ -19,16 +25,26 @@ const NEXT: Record<SeatStatus, SeatStatus> = { available: 'occupied', occupied: 
 const COLORS: Record<SeatStatus, string> = { available: '#3a9', occupied: '#c66', reserved: 'var(--gold)' };
 
 export default function FloorMap() {
-  const [floor, setFloor] = useState<Record<string, Seat>>(defaultFloor);
+  const { locationId, location } = useLocation_();
+  const storageKey = `iwa-floor-${locationId}`;
+  const config = FLOOR_CONFIGS[locationId] || FLOOR_CONFIGS.mty;
+
+  const [floor, setFloor] = useState<Record<string, Seat>>(() => defaultFloor(locationId));
 
   useEffect(() => {
-    try { const d = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); if (d) setFloor(d); } catch { /* */ }
-  }, []);
+    try {
+      const d = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      setFloor(d || defaultFloor(locationId));
+    } catch {
+      setFloor(defaultFloor(locationId));
+    }
+  }, [locationId, storageKey]);
 
-  const save = (next: Record<string, Seat>) => { setFloor(next); localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); };
+  const save = (next: Record<string, Seat>) => { setFloor(next); localStorage.setItem(storageKey, JSON.stringify(next)); };
 
   const toggle = (id: string) => {
     const seat = floor[id];
+    if (!seat) return;
     const nextStatus = NEXT[seat.status];
     const updated: Seat = { status: nextStatus };
     if (nextStatus === 'occupied') {
@@ -37,7 +53,7 @@ export default function FloorMap() {
       updated.party = +party;
       updated.time = new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
     } else if (nextStatus === 'reserved') {
-      const name = prompt('Nombre de reservación:');
+      const name = prompt('Nombre de reservaci\u00f3n:');
       if (!name) return;
       updated.name = name;
       updated.time = new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
@@ -46,19 +62,21 @@ export default function FloorMap() {
   };
 
   const resetFloor = () => {
-    if (confirm('¿Resetear todo el piso? Esto eliminará todos los estados.')) {
-      save(defaultFloor());
+    if (confirm('\u00bfResetear todo el piso? Esto eliminar\u00e1 todos los estados.')) {
+      save(defaultFloor(locationId));
     }
   };
 
   const covers = Object.values(floor).filter(s => s.status === 'occupied').reduce((a, s) => a + (s.party || 1), 0);
-  const total = TOTAL_BAR + TABLES.length * 4;
+  const total = config.bar + config.tables.length * 4;
 
   return (
     <div>
+      <LocationSelector />
+
       <div className="sp-header">
         <div>
-          <div className="sp-subtitle">Floor · Monterrey</div>
+          <div className="sp-subtitle">Floor \u00b7 {location.name}</div>
           <h1 className="sp-title">Mapa del Piso</h1>
         </div>
         <button className="sp-btn sp-btn--red" onClick={resetFloor}>Reset Floor</button>
@@ -80,9 +98,9 @@ export default function FloorMap() {
       <div style={{ textAlign: 'center', marginBottom: 32 }}>
         <div style={{ fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mist)', marginBottom: 10 }}>Barra</div>
         <div style={{ display: 'flex', gap: 6, justifyContent: 'center', flexWrap: 'wrap' }}>
-          {Array.from({ length: TOTAL_BAR }, (_, i) => {
+          {Array.from({ length: config.bar }, (_, i) => {
             const id = `bar-${i + 1}`;
-            const s = floor[id];
+            const s = floor[id] || { status: 'available' as SeatStatus };
             return (
               <div key={id} onClick={() => toggle(id)} style={{
                 width: 42, height: 42, borderRadius: '50%',
@@ -102,9 +120,9 @@ export default function FloorMap() {
       <div style={{ textAlign: 'center' }}>
         <div style={{ fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mist)', marginBottom: 10 }}>Mesas</div>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-          {TABLES.map(t => {
+          {config.tables.map(t => {
             const id = `table-${t}`;
-            const s = floor[id];
+            const s = floor[id] || { status: 'available' as SeatStatus };
             return (
               <div key={id} onClick={() => toggle(id)} style={{
                 width: 72, height: 72,
@@ -113,7 +131,7 @@ export default function FloorMap() {
                 cursor: 'pointer', transition: 'all 0.15s', fontSize: 10, color: s.status !== 'available' ? 'var(--ink)' : 'var(--mist)',
               }}>
                 <div style={{ fontFamily: 'var(--font-d)', fontSize: 18 }}>{t}</div>
-                {s.party && <div style={{ fontSize: 8 }}>{s.party}p · {s.time}</div>}
+                {s.party && <div style={{ fontSize: 8 }}>{s.party}p \u00b7 {s.time}</div>}
                 {s.name && <div style={{ fontSize: 8, maxWidth: 60, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.name}</div>}
               </div>
             );
