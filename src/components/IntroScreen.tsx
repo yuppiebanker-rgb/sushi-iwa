@@ -21,12 +21,12 @@ export default function IntroScreen() {
     document.body.style.overflow = 'hidden';
 
     const t1 = setTimeout(() => setPhase('hold'), 700);
-    const t2 = setTimeout(() => setPhase('out'), 1500);
+    const t2 = setTimeout(() => setPhase('out'), 3000);
     const t3 = setTimeout(() => {
       setPhase('done');
       document.body.style.overflow = '';
       sessionStorage.setItem('iwa-intro-seen', '1');
-    }, 2400);
+    }, 4000);
 
     return () => {
       [t1, t2, t3].forEach(clearTimeout);
