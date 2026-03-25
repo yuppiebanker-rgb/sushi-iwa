@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useLocation_ } from '../../lib/location-context';
+import LocationSelector from '../../components/staff/LocationSelector';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import './staff.css';
 
@@ -53,10 +55,12 @@ const label = (text: string) => (
 );
 
 export default function Analytics() {
+  const { locationId: _locationId } = useLocation_();
   const [tab, setTab] = useState<'dashboard' | 'conversiones' | 'sucursales'>('dashboard');
 
   return (
     <div>
+      <LocationSelector />
       <div className="sp-header">
         <div>
           <div className="sp-subtitle">Anal\u00edticas</div>
