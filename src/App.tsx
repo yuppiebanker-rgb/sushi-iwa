@@ -44,6 +44,8 @@ const GiftCards  = lazy(() => import('./pages/GiftCards'));
 const Loyalty    = lazy(() => import('./pages/Loyalty'));
 const Newsletter = lazy(() => import('./pages/Newsletter'));
 const ReservacionConfirmada = lazy(() => import('./pages/ReservacionConfirmada'));
+const NotFoundPage = lazy(() => import('./pages/NotFound'));
+const Franquicia = lazy(() => import('./pages/Franquicia'));
 
 // Staff portal — heaviest chunk, load separately
 const StaffLogin     = lazy(() => import('./pages/staff/StaffLogin'));
@@ -102,6 +104,8 @@ function AppShell() {
             <Route path="/newsletter" element={<Newsletter />} />
             <Route path="/novedades" element={<Newsletter />} />
             <Route path="/reservacion-confirmada" element={<ReservacionConfirmada />} />
+            <Route path="/franquicia" element={<Franquicia />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </main>

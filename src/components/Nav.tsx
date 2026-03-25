@@ -101,6 +101,9 @@ export default function Nav() {
               )}
             </div>
           ))}
+          <div className="nav-overlay-link" style={{ transitionDelay: menuOpen ? '540ms' : '0ms', marginTop: '16px' }}>
+            <Link to="/franquicia" onClick={closeMenu} style={{ fontSize: '11px', opacity: 0.5 }}>Franquicias</Link>
+          </div>
         </nav>
         <div className="nav-overlay-footer">
           <span>+52 81 1123 9849</span>

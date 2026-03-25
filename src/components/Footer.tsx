@@ -25,6 +25,7 @@ export default function Footer() {
             <Link to="/ubicaciones">Ubicaciones</Link>
             <Link to="/chef">Chef</Link>
             <Link to="/eventos">Eventos</Link>
+            <Link to="/franquicia" style={{ opacity: 0.5, fontSize: '11px' }}>Franquicias</Link>
           </div>
           <div className="footer-col">
             <h4>Visítanos</h4>

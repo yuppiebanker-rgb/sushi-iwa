@@ -21,7 +21,9 @@ export type IWAEvent =
   | 'qr_generated'
   | 'staff_portal_accessed'
   | 'reservation_deposit_started'
-  | 'reservation_deposit_completed';
+  | 'reservation_deposit_completed'
+  | 'mazatlan_waitlist_join'
+  | 'menu_pdf_downloaded';
 
 interface EventProps {
   [key: string]: string | number | boolean;
@@ -58,6 +60,22 @@ export function detectTrafficSource(): string {
     return utm;
   }
   return 'direct';
+}
+
+// Core Web Vitals monitoring
+export function trackWebVitals() {
+  import('web-vitals').then(({ onCLS, onINP, onLCP, onFCP, onTTFB }) => {
+    const report = ({ name, value, rating }: { name: string; value: number; rating: string }) => {
+      track(`web_vital_${name.toLowerCase()}` as IWAEvent, {
+        value: Math.round(value),
+        rating,
+      });
+      if (import.meta.env.DEV) {
+        console.log(`[WebVitals] ${name}: ${Math.round(value)}ms (${rating})`);
+      }
+    };
+    onCLS(report); onINP(report); onLCP(report); onFCP(report); onTTFB(report);
+  });
 }
 
 // Track reservation funnel

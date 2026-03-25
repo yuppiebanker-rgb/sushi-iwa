@@ -8,7 +8,7 @@ import SEO from '../components/SEO';
 import StatementSection from '../components/StatementSection';
 import AIRecommendations from '../components/AIRecommendations';
 import AIMenuSearch, { type SearchResult } from '../components/AIMenuSearch';
-import { track, trackMenuItem } from '../lib/analytics';
+import MenuPDF from '../components/MenuPDF';
 import { useRevealAll } from '../hooks/useScrollReveal';
 import './Menu.css';
 import '../styles/menu-effects.css';
@@ -48,7 +48,7 @@ function getAlt(image: string): string {
 export default function Menu() {
   const [activeTab, setActiveTab] = useState<string>('entradas');
   const [modal, setModal] = useState<{ id: string; name: string; badge: string; desc: string; price: string; image: string; category: string } | null>(null);
-  const [search, setSearch] = useState('');
+  const [search, _setSearch] = useState('');
   const [filter, setFilter] = useState<Filter>('all');
   const mbRef = useRef<HTMLDivElement>(null);
   const eighted = get86();
@@ -124,6 +124,9 @@ export default function Menu() {
       {/* SEARCH + FILTERS */}
       <div className="search-bar">
         <AIMenuSearch onResults={handleAIResult} />
+        <div className="pdf-desktop-only" style={{ display: 'none' }}>
+          <MenuPDF />
+        </div>
         <div className="filter-pills" role="group" aria-label="Filtros de menú">
           {FILTERS.map(f => (
             <button key={f.id} className={`fpill ${filter === f.id ? 'fpill-on' : ''}`} onClick={() => setFilter(f.id)} aria-pressed={filter === f.id}>
