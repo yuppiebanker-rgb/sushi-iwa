@@ -4,26 +4,29 @@ export default function IntroScreen() {
   const [phase, setPhase] = useState<'in' | 'hold' | 'out' | 'done'>('in');
 
   useEffect(() => {
+    // Skip if already seen this session
     if (sessionStorage.getItem('iwa-intro-seen')) {
       setPhase('done');
       return;
     }
 
+    // Respect reduced motion
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      sessionStorage.setItem('iwa-intro-seen', 'true');
+      sessionStorage.setItem('iwa-intro-seen', '1');
       setPhase('done');
       return;
     }
 
+    // Lock scroll
     document.body.style.overflow = 'hidden';
-    sessionStorage.setItem('iwa-intro-seen', 'true');
 
-    const t1 = setTimeout(() => setPhase('hold'), 600);
-    const t2 = setTimeout(() => setPhase('out'), 1400);
+    const t1 = setTimeout(() => setPhase('hold'), 700);
+    const t2 = setTimeout(() => setPhase('out'), 1500);
     const t3 = setTimeout(() => {
       setPhase('done');
       document.body.style.overflow = '';
-    }, 2200);
+      sessionStorage.setItem('iwa-intro-seen', '1');
+    }, 2400);
 
     return () => {
       [t1, t2, t3].forEach(clearTimeout);
@@ -33,30 +36,45 @@ export default function IntroScreen() {
 
   if (phase === 'done') return null;
 
-  const textOpacity = phase === 'in' ? 0 : 1;
+  const opacity = phase === 'in' ? 0 : phase === 'out' ? 0 : 1;
   const scale = phase === 'in' ? 0.88 : 1;
-  const overlayOpacity = phase === 'out' ? 0 : 1;
+  const bgOpacity = phase === 'out' ? 0 : 1;
 
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 9999,
       background: '#0c0b09',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      opacity: overlayOpacity,
+      flexDirection: 'column', gap: '14px',
+      opacity: bgOpacity,
       transition: phase === 'out'
-        ? 'opacity 800ms ease-in'
+        ? 'opacity 0.85s cubic-bezier(0.4,0,0.2,1)'
         : 'none',
       pointerEvents: phase === 'out' ? 'none' : 'all',
     }}>
+      {/* いわ */}
       <div style={{
         fontFamily: '"Noto Serif JP", serif',
-        fontSize: 'clamp(56px, 10vw, 96px)',
+        fontSize: 'clamp(64px, 12vw, 108px)',
         fontWeight: 200,
         color: '#b8922a',
-        opacity: textOpacity,
+        letterSpacing: '0.18em',
+        opacity,
         transform: `scale(${scale})`,
-        transition: 'opacity 600ms ease-out, transform 600ms ease-out',
+        transition: 'opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1)',
       }}>いわ</div>
+
+      {/* SUSHI IWA */}
+      <div style={{
+        fontFamily: '"DM Sans", sans-serif',
+        fontSize: '10px',
+        fontWeight: 300,
+        letterSpacing: '0.45em',
+        textTransform: 'uppercase',
+        color: 'rgba(244,239,230,0.35)',
+        opacity,
+        transition: 'opacity 0.65s cubic-bezier(0.22,1,0.36,1) 0.15s',
+      }}>SUSHI&ensp;IWA</div>
     </div>
   );
 }
