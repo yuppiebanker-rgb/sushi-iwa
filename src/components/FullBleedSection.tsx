@@ -6,6 +6,7 @@ interface Props {
   subline?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  align?: 'left' | 'center' | 'right';
   overlayPosition?: 'bottom-left' | 'center' | 'bottom-right';
 }
 

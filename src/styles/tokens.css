@@ -65,7 +65,14 @@
   --font-d: "Cormorant Garamond", serif;
   --font-jp: "Noto Serif JP", serif;
   --font-b: "DM Sans", sans-serif;
+  --section-gap: clamp(80px, 12vw, 160px);
+  --section-gap-sm: clamp(48px, 7vw, 96px);
+  --page-h-pad: clamp(20px, 5vw, 72px);
 }
+
+.section-gap    { margin-top: var(--section-gap); }
+.section-gap-sm { margin-top: var(--section-gap-sm); }
+.page-h-pad     { padding-left: var(--page-h-pad); padding-right: var(--page-h-pad); }
 
 /* ── Global performance CSS ── */
 html {
@@ -134,6 +141,10 @@ ul { list-style: none; }
     height: 60vw !important;
   }
 }
+
+/* ── Hide scrollbar utility ── */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { scrollbar-width: none; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }

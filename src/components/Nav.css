@@ -76,52 +76,74 @@
 
 /* ═══ FULL-SCREEN OVERLAY ═══ */
 .nav-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(12,11,9,0.98);
+  position: fixed; inset: 0;
+  background: rgba(12,11,9,0.97);
+  backdrop-filter: blur(8px);
   z-index: 199;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1);
 }
 .nav-overlay--open { opacity: 1; pointer-events: auto; }
 
 .nav-overlay-close {
-  position: absolute; top: 20px; right: 52px;
+  position: absolute; top: 28px; right: 32px;
   background: none; border: none; cursor: pointer;
-  color: var(--cream); font-size: 24px; padding: 12px;
+  color: #7a7670; font-size: 28px; padding: 8px;
+  font-family: Georgia, serif; line-height: 1; min-height: auto;
   transition: color 0.2s; z-index: 202;
 }
-.nav-overlay-close:hover { color: var(--gold); }
+.nav-overlay-close:hover { color: var(--cream); }
+
+.nav-overlay-logo {
+  position: absolute; top: 28px;
+  font-family: var(--font-jp); font-size: 18px; font-weight: 200;
+  color: var(--gold); letter-spacing: 0.3em;
+}
 
 .nav-overlay-links {
-  list-style: none; text-align: center;
   display: flex; flex-direction: column;
   align-items: center; gap: 0;
 }
-.nav-overlay-links li { padding: 0; }
+
+/* Stagger animation for links */
+.nav-overlay-link {
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.nav-overlay--open .nav-overlay-link {
+  opacity: 1; transform: translateY(0);
+}
+
 .nav-overlay-links a {
-  font-family: var(--font-d); font-size: clamp(36px, 6vw, 56px);
+  font-family: var(--font-d); font-size: clamp(36px, 6vw, 58px);
   font-weight: 300; font-style: italic;
   color: var(--cream); text-decoration: none;
-  display: block; padding: 14px 0;
+  display: block; padding: 14px 40px;
+  text-align: center; letter-spacing: 0.02em;
+  line-height: 1.1;
   transition: color 0.2s;
 }
 .nav-overlay-links a:hover { color: var(--gold); }
 .nav-overlay-sep {
   width: 40px; height: 0.5px;
-  background: var(--gold); opacity: 0.3;
-  margin: 4px auto;
+  background: rgba(184,146,42,0.2);
+  margin: 0 auto;
 }
 
 .nav-overlay-footer {
-  position: absolute; bottom: 40px;
+  position: absolute; bottom: 36px;
   display: flex; flex-direction: column;
   align-items: center; gap: 8px;
 }
 .nav-overlay-footer span {
-  font-size: 11px; color: var(--mist);
-  letter-spacing: 0.1em;
+  font-size: 12px; color: #7a7670;
+  letter-spacing: 0.15em;
+}
+.nav-overlay-ig {
+  font-size: 11px !important; color: rgba(184,146,42,0.6) !important;
+  letter-spacing: 0.2em !important;
 }
 .nav-overlay-footer .lang-toggle {
   display: flex; font-size: 11px; gap: 6px;

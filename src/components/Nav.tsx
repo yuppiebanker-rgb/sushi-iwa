@@ -81,42 +81,30 @@ export default function Nav() {
       {/* Full-screen overlay */}
       <div className={`nav-overlay ${menuOpen ? 'nav-overlay--open' : ''}`}>
         <button className="nav-overlay-close" onClick={closeMenu} aria-label="Cerrar menú">✕</button>
-        <ul className="nav-overlay-links">
-          {isHome ? (
-            <>
-              <li><a href="#menu" onClick={closeMenu}>{t('nav.menu')}</a></li>
-              <li className="nav-overlay-sep" />
-              <li><a href="#ubicaciones" onClick={closeMenu}>{t('nav.locations')}</a></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/galeria" onClick={closeMenu}>{t('nav.gallery')}</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/chef" onClick={closeMenu}>Chef</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/eventos" onClick={closeMenu}>Eventos</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><a href="#reservar" onClick={closeMenu}>{t('nav.reserve')}</a></li>
-            </>
-          ) : (
-            <>
-              <li><Link to="/" onClick={closeMenu}>{t('nav.home')}</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/menu" onClick={closeMenu}>{t('nav.menu')}</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/ubicaciones" onClick={closeMenu}>{t('nav.locations')}</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/galeria" onClick={closeMenu}>{t('nav.gallery')}</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/chef" onClick={closeMenu}>Chef</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/eventos" onClick={closeMenu}>Eventos</Link></li>
-              <li className="nav-overlay-sep" />
-              <li><Link to="/#reservar" onClick={closeMenu}>{t('nav.reserve')}</Link></li>
-            </>
-          )}
-        </ul>
+        <div className="nav-overlay-logo" aria-hidden="true">いわ</div>
+        <nav className="nav-overlay-links">
+          {[
+            { label: 'Menú',            href: '/menu' },
+            { label: 'Nuestra Historia', href: '/chef' },
+            { label: 'Galería',          href: '/galeria' },
+            { label: 'Ubicaciones',      href: '/ubicaciones' },
+            { label: 'Eventos',          href: '/eventos' },
+            { label: 'Club IWA',         href: '/loyalty' },
+            { label: 'Reservar',         href: isHome ? '#reservar' : '/#reservar' },
+          ].map((link, i) => (
+            <div className="nav-overlay-link" key={link.href} style={{ transitionDelay: menuOpen ? `${(i + 1) * 60}ms` : '0ms' }}>
+              {i > 0 && <div className="nav-overlay-sep" />}
+              {link.href.startsWith('#') ? (
+                <a href={link.href} onClick={closeMenu}>{link.label}</a>
+              ) : (
+                <Link to={link.href} onClick={closeMenu}>{link.label}</Link>
+              )}
+            </div>
+          ))}
+        </nav>
         <div className="nav-overlay-footer">
           <span>+52 81 1123 9849</span>
-          <span>@sushi.iwa</span>
+          <span className="nav-overlay-ig">@sushi.iwa</span>
           <button className="lang-toggle" onClick={toggleLang}>
             <span className={lang === 'es' ? 'lang-active' : ''}>ES</span>
             <span className="lang-sep">|</span>
