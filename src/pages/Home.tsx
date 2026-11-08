@@ -11,7 +11,6 @@ import ConversationalReservation from '../components/ConversationalReservation';
 import CustomerQuotes from '../components/CustomerQuotes';
 import AvailabilityBadge from '../components/AvailabilityBadge';
 import AwardsBadges from '../components/AwardsBadges';
-import NewsletterBanner from '../components/NewsletterBanner';
 import StickyPhotoSection from '../components/StickyPhotoSection';
 import SectionDivider from '../components/SectionDivider';
 import FullBleedSection from '../components/FullBleedSection';
@@ -313,9 +312,6 @@ export default function Home() {
 
       {/* INSTAGRAM */}
       <LiveInstagram />
-
-      {/* NEWSLETTER */}
-      <NewsletterBanner />
 
       <button className={`fab-reserve floating-reserve ${showFab ? 'fab-reserve--show' : ''}`} onClick={() => setResOpen(true)}>
         <span className="fab-jp">岩</span> Reservar Mesa{preOrderCount > 0 ? ` (${preOrderCount})` : ''}
